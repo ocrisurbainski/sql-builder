@@ -7,7 +7,8 @@ import java.util.List;
 
 import com.urbainski.sql.builder.Builder;
 import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.condititon.ConditionDBTypes;
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.builder.db.types.JoinType;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**

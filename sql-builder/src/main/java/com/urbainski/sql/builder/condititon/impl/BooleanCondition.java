@@ -1,7 +1,10 @@
-package com.urbainski.sql.builder.condititon;
+package com.urbainski.sql.builder.condititon.impl;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.urbainski.sql.builder.condititon.Condition;
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 
 public class BooleanCondition implements Condition {
 	

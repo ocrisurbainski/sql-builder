@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.condititon;
+package com.urbainski.sql.builder.db.types;
 
 /**
  * Tipo de condições no banco de dados.

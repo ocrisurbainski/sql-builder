@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.join;
+package com.urbainski.sql.builder.db.types;
 
 /**
  * Tipo de join posiveis.

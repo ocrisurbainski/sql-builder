@@ -1,4 +1,6 @@
-package com.urbainski.sql.builder.condititon;
+package com.urbainski.sql.builder.condititon.impl;
+
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 
 /**
  * Classe que representa a condição de between.

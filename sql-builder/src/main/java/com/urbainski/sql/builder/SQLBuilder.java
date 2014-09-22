@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.condititon.ConditionBuilder;
-import com.urbainski.sql.builder.condititon.ConditionDBTypes;
-import com.urbainski.sql.builder.condititon.ConstainsDBTypes;
+import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
 import com.urbainski.sql.builder.join.Join;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
 import com.urbainski.sql.builder.select.Select;

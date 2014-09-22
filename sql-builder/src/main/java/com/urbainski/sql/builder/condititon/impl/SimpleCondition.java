@@ -1,7 +1,9 @@
-package com.urbainski.sql.builder.condititon;
+package com.urbainski.sql.builder.condititon.impl;
 
 import java.util.List;
 
+import com.urbainski.sql.builder.condititon.Condition;
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
