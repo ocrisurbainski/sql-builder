@@ -1,12 +1,12 @@
-package com.urbainski.sql.builder;
+package com.urbainski.sql.builder.select;
 
 import static com.urbainski.sql.util.SQLUtils.AS;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.urbainski.sql.builder.Builder;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
-import com.urbainski.sql.builder.select.Field;
 
 /**
  * Classe que representa o select da query.

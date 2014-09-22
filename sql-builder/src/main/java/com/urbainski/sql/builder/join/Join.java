@@ -46,18 +46,24 @@ public class Join<T, F> implements Builder {
 	protected Class<?> clazzPara;
 	
 	/**
+	 * Nome da propriedade.
+	 */
+	protected String property;
+	
+	/**
 	 * Construtor padrão da classe.
 	 */
-	public Join() {
-		this(JoinType.INNER);
+	public Join(String property) {
+		this(property, JoinType.INNER);
 	}
 	
 	/**
 	 * Construtor da classe.
 	 * 
 	 * @param joinType - tipo do join
+	 * @param property - nome da propriedade
 	 */
-	public Join(JoinType joinType) {
+	public Join(String property, JoinType joinType) {
 		this.joinType = joinType;
 		this.conditions = new ArrayList<Condition>();
 		

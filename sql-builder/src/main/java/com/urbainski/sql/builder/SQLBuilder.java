@@ -14,6 +14,7 @@ import com.urbainski.sql.builder.condititon.ConditionDBTypes;
 import com.urbainski.sql.builder.condititon.ConstainsDBTypes;
 import com.urbainski.sql.builder.join.Join;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
+import com.urbainski.sql.builder.select.Select;
 
 /**
  * Classe que representa um sql para consulta no banco de dados.
