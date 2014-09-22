@@ -8,7 +8,7 @@ import java.util.List;
 import com.urbainski.sql.builder.Builder;
 import com.urbainski.sql.builder.condititon.Condition;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.JoinType;
+import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
@@ -34,7 +34,7 @@ public class Join<T, F> implements Builder {
 	/**
 	 * Tipo do join.
 	 */
-	protected JoinType joinType;
+	protected JoinDBType joinType;
 	
 	/**
 	 * De onde o join esta sendo feito.
@@ -55,7 +55,7 @@ public class Join<T, F> implements Builder {
 	 * Construtor padrão da classe.
 	 */
 	public Join(String property) {
-		this(property, JoinType.INNER);
+		this(property, JoinDBType.INNER);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class Join<T, F> implements Builder {
 	 * @param joinType - tipo do join
 	 * @param property - nome da propriedade
 	 */
-	public Join(String property, JoinType joinType) {
+	public Join(String property, JoinDBType joinType) {
 		this.joinType = joinType;
 		this.conditions = new ArrayList<Condition>();
 		

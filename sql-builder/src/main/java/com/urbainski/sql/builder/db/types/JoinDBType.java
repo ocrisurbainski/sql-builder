@@ -8,7 +8,7 @@ package com.urbainski.sql.builder.db.types;
  * @version 1.0
  *
  */
-public enum JoinType {
+public enum JoinDBType {
 
 	/**
 	 * Join do tipo inner.
@@ -27,7 +27,7 @@ public enum JoinType {
 	
 	private String name;
 	
-	private JoinType(String name) {
+	private JoinDBType(String name) {
 		this.name = name;
 	}
 	

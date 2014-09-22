@@ -1,6 +1,6 @@
 package com.urbainski.sql.builder.join;
 
-import com.urbainski.sql.builder.db.types.JoinType;
+import com.urbainski.sql.builder.db.types.JoinDBType;
 
 /**
  * Classe para gerar os join do queries.
@@ -12,7 +12,7 @@ import com.urbainski.sql.builder.db.types.JoinType;
  */
 public class JoinBuilder<X, Y> {
 
-	public Join<X, Y> newJoin(String property, JoinType joinType) {
+	public Join<X, Y> newJoin(String property, JoinDBType joinType) {
 		return new Join<X, Y>(property, joinType);
 	}
 	
