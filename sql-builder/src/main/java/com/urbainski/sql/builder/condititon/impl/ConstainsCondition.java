@@ -27,9 +27,10 @@ public class ConstainsCondition extends SimpleCondition {
 	 * @param fieldName
 	 * @param value
 	 */
-	public ConstainsCondition(ConstainsDBTypes containsType, Class<?> entityClass,
-			ConditionDBTypes conditionType, String fieldName, Object value) {
-		super(entityClass, conditionType, fieldName, value);
+	public ConstainsCondition(ConstainsDBTypes containsType, String tableFromAlias,
+			Class<?> entityClass, ConditionDBTypes conditionType, 
+			String fieldName, Object value) {
+		super(entityClass, tableFromAlias, conditionType, fieldName, value);
 		this.containsType = containsType;
 	}
 
@@ -37,7 +38,8 @@ public class ConstainsCondition extends SimpleCondition {
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
 		try {
-			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
+			sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
+					? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
 			sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
 		} catch (Exception e) {
 			e.printStackTrace();

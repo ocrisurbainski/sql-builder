@@ -16,7 +16,12 @@ import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
  */
 public class ConditionBuilder {
 
-	public static Condition newCondition(Class<?> entityClass,
+	public static Condition newCondition(Class<?> entityClass, 
+			ConditionDBTypes type, String fieldName, Object... value) {
+		return newCondition(entityClass, "", type, fieldName, value);
+	}
+	
+	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
 			ConditionDBTypes type, String fieldName, Object... value) {
 		if (type == null) {
 			throw new IllegalArgumentException("Tipo da condição deve ser informada");
@@ -41,12 +46,12 @@ public class ConditionBuilder {
 							"Parâmetro 'value' para as condições 'IN' e 'NOT IN' dever ser do tipo List");
 				}
 			}
-			return new SimpleCondition(entityClass, type, fieldName, value[0]);
+			return new SimpleCondition(entityClass, tableFromAlias, type, fieldName, value[0]);
 		} else if (ConditionDBTypes.BETWEEN.equals(type)) {
 			if (value.length < 2) {
 				throw new IllegalArgumentException("Para condição de 'between' é esperado dos values");
 			}
-			return new BetweenCondition(entityClass, fieldName, value[0], value[1]);
+			return new BetweenCondition(entityClass, tableFromAlias, fieldName, value[0], value[1]);
 		} else if (ConditionDBTypes.AND.equals(type)
 				|| ConditionDBTypes.OR.equals(type)) {
 			throw new IllegalArgumentException(
@@ -55,11 +60,11 @@ public class ConditionBuilder {
 		return null;
 	}
 	
-	public static Condition newCondition(Class<?> entityClass,
+	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
 			ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
 		if (ConditionDBTypes.LIKE.equals(type)
 				|| ConditionDBTypes.ILIKE.equals(type)) {
-			return new ConstainsCondition(containsType, entityClass, type, fieldName, value);
+			return new ConstainsCondition(containsType, tableFromAlias, entityClass, type, fieldName, value);
 		} else {
 			throw new IllegalArgumentException(
 					"Este método deve ser usado apenas condições 'LIKE' e 'ILIKE''");

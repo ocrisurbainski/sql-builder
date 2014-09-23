@@ -27,9 +27,9 @@ public class BetweenCondition extends SimpleCondition {
 	 * @param firstValue
 	 * @param secondValue
 	 */
-	public BetweenCondition(Class<?> entityClass, String fieldName,
-			Object firstValue, Object secondValue) {
-		super(entityClass, ConditionDBTypes.BETWEEN, fieldName, firstValue);
+	public BetweenCondition(Class<?> entityClass, String tableFromAlias, 
+			String fieldName, Object firstValue, Object secondValue) {
+		super(entityClass, tableFromAlias, ConditionDBTypes.BETWEEN, fieldName, firstValue);
 		this.secondValue = secondValue;
 	}
 
@@ -37,7 +37,8 @@ public class BetweenCondition extends SimpleCondition {
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
 		try {
-			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
+			sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
+					? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
 			sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
 		} catch (Exception e) {
 			e.printStackTrace();

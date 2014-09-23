@@ -1,5 +1,6 @@
 package com.urbainski.sql.builder;
 
+import static com.urbainski.sql.util.SQLUtils.AS;
 import static com.urbainski.sql.util.SQLUtils.DISTINCT;
 import static com.urbainski.sql.util.SQLUtils.FROM;
 import static com.urbainski.sql.util.SQLUtils.SELECT;
@@ -32,6 +33,11 @@ public class SQLBuilder implements Builder {
 	protected Select select;
 	
 	/**
+	 * Alias do from da query.
+	 */
+	protected String fromAlias;
+	
+	/**
 	 * Condição where da minha query.
 	 */
 	protected Condition where;
@@ -62,25 +68,31 @@ public class SQLBuilder implements Builder {
 		return select;
 	}
 	
+	public void fromAlias(String fromAlias) {
+		this.fromAlias = fromAlias;
+		this.select.alias(fromAlias);
+	}
+	
 	public void where(ConditionDBTypes type, String fieldName, Object... value) {
 		this.where = ConditionBuilder.newCondition(
-				this.entityClass, type, fieldName, value);
+				this.entityClass, this.fromAlias, type, fieldName, value);
 	}
 	
 	public void where(ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
 		this.where = ConditionBuilder.newCondition(
-				this.entityClass, containsType, type, fieldName, value);
+				this.entityClass, this.fromAlias, containsType, type, fieldName, value);
 	}
 	
 	public void where(Class<?> entiyClass, ConstainsDBTypes containsType, 
 			ConditionDBTypes type, String fieldName, Object value) {
 		this.where = ConditionBuilder.newCondition(
-				entityClass, containsType, type, fieldName, value);
+				entityClass, this.fromAlias, containsType, type, fieldName, value);
 	}
 	
 	public void where(ConditionDBTypes type, Class<?> entiyClass, 
 			String fieldName, Object... value) {
-		this.where = ConditionBuilder.newCondition(entiyClass, type, fieldName, value);
+		this.where = ConditionBuilder.newCondition(
+				entiyClass, this.fromAlias, type, fieldName, value);
 	}
 	
 	public void where(Condition condition) {
@@ -110,6 +122,10 @@ public class SQLBuilder implements Builder {
 		sql.append(FROM);
 		sql.append(" ");
 		sql.append(TableReflectionReader.getTableName(entityClass));
+		
+		if (fromAlias != null && !(fromAlias.isEmpty())) {
+			sql.append(" " + AS + " " + fromAlias);
+		}
 		
 		if (!joins.isEmpty()) {
 			for (Join<?, ?> j : joins) {

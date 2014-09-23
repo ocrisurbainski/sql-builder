@@ -87,4 +87,42 @@ public class SimpleSelectTest {
 		Assert.assertEquals(sqlGerado, sqlCerto);
 	}
 	
+	@Test
+	public void testeFromAlias() {
+		final String sqlCerto = new StringBuilder()
+		.append("select l1.id, l1.ds_nome, ")
+		.append("l1.nr_anopublicacao from livro as l1")
+		.toString();
+		
+		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		sqlBuilder.fromAlias("l1");
+		
+		final String sqlGerado = sqlBuilder.buildSQL();
+		
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlGerado, sqlCerto);
+	}
+	
+	@Test
+	public void testFromAliasECamposAlias() {
+		final String sqlCerto = new StringBuilder()
+			.append("select l.id as identificadorLivro, ")
+			.append("l.ds_nome as nomeLivro, ")
+			.append("l.nr_anopublicacao as anoLivro from livro as l")
+			.toString();
+		
+		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		sqlBuilder.select().addField("id", 				"identificadorLivro");
+		sqlBuilder.select().addField("nome", 			"nomeLivro");
+		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
+		sqlBuilder.fromAlias("l");
+		
+		final String sqlGerado = sqlBuilder.buildSQL();
+		
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlGerado, sqlCerto);
+	}
+	
 }

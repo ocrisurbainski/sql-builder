@@ -328,4 +328,21 @@ public class SelectWhereTeste {
 		Assert.assertEquals(sqlCerto, sqlGerado);
 	}
 	
+	@Test
+	public void testeEqualComAlias() {
+		final String sqlCerto = new StringBuilder()
+		.append("select l.id, l.ds_nome, l.nr_anopublicacao ")
+		.append("from livro as l where l.id = 5")
+		.toString();
+		
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.fromAlias("l");
+		builder.where(ConditionDBTypes.EQUALS, "id", 5);
+		
+		String sqlGerado = builder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
 }

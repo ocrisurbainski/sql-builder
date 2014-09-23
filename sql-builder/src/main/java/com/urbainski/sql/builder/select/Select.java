@@ -26,7 +26,21 @@ public class Select implements Builder {
 	/**
 	 * Classe de entidade.
 	 */
-	private Class<?> entityClass;
+	protected Class<?> entityClass;
+	
+	/**
+	 * Alias da tabela.
+	 */
+	protected String alias;
+	
+	/**
+	 * Construtor padrão da classe.
+	 * @param entityClass - entidade
+	 */
+	public Select(Class<?> entityClass) {
+		this.entityClass = entityClass;
+		this.fields = new ArrayList<Field>();
+	}
 	
 	/**
 	 * Método para adicionar um campo na consulta apenas pelo nome.
@@ -49,14 +63,14 @@ public class Select implements Builder {
 	}
 	
 	/**
-	 * Construtor padrão da classe.
-	 * @param entityClass - entidade
+	 * Método para setar o nome do alias.
+	 * 
+	 * @param alias - alias do from na query
 	 */
-	public Select(Class<?> entityClass) {
-		this.entityClass = entityClass;
-		this.fields = new ArrayList<Field>();
+	public void alias(String alias) {
+		this.alias = alias;
 	}
-
+	
 	@Override
 	public String buildSQL() {
 		final String tableName = TableReflectionReader.getTableName(entityClass);
@@ -65,7 +79,8 @@ public class Select implements Builder {
 			if (this.fields.isEmpty()) {
 				final List<String> nameFields = TableReflectionReader.getAllFieldsNames(entityClass);
 				for (String name : nameFields) {
-					str.append(tableName + ".");
+					str.append(((this.alias == null || this.alias.isEmpty())
+							? tableName : this.alias) + ".");
 					str.append(name);
 					
 					if (nameFields.indexOf(name) < (nameFields.size() - 1)) {
@@ -76,7 +91,8 @@ public class Select implements Builder {
 				}
 			} else {
 				for (Field f : fields) {
-					str.append(tableName + ".");
+					str.append(((this.alias == null || this.alias.isEmpty())
+							? tableName : this.alias) + ".");
 					str.append(TableReflectionReader.getDatabaseNameField(entityClass, f.getFieldName()));
 					
 					if (!f.getAlias().isEmpty()) {

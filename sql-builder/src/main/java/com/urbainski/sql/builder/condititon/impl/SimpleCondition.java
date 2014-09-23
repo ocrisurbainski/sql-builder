@@ -22,6 +22,11 @@ public class SimpleCondition implements Condition {
 	protected Class<?> entityClass;
 	
 	/**
+	 * Alias da tabela.
+	 */
+	protected String aliasTable;
+	
+	/**
 	 * Campo do where.
 	 */
 	protected String fieldName;
@@ -40,13 +45,15 @@ public class SimpleCondition implements Condition {
 	 * Construtor padrão.
 	 * 
 	 * @param entityClass
+	 * @param tableFromAlias
 	 * @param conditionType
 	 * @param fieldName
 	 * @param value
 	 */
-	public SimpleCondition(Class<?> entityClass,
+	public SimpleCondition(Class<?> entityClass, String tableFromAlias,
 			ConditionDBTypes conditionType, String fieldName, Object value) {
 		this.entityClass = entityClass;
+		this.aliasTable = tableFromAlias;
 		this.conditionType = conditionType;
 		this.fieldName = fieldName;
 		this.value = value;
@@ -56,7 +63,8 @@ public class SimpleCondition implements Condition {
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
 		try {
-			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
+			sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
+					? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
 			sql.append(TableReflectionReader.getDatabaseNameField(
 					entityClass, this.fieldName));
 		} catch (Exception e) {
