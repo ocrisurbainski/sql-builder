@@ -144,4 +144,18 @@ public class ConditionBuilder {
 				joinedAlias, conditionType, prop1, prop2);
 	}
 	
+	public static void updateAliasForCondition(Condition condition, Class<?> entity, String newAlias) {
+		if (condition instanceof SimpleCondition
+				|| condition instanceof BetweenCondition
+				|| condition instanceof ConstainsCondition) {
+			
+			final SimpleCondition simpleCondition = ((SimpleCondition) condition);
+			if (entity.equals(simpleCondition.entityClass)) {
+				simpleCondition.aliasTable(newAlias);
+			}
+		} else if (condition instanceof BooleanCondition) {
+			((BooleanCondition) condition).updateFromAlias(entity, newAlias);
+		}
+	}
+	
 }

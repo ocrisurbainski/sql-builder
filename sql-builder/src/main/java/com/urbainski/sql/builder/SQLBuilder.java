@@ -71,6 +71,7 @@ public class SQLBuilder implements Builder {
 	public void fromAlias(String fromAlias) {
 		this.fromAlias = fromAlias;
 		this.select.alias(fromAlias);
+		ConditionBuilder.updateAliasForCondition(this.where, entityClass, fromAlias);
 	}
 	
 	public void where(ConditionDBTypes type, String fieldName, Object... value) {

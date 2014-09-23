@@ -42,4 +42,16 @@ public class BooleanCondition implements Condition {
 		return sql.toString();
 	}
 
+	/**
+	 * Método para atualizar o alias das condições.
+	 * 
+	 * @param entity - entidade que teve o alias atualizado
+	 * @param newAlias - novo alias
+	 */
+	public void updateFromAlias(Class<?> entity, String newAlias) {
+		for (Condition c : listConditions) {
+			ConditionBuilder.updateAliasForCondition(c, entity, newAlias);
+		}
+	}
+
 }

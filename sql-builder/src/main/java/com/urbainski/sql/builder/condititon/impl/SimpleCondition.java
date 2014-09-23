@@ -58,6 +58,15 @@ public class SimpleCondition implements Condition {
 		this.fieldName = fieldName;
 		this.value = value;
 	}
+	
+	/**
+	 * Método para setar o alias na tabela.
+	 * 
+	 * @param alias - alias da tabela
+	 */
+	public void aliasTable(String alias) {
+		this.aliasTable = alias;
+	}
 
 	@Override
 	public String buildSQL() {
