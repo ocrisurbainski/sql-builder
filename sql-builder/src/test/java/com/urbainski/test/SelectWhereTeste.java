@@ -362,4 +362,21 @@ public class SelectWhereTeste {
 		Assert.assertEquals(sqlCerto, sqlGerado);
 	}
 	
+	@Test
+	public void testeBetweenComAliasMudadoDepoisDoWhere() {
+		final String sqlCerto = new StringBuilder()
+		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao ")
+		.append("from livro as l0 where l0.id between 10 and 30")
+		.toString();
+		
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.where(ConditionDBTypes.BETWEEN, "id", 10, 30);
+		builder.fromAlias("l0");
+		
+		String sqlGerado = builder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
 }
