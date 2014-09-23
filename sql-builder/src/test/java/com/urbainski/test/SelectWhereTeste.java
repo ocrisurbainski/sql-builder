@@ -26,7 +26,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqual() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where id = 5")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.id = 5")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -41,7 +42,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeDifferent() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where id <> 5")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.id <> 5")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -56,7 +58,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqualNome() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome = 'Senhor dos Aneis'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome = 'Senhor dos Aneis'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -72,7 +75,8 @@ public class SelectWhereTeste {
 	@SuppressWarnings("serial")
 	public void testeIn() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where id in (3,4,5)")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.id in (3,4,5)")
 		.toString();
 		
 		final List<Integer> valores = new ArrayList<Integer>() {{
@@ -96,7 +100,8 @@ public class SelectWhereTeste {
 	@SuppressWarnings("serial")
 	public void testeNotIn() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where id not in (3,4,5)")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.id not in (3,4,5)")
 		.toString();
 		
 		final List<Integer> valores = new ArrayList<Integer>() {{
@@ -128,7 +133,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereBetween() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where id between 1 and 10")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.id between 1 and 10")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -143,7 +149,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereOr() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where (id = 1 or id = 10)")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where (livro.id = 1 or livro.id = 10)")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -167,7 +174,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereAnd() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where (id = 1 and id = 10)")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where (livro.id = 1 and livro.id = 10)")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -191,7 +199,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereAndEOr() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ((id = 1 and id = 10) or (id = 2 and id = 8))")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where ((livro.id = 1 and livro.id = 10) or (livro.id = 2 and livro.id = 8))")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -226,7 +235,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeAny() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome like '%Senhor%'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome like '%Senhor%'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -241,7 +251,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeAny() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome ilike '%Senhor%'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome ilike '%Senhor%'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -256,7 +267,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeStart() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome like '%Senhor'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome like '%Senhor'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -271,7 +283,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeStart() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome ilike '%Senhor'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome ilike '%Senhor'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -286,7 +299,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeFinish() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome like 'Senhor%'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome like 'Senhor%'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
@@ -301,7 +315,8 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeFinish() {
 		final String sqlCerto = new StringBuilder()
-		.append("select id, ds_nome, nr_anopublicacao from livro where ds_nome ilike 'Senhor%'")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("from livro where livro.ds_nome ilike 'Senhor%'")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);

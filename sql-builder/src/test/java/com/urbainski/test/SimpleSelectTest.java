@@ -19,7 +19,7 @@ public class SimpleSelectTest {
 	@Test
 	public void testSimpleSQLSemAlias() {
 		final String sqlCerto = new StringBuilder()
-			.append("select id, ds_nome, nr_anopublicacao from livro")
+			.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao from livro")
 			.toString();
 		
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
@@ -34,7 +34,7 @@ public class SimpleSelectTest {
 	@Test
 	public void testSimpleDistinctSQLSemAlias() {
 		final String sqlCerto = new StringBuilder()
-		.append("select distinct id, ds_nome, nr_anopublicacao from livro")
+		.append("select distinct livro.id, livro.ds_nome, livro.nr_anopublicacao from livro")
 			.toString();
 		
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
@@ -50,8 +50,8 @@ public class SimpleSelectTest {
 	@Test
 	public void testSimpleSQLComAlias() {
 		final String sqlCerto = new StringBuilder()
-			.append("select id as identificadorLivro, ds_nome as nomeLivro, ")
-			.append("nr_anopublicacao as anoLivro from livro")
+			.append("select livro.id as identificadorLivro, livro.ds_nome as nomeLivro, ")
+			.append("livro.nr_anopublicacao as anoLivro from livro")
 			.toString();
 		
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
@@ -69,8 +69,9 @@ public class SimpleSelectTest {
 	@Test
 	public void testSimpleDistinctSQLComAlias() {
 		final String sqlCerto = new StringBuilder()
-			.append("select distinct id as identificadorLivro, ds_nome as nomeLivro, ")
-			.append("nr_anopublicacao as anoLivro from livro")
+			.append("select distinct livro.id as identificadorLivro, ")
+			.append("livro.ds_nome as nomeLivro, ")
+			.append("livro.nr_anopublicacao as anoLivro from livro")
 			.toString();
 		
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);

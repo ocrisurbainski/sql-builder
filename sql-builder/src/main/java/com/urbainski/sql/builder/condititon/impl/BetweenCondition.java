@@ -1,6 +1,7 @@
 package com.urbainski.sql.builder.condititon.impl;
 
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
  * Classe que representa a condição de between.
@@ -35,7 +36,12 @@ public class BetweenCondition extends SimpleCondition {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(this.fieldName);
+		try {
+			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
+			sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		sql.append(" ");
 		sql.append(conditionType.getConditionType());
 		sql.append(" ");

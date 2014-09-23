@@ -56,6 +56,7 @@ public class SimpleCondition implements Condition {
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
 		try {
+			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
 			sql.append(TableReflectionReader.getDatabaseNameField(
 					entityClass, this.fieldName));
 		} catch (Exception e) {

@@ -59,11 +59,13 @@ public class Select implements Builder {
 
 	@Override
 	public String buildSQL() {
+		final String tableName = TableReflectionReader.getTableName(entityClass);
 		final StringBuilder str = new StringBuilder("");
 		try {
 			if (this.fields.isEmpty()) {
 				final List<String> nameFields = TableReflectionReader.getAllFieldsNames(entityClass);
 				for (String name : nameFields) {
+					str.append(tableName + ".");
 					str.append(name);
 					
 					if (nameFields.indexOf(name) < (nameFields.size() - 1)) {
@@ -74,6 +76,7 @@ public class Select implements Builder {
 				}
 			} else {
 				for (Field f : fields) {
+					str.append(tableName + ".");
 					str.append(TableReflectionReader.getDatabaseNameField(entityClass, f.getFieldName()));
 					
 					if (!f.getAlias().isEmpty()) {

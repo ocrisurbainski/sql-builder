@@ -37,6 +37,7 @@ public class ConstainsCondition extends SimpleCondition {
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
 		try {
+			sql.append(TableReflectionReader.getTableName(entityClass) + ".");
 			sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
 		} catch (Exception e) {
 			e.printStackTrace();
