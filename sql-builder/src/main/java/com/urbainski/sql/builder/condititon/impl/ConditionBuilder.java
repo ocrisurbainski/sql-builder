@@ -16,11 +16,32 @@ import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
  */
 public class ConditionBuilder {
 
+	/**
+	 * Método para construir condições para as queries.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor do campo
+	 * 
+	 * @return {@link Condition}
+	 */
 	public static Condition newCondition(Class<?> entityClass, 
 			ConditionDBTypes type, String fieldName, Object... value) {
 		return newCondition(entityClass, "", type, fieldName, value);
 	}
 	
+	/**
+	 * Método para construir condições para as queries.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableFromAlias - alias do from
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor do campo
+	 * 
+	 * @return {@link Condition}
+	 */
 	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
 			ConditionDBTypes type, String fieldName, Object... value) {
 		if (type == null) {
@@ -60,6 +81,18 @@ public class ConditionBuilder {
 		return null;
 	}
 	
+	/**
+	 * Método para construir condições para as querys.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableFromAlias - alias do from
+	 * @param containsType - tipo da condição contains
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor do campo
+	 * 
+	 * @return {@link Condition}
+	 */
 	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
 			ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
 		if (ConditionDBTypes.LIKE.equals(type)
@@ -71,6 +104,14 @@ public class ConditionBuilder {
 		}
 	}
 	
+	/**
+	 * Método que construi condições.
+	 * 
+	 * @param type - tipo da condição
+	 * @param conditions - demais condições
+	 * 
+	 * @return {@link Condition}
+	 */
 	public static Condition newCondition(
 			ConditionDBTypes type, Condition... conditions) {
 		if (ConditionDBTypes.AND.equals(type)
@@ -80,6 +121,27 @@ public class ConditionBuilder {
 			throw new IllegalArgumentException(
 					"Este método deve receber um 'ConditionDBTypes' do tipo 'AND' ou 'OR'");
 		}
+	}
+	
+	/**
+	 * Método para criar condições para o join.
+	 * 
+	 * @param entityFrom - classe do from
+	 * @param fromAlias - alias da classe do from
+	 * @param joinedClass - classe do join
+	 * @param joinedAlias - alias da classe do join
+	 * @param conditionType - tipo de condição
+	 * @param prop1 - propriedade 1
+	 * @param prop2 - propriedade 2
+	 * 
+	 * @return {@link Condition}
+	 */
+	public static Condition newJoinCondition(
+			Class<?> entityFrom, String fromAlias,
+			Class<?> joinedClass, String joinedAlias,
+			ConditionDBTypes conditionType, String prop1, String prop2) {
+		return new JoinCondition(entityFrom, fromAlias, joinedClass, 
+				joinedAlias, conditionType, prop1, prop2);
 	}
 	
 }
