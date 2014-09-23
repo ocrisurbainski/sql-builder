@@ -29,7 +29,12 @@ public class TableReflectionReader {
 		final Annotation[] annotations = entityClass.getAnnotations();
 		for (Annotation a : annotations) {
 			if (a instanceof Table) {
-				return ((Table) a).name();
+				final Table table = (Table) a;
+				if (table.name() == null || table.name().isEmpty()) {
+					return entityClass.getName().toLowerCase();
+				} else {
+					return ((Table) a).name();
+				}
 			}
 		}
 		return entityClass.getName().toLowerCase();
