@@ -144,7 +144,7 @@ public final class ConditionBuilder {
 	 * 
 	 * @return {@link Condition}
 	 */
-	public static Condition newJoinCondition(
+	public static JoinCondition newJoinCondition(
 			Class<?> entityFrom, String fromAlias,
 			Class<?> joinedClass, String joinedAlias,
 			ConditionDBTypes conditionType, String prop1, String prop2) {

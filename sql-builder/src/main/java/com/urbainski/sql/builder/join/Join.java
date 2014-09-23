@@ -1,12 +1,13 @@
 package com.urbainski.sql.builder.join;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.urbainski.sql.builder.Builder;
 import com.urbainski.sql.builder.condititon.Condition;
+import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.builder.condititon.impl.JoinCondition;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
@@ -19,17 +20,12 @@ import com.urbainski.sql.builder.reflection.TableReflectionReader;
  * @version 1.0
  *
  */
-public class Join<T, F> implements Builder {
+public class Join implements Builder {
 
 	/**
 	 * Lista de condições do join.
 	 */
 	protected List<Condition> conditions;
-	
-	/**
-	 * Clausula on da join.
-	 */
-	protected Condition on;
 	
 	/**
 	 * Tipo do join.
@@ -39,12 +35,22 @@ public class Join<T, F> implements Builder {
 	/**
 	 * De onde o join esta sendo feito.
 	 */
-	protected Class<?> clazzDe;
+	protected Class<?> clazzFrom;
+	
+	/**
+	 * Alias da classe do from.
+	 */
+	protected String fromAlias;
+	
+	/**
+	 * Alias da classe que foi feito o join.
+	 */
+	protected String joinedAlias;
 	
 	/**
 	 * Com quem o join esta sendo unido.
 	 */
-	protected Class<?> clazzPara;
+	protected Class<?> clazzJoined;
 	
 	/**
 	 * Nome da propriedade.
@@ -54,36 +60,69 @@ public class Join<T, F> implements Builder {
 	/**
 	 * Construtor padrão da classe.
 	 */
-	public Join(String property) {
-		this(property, JoinDBType.INNER);
+	public Join(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
+		this(clazzFrom, clazzJoined, "", "", property, JoinDBType.INNER);
 	}
 	
 	/**
 	 * Construtor da classe.
 	 * 
+	 * @param clazzDe
+	 * @param clazzPara
 	 * @param joinType - tipo do join
 	 * @param property - nome da propriedade
 	 */
-	public Join(String property, JoinDBType joinType) {
+	public Join(Class<?> clazzFrom, Class<?> clazzJoined, 
+			String fromAlias, String joinedAlias, String property, JoinDBType joinType) {
+		this.clazzFrom = clazzFrom;
+		this.clazzJoined = clazzJoined;
 		this.joinType = joinType;
 		this.conditions = new ArrayList<Condition>();
-		
-		final ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-				.getGenericSuperclass();
-		this.clazzDe = (Class<?>) genericSuperclass.getActualTypeArguments()[0];
-		this.clazzPara = (Class<?>) genericSuperclass.getActualTypeArguments()[1];
 	}
 	
-	public void on(Condition condition) {
-		this.on = condition;
-	}
-	
+	/**
+	 * Método para adicionar uma nova condição.
+	 * 
+	 * @param condition - condição
+	 */
 	public void addCondition(Condition condition) {
 		this.conditions.add(condition);
 	}
 	
+	/**
+	 * Método para adicionar uma série de condições.
+	 * 
+	 * @param condition - condições 
+	 */
 	public void addCondition(Condition... condition) {
 		this.conditions.addAll(Arrays.asList(condition));
+	}
+	
+	/**
+	 * Método para criar um condição 'on' no join.
+	 * 
+	 * @param conditionType - tipo da condição
+	 * @param prop1 - nome da propriedade 1 
+	 * @param prop2 - nome da propriedade 2 
+	 */
+	public void addOn(ConditionDBTypes conditionType, String prop1, String prop2) {
+		final JoinCondition joinCondition = ConditionBuilder.newJoinCondition(
+				clazzFrom, fromAlias, clazzJoined, joinedAlias, conditionType, prop1, prop2);
+		
+		final List<Condition> newConditions = new ArrayList<Condition>();
+		for (Condition c : this.conditions) {
+			boolean jaAdicionouNovaCondicao = false;
+			if (c instanceof JoinCondition) {
+				newConditions.add(c);
+			} else {
+				if (jaAdicionouNovaCondicao) {
+					jaAdicionouNovaCondicao = true;
+					
+					newConditions.add(joinCondition);
+				}
+				newConditions.add(c);
+			}
+		}
 	}
 	
 	@Override
@@ -91,19 +130,18 @@ public class Join<T, F> implements Builder {
 		final StringBuilder sql = new StringBuilder();
 		sql.append(joinType.getJoinName());
 		sql.append(" ");
-		sql.append(TableReflectionReader.getTableName(clazzPara));
+		sql.append(TableReflectionReader.getTableName(clazzJoined));
 		sql.append(" on ");
 		
-		if (on != null) {
-			sql.append(on.buildSQL());
+		if (conditions.isEmpty()) {
+			TableReflectionReader.getJoinInformation(clazzFrom, clazzJoined);
 		} else {
-			TableReflectionReader.getJoinInformation(clazzDe, clazzPara);
-		}
-		
-		if (!conditions.isEmpty()) {
 			for (Condition c : conditions) {
-				sql.append(ConditionDBTypes.AND.getConditionType());
-				sql.append(" ");
+				if (conditions.indexOf(c) > 0) {
+					sql.append(ConditionDBTypes.AND.getConditionType());
+					sql.append(" ");
+				}
+
 				sql.append(c.buildSQL());
 			}
 		}

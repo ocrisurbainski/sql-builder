@@ -4,6 +4,7 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="testePu" transaction-type="RESOURCE_LOCAL">
 		
+		<class>com.urbainski.entidade.Autor</class>
 		<class>com.urbainski.entidade.Livro</class>
 		
 		<properties>

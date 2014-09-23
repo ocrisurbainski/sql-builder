@@ -1,20 +1,20 @@
 package com.urbainski.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "livro")
-public class Livro implements Serializable {
+@Table(name = "autor")
+public class Autor implements Serializable {
 
 	/**
 	 * SerialVersion.
@@ -28,12 +28,9 @@ public class Livro implements Serializable {
 	@Column(name = "ds_nome")
 	private String nome;
 	
-	@Column(name = "nr_anopublicacao")
-	private Integer anoPublicacao;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "autor_id", referencedColumnName = "id")
-	private Autor autor;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dt_nascimento")
+	private Date dataNascimento;
 	
 	public Integer getId() {
 		return id;
@@ -51,20 +48,12 @@ public class Livro implements Serializable {
 		this.nome = nome;
 	}
 	
-	public Integer getAnoPublicacao() {
-		return anoPublicacao;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 	
-	public void setAnoPublicacao(Integer anoPublicacao) {
-		this.anoPublicacao = anoPublicacao;
-	}
-	
-	public Autor getAutor() {
-		return autor;
-	}
-	
-	public void setAutor(Autor autor) {
-		this.autor = autor;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }

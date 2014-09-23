@@ -10,10 +10,15 @@ import com.urbainski.sql.builder.db.types.JoinDBType;
  * @version 1.0
  *
  */
-public class JoinBuilder<X, Y> {
+public class JoinBuilder {
 
-	public Join<X, Y> newJoin(String property, JoinDBType joinType) {
-		return new Join<X, Y>(property, joinType);
+	public static Join newJoin(Class<?> clazzFrom, Class<?> clazzJoined,
+			String fromAlias, String joinedAlias, String property, JoinDBType joinType) {
+		return new Join(clazzFrom, clazzJoined, fromAlias, joinedAlias, property, joinType);
+	}
+	
+	public static Join newJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
+		return new Join(clazzFrom, clazzJoined, property);
 	}
 	
 }

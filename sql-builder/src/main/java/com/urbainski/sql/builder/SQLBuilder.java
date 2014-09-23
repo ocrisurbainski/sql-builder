@@ -45,7 +45,7 @@ public class SQLBuilder implements Builder {
 	/**
 	 * Lista de joins.
 	 */
-	protected List<Join<?, ?>> joins;
+	protected List<Join> joins;
 	
 	/**
 	 * Classe de entidade do banco de dados.
@@ -60,7 +60,7 @@ public class SQLBuilder implements Builder {
 	public SQLBuilder(Class<?> entityClass) {
 		this.entityClass = entityClass;
 		this.select = new Select(entityClass);
-		this.joins = new ArrayList<Join<?,?>>();
+		this.joins = new ArrayList<Join>();
 		this.distinct = false;
 	}
 	
@@ -100,7 +100,7 @@ public class SQLBuilder implements Builder {
 		this.where = condition;
 	}
 	
-	public void addJoin(Join<?, ?> join) {
+	public void addJoin(Join join) {
 		this.joins.add(join);
 	}
 	
@@ -129,7 +129,7 @@ public class SQLBuilder implements Builder {
 		}
 		
 		if (!joins.isEmpty()) {
-			for (Join<?, ?> j : joins) {
+			for (Join j : joins) {
 				sql.append(j.buildSQL());
 			}
 		}
