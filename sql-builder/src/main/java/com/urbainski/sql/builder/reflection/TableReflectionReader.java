@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -59,6 +60,12 @@ public class TableReflectionReader {
 			if (column != null && column.name() != null && !column.name().isEmpty()) {
 				nameFields.add(column.name());
 			} else {
+				
+				final JoinColumn joinColumn = (JoinColumn) f.getAnnotation(JoinColumn.class);
+				if (joinColumn != null) {
+					continue;
+				}
+				
 				if (f.getAnnotations() != null & f.getAnnotations().length > 0) {
 					nameFields.add(f.getName().toLowerCase());
 				}
