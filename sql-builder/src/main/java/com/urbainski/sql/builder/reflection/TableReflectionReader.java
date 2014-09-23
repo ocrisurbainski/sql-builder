@@ -40,6 +40,13 @@ public class TableReflectionReader {
 		return entityClass.getName().toLowerCase();
 	}
 	
+	/**
+	 * Método responsável por ler a entidade e pegar o nome de todos os atributos do banco de dados.
+	 * 
+	 * @param entityClass - classe de entidade do banco de dados
+	 * 
+	 * @return {@link List} de {@link String} que são os nomes dos atributos da tabela no banco de dados
+	 */
 	public static List<String> getAllFieldsNames(Class<?> entityClass) {
 		final List<String> nameFields = new ArrayList<String>();
 		final Field[] fields = entityClass.getDeclaredFields();
@@ -60,8 +67,15 @@ public class TableReflectionReader {
 		return nameFields;
 	}
 	
-	public static String getDatabaseNameField(Class<?> entityClass, String nameProperty)
-			throws Exception {
+	/**
+	 * Método que busca o nome do atributo em especifico no banco de dados.
+	 * 
+	 * @param entityClass - classe de entidade do banco de dados
+	 * @param nameProperty - nome da propriedade na classe de entidade
+	 * 
+	 * @return nome da propriedade no banco de dados
+	 */
+	public static String getDatabaseNameField(Class<?> entityClass, String nameProperty) {
 		final Field[] fields = entityClass.getDeclaredFields();
 		for (final Field f : fields) {
 			if (f.getName().equals(nameProperty)) {
@@ -75,7 +89,7 @@ public class TableReflectionReader {
 			}
 		}
 		
-		throw new Exception("Classe de entidade: " + entityClass + " não contem o campo: " + nameProperty);
+		throw new IllegalStateException("Classe de entidade: " + entityClass + " não contem o campo: " + nameProperty);
 	}
 
 	public static void getJoinInformation(Class<?> clazzDe, Class<?> clazzPara) {

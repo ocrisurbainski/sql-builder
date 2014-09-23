@@ -37,13 +37,9 @@ public class ConstainsCondition extends SimpleCondition {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		try {
-			sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
-					? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
-			sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
+				? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
+		sql.append(TableReflectionReader.getDatabaseNameField(entityClass, fieldName));
 		sql.append(" ");
 		sql.append(conditionType.getConditionType());
 		sql.append(" ");

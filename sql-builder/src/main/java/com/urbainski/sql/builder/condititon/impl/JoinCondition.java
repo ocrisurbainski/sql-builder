@@ -76,19 +76,15 @@ public class JoinCondition implements Condition {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		try {
-			sql.append(((fromAlias == null || fromAlias.isEmpty())
-					? TableReflectionReader.getTableName(entityFrom) : fromAlias) + ".");
-			sql.append(TableReflectionReader.getDatabaseNameField(entityFrom, prop1));
-			sql.append(" ");
-			sql.append(conditionType.getConditionType());
-			sql.append(" ");
-			sql.append(((joinedAlias == null || joinedAlias.isEmpty())
-					? TableReflectionReader.getTableName(joinedClass) : joinedAlias) + ".");
-			sql.append(TableReflectionReader.getDatabaseNameField(joinedClass, prop2));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		sql.append(((fromAlias == null || fromAlias.isEmpty())
+				? TableReflectionReader.getTableName(entityFrom) : fromAlias) + ".");
+		sql.append(TableReflectionReader.getDatabaseNameField(entityFrom, prop1));
+		sql.append(" ");
+		sql.append(conditionType.getConditionType());
+		sql.append(" ");
+		sql.append(((joinedAlias == null || joinedAlias.isEmpty())
+				? TableReflectionReader.getTableName(joinedClass) : joinedAlias) + ".");
+		sql.append(TableReflectionReader.getDatabaseNameField(joinedClass, prop2));
 		return sql.toString();
 	}
 

@@ -71,14 +71,10 @@ public class SimpleCondition implements Condition {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		try {
-			sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
-					? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
-			sql.append(TableReflectionReader.getDatabaseNameField(
-					entityClass, this.fieldName));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		sql.append(((this.aliasTable == null || this.aliasTable.isEmpty())
+				? TableReflectionReader.getTableName(entityClass) : this.aliasTable) + ".");
+		sql.append(TableReflectionReader.getDatabaseNameField(
+				entityClass, this.fieldName));
 		sql.append(" ");
 		sql.append(conditionType.getConditionType());
 		sql.append(" ");
