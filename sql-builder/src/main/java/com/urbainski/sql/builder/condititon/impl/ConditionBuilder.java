@@ -14,7 +14,15 @@ import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
  * @version 1.0
  *
  */
-public class ConditionBuilder {
+public final class ConditionBuilder {
+	
+	/**
+	 * Construtor privado para que a classe
+	 * não possa ser instanciada.
+	 */
+	private ConditionBuilder() {
+		
+	}
 
 	/**
 	 * Método para construir condições para as queries.
