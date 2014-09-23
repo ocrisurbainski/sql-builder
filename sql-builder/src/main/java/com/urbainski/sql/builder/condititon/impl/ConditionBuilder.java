@@ -144,6 +144,13 @@ public class ConditionBuilder {
 				joinedAlias, conditionType, prop1, prop2);
 	}
 	
+	/**
+	 * Método para atualizar o alias da entidade na consulta.
+	 * 
+	 * @param condition - condição que tera o alias atualizado
+	 * @param entity - entidade que teve o alias mudado
+	 * @param newAlias - novo alias da entidade
+	 */
 	public static void updateAliasForCondition(Condition condition, Class<?> entity, String newAlias) {
 		if (condition instanceof SimpleCondition
 				|| condition instanceof BetweenCondition
