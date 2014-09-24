@@ -15,8 +15,10 @@ import com.urbainski.sql.builder.condititon.Condition;
 import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
+import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
 import com.urbainski.sql.builder.join.Join;
+import com.urbainski.sql.builder.join.JoinBuilder;
 import com.urbainski.sql.builder.orderby.OrderBy;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
 import com.urbainski.sql.builder.select.FieldBuilder;
@@ -164,6 +166,32 @@ public class SQLBuilder implements Builder {
 	 */
 	public void addJoin(Join join) {
 		this.joins.add(join);
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param property - propriedade para fazer o join
+	 */
+	public void addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
+		this.joins.add(JoinBuilder.newJoin(clazzFrom, clazzJoined, property));
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param joinedAlias - alias da classe do join
+	 * @param joinType - tipo do join
+	 * @param property - propriedade para fazer o join
+	 */
+	public void addJoin(Class<?> clazzFrom, Class<?> clazzJoined,
+			String joinedAlias, String property, JoinDBType joinType) {
+		this.joins.add(JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromAlias, joinedAlias, property, joinType));
 	}
 	
 	/**
