@@ -1,5 +1,8 @@
 package com.urbainski.sql.builder.join;
 
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getJoinInformation;
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +13,6 @@ import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.builder.condititon.impl.JoinCondition;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
-import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
  * Classe que representa o join nas queries.
@@ -83,6 +85,9 @@ public class Join implements Builder {
 			String fromAlias, String joinedAlias, String property, JoinDBType joinType) {
 		this.clazzFrom = clazzFrom;
 		this.clazzJoined = clazzJoined;
+		this.fromAlias = fromAlias;
+		this.joinedAlias = joinedAlias;
+		this.property = property;
 		this.joinType = joinType;
 		this.conditions = new ArrayList<Condition>();
 	}
@@ -137,11 +142,17 @@ public class Join implements Builder {
 		final StringBuilder sql = new StringBuilder();
 		sql.append(joinType.getJoinName());
 		sql.append(" ");
-		sql.append(TableReflectionReader.getTableName(clazzJoined));
+		sql.append(getTableName(clazzJoined));
+		
+		if (joinedAlias != null && !(joinedAlias.isEmpty())) {
+			sql.append(" " + joinedAlias);
+		}
+			
 		sql.append(" on ");
 		
 		if (conditions.isEmpty()) {
-			TableReflectionReader.getJoinInformation(clazzFrom, clazzJoined);
+			JoinCondition joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias, property);
+			sql.append(joinCondition.buildSQL());
 		} else {
 			for (Condition c : conditions) {
 				if (conditions.indexOf(c) > 0) {

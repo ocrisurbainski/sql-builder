@@ -1,8 +1,9 @@
 package com.urbainski.sql.builder.condititon.impl;
 
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+
 import com.urbainski.sql.builder.condititon.Condition;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
  * Implementação de condições para o join.
@@ -75,16 +76,24 @@ public class JoinCondition implements Condition {
 
 	@Override
 	public String buildSQL() {
+		String tableNameOrAliasFrom = getTableName(entityFrom);
+		if (fromAlias != null && !(fromAlias.isEmpty())) {
+			tableNameOrAliasFrom = fromAlias;
+		}
+		
+		String tableNameOrAliasJoin = getTableName(joinedClass);
+		if (joinedAlias != null && !(joinedAlias.isEmpty())) {
+			tableNameOrAliasJoin = joinedAlias;
+		}
+		
 		final StringBuilder sql = new StringBuilder();
-		sql.append(((fromAlias == null || fromAlias.isEmpty())
-				? TableReflectionReader.getTableName(entityFrom) : fromAlias) + ".");
-		sql.append(TableReflectionReader.getDatabaseNameField(entityFrom, prop1));
+		sql.append(tableNameOrAliasFrom + ".");
+		sql.append(prop1);
 		sql.append(" ");
 		sql.append(conditionType.getConditionType());
 		sql.append(" ");
-		sql.append(((joinedAlias == null || joinedAlias.isEmpty())
-				? TableReflectionReader.getTableName(joinedClass) : joinedAlias) + ".");
-		sql.append(TableReflectionReader.getDatabaseNameField(joinedClass, prop2));
+		sql.append(tableNameOrAliasJoin + ".");
+		sql.append(prop2);
 		return sql.toString();
 	}
 

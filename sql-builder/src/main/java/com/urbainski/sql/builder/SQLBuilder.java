@@ -181,8 +181,7 @@ public class SQLBuilder implements Builder {
 	 * @param property - propriedade para fazer o join
 	 */
 	public Join addJoin(Class<?> clazzJoined, String property) {
-		String tableJoinedAlias = getTableName(clazzJoined);
-		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, tableJoinedAlias, property);
+		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, "", property);
 		this.joins.add(join);
 		return join;
 	}
@@ -424,6 +423,7 @@ public class SQLBuilder implements Builder {
 		}
 		
 		if (!joins.isEmpty()) {
+			sql.append(" ");
 			for (Join j : joins) {
 				sql.append(j.buildSQL());
 			}
