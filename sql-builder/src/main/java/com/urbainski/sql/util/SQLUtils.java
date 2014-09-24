@@ -10,15 +10,35 @@ package com.urbainski.sql.util;
  */
 public final class SQLUtils {
 
+	/**
+	 * Clausula select do sql.
+	 */
 	public static final String SELECT = "select";
 	
+	/**
+	 * Distinct para consultas sql.
+	 */
 	public static final String DISTINCT = "distinct";
 	
+	/**
+	 * From da consulta.
+	 */
 	public static final String FROM = "from";
 	
+	/**
+	 * Where para indicar condições.
+	 */
 	public static final String WHERE = "where";
 	
+	/**
+	 * AS para alias.
+	 */
 	public static final String AS = "as";
+	
+	/**
+	 * Order by.
+	 */
+	public static final String ORDER_BY = "order by";
 
 	/**
 	 * Construtor privado.

@@ -1,5 +1,9 @@
 package com.urbainski.sql.builder.select;
 
+import static com.urbainski.sql.util.SQLUtils.AS;
+
+import com.urbainski.sql.builder.Builder;
+
 /**
  * Objeto que representa campos adicionados na consulta.
  * 
@@ -8,7 +12,7 @@ package com.urbainski.sql.builder.select;
  * @version 1.0
  *
  */
-public class Field {
+public class Field implements Builder {
 
 	/**
 	 * Nome do campo na query.
@@ -19,6 +23,11 @@ public class Field {
 	 * Alias do campo.
 	 */
 	private String alias;
+	
+	/**
+	 * Nome da tabela ou alias.
+	 */
+	private String tableNameOrAlias;
 	
 	public String getFieldName() {
 		return fieldName;
@@ -35,6 +44,14 @@ public class Field {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
+	
+	public String getTableNameOrAlias() {
+		return tableNameOrAlias;
+	}
+	
+	public void setTableNameOrAlias(String tableNameOrAlias) {
+		this.tableNameOrAlias = tableNameOrAlias;
+	}
 
 	/**
 	 * Construto com parametross.
@@ -42,10 +59,11 @@ public class Field {
 	 * @param fieldName
 	 * @param alias
 	 */
-	public Field(String fieldName, String alias) {
+	public Field(String tableNameOrAlias, String fieldName, String alias) {
 		super();
 		this.fieldName = fieldName;
 		this.alias = alias;
+		this.tableNameOrAlias = tableNameOrAlias;
 	}
 	
 	/**
@@ -53,6 +71,21 @@ public class Field {
 	 */
 	public Field() {
 		
+	}
+
+	@Override
+	public String buildSQL() {
+		final StringBuilder sql = new StringBuilder();
+		sql.append(tableNameOrAlias + ".");
+		sql.append(fieldName);
+		
+		if (!(alias.isEmpty())) {
+			sql.append(" ");
+			sql.append(AS);
+			sql.append(" ");
+			sql.append(alias);
+		}
+		return sql.toString();
 	}
 	
 }

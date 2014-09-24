@@ -1,5 +1,7 @@
 package com.urbainski.sql.builder;
 
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
 import static com.urbainski.sql.util.SQLUtils.AS;
 import static com.urbainski.sql.util.SQLUtils.DISTINCT;
 import static com.urbainski.sql.util.SQLUtils.FROM;
@@ -13,8 +15,11 @@ import com.urbainski.sql.builder.condititon.Condition;
 import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
+import com.urbainski.sql.builder.db.types.OrderByDBTypes;
 import com.urbainski.sql.builder.join.Join;
+import com.urbainski.sql.builder.orderby.OrderBy;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
+import com.urbainski.sql.builder.select.FieldBuilder;
 import com.urbainski.sql.builder.select.Select;
 
 /**
@@ -31,6 +36,11 @@ public class SQLBuilder implements Builder {
 	 * Objeto que representa os campos do select.
 	 */
 	protected Select select;
+	
+	/**
+	 * Objeto que representa a ordenação dos resultados da query.
+	 */
+	protected OrderBy orderBy;
 	
 	/**
 	 * Alias do from da query.
@@ -64,48 +74,158 @@ public class SQLBuilder implements Builder {
 		this.distinct = false;
 	}
 	
+	/**
+	 * Retorna a intância de {@link Select}.
+	 * 
+	 * @return {@link Select}
+	 */
 	public Select select() {
 		return select;
 	}
 	
+	/**
+	 * Método para setar o alias do from da consulta.
+	 * 
+	 * @param fromAlias - alias do from
+	 */
 	public void fromAlias(String fromAlias) {
 		this.fromAlias = fromAlias;
 		this.select.alias(fromAlias);
 		ConditionBuilder.updateAliasForCondition(this.where, entityClass, fromAlias);
 	}
 	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo 
+	 * @param value - valor
+	 */
 	public void where(ConditionDBTypes type, String fieldName, Object... value) {
 		this.where = ConditionBuilder.newCondition(
 				this.entityClass, this.fromAlias, type, fieldName, value);
 	}
 	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param containsType - tipo do contains
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor
+	 */
 	public void where(ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
 		this.where = ConditionBuilder.newCondition(
 				this.entityClass, this.fromAlias, containsType, type, fieldName, value);
 	}
 	
-	public void where(Class<?> entiyClass, ConstainsDBTypes containsType, 
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param entityClass - entidade
+	 * @param containsType - tipo do contains 
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor
+	 */
+	public void where(Class<?> entityClass, ConstainsDBTypes containsType, 
 			ConditionDBTypes type, String fieldName, Object value) {
 		this.where = ConditionBuilder.newCondition(
 				entityClass, this.fromAlias, containsType, type, fieldName, value);
 	}
 	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param type - tipo da condição
+	 * @param entiyClass - entidade
+	 * @param fieldName - nome do campo
+	 * @param value - valor
+	 */
 	public void where(ConditionDBTypes type, Class<?> entiyClass, 
 			String fieldName, Object... value) {
 		this.where = ConditionBuilder.newCondition(
 				entiyClass, this.fromAlias, type, fieldName, value);
 	}
 	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param condition - condição
+	 */
 	public void where(Condition condition) {
 		this.where = condition;
 	}
 	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param join - join
+	 */
 	public void addJoin(Join join) {
 		this.joins.add(join);
 	}
 	
+	/**
+	 * Setar se a consulta é do tipo distinct.
+	 * 
+	 * @param distinct - distinct na consulta
+	 */
 	public void distinct(boolean distinct) {
 		this.distinct = distinct;
+	}
+	
+	/**
+	 * Método responsável por pegar o {@link OrderBy} da query.
+	 * 
+	 * @param orderByType - tipo do {@link OrderBy}
+	 * 
+	 * @return {@link OrderBy}
+	 */
+	public OrderBy orderBy(OrderByDBTypes orderByType) {
+		if (this.orderBy == null) {
+			this.orderBy = new OrderBy(orderByType);
+		} else {
+			this.orderBy.setOrderByType(orderByType);
+		}
+		return this.orderBy;
+	}
+	
+	/**
+	 * Método responsável por pegar o {@link OrderBy} da query.
+	 * 
+	 * @return {@link OrderBy}
+	 */
+	public OrderBy orderBy() {
+		if (this.orderBy == null) {
+			this.orderBy = new OrderBy(OrderByDBTypes.ASC);
+		}
+		return this.orderBy;
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInOrderBy(String fieldName) {
+		addFieldInOrderBy(fieldName, "");
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param fieldName - nome do campo
+	 * @param alias - alias do campo
+	 */
+	public void addFieldInOrderBy(String fieldName, String alias) {
+		String tableOrAlias = getTableName(entityClass);
+		if (alias != null && !(alias.isEmpty())) {
+			tableOrAlias = alias;
+		}
+		
+		this.orderBy.addField(FieldBuilder.newField(
+				tableOrAlias, getDatabaseNameField(entityClass, fieldName), alias));
 	}
 
 	@Override
@@ -139,6 +259,11 @@ public class SQLBuilder implements Builder {
 			sql.append(WHERE);
 			sql.append(" ");
 			sql.append(where.buildSQL());
+		}
+		
+		if (orderBy != null) {
+			sql.append(" ");
+			sql.append(orderBy.buildSQL());
 		}
 		
 		return sql.toString();

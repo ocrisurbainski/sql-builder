@@ -1,12 +1,13 @@
 package com.urbainski.sql.builder.select;
 
-import static com.urbainski.sql.util.SQLUtils.AS;
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getAllFieldsNames;
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.urbainski.sql.builder.Builder;
-import com.urbainski.sql.builder.reflection.TableReflectionReader;
 
 /**
  * Classe que representa o select da query.
@@ -34,12 +35,36 @@ public class Select implements Builder {
 	protected String alias;
 	
 	/**
+	 * Nome da tabela ou seu alias.
+	 */
+	private String tableOrAlias;
+	
+	/**
 	 * Construtor padrão da classe.
 	 * @param entityClass - entidade
 	 */
 	public Select(Class<?> entityClass) {
 		this.entityClass = entityClass;
 		this.fields = new ArrayList<Field>();
+		this.tableOrAlias = getTableNameOrTableAlias();
+	}
+
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param fields - campos
+	 */
+	public void addField(Field... fields) {
+		this.fields.addAll(Arrays.asList(fields));
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param field - campo
+	 */
+	public void addField(Field field) {
+		this.fields.add(field);
 	}
 	
 	/**
@@ -58,8 +83,8 @@ public class Select implements Builder {
 	 * @param alias - alias do campo
 	 */
 	public void addField(String fieldName, String alias) {
-		final Field field = new Field(fieldName, alias);
-		this.fields.add(field);
+		this.fields.add(FieldBuilder.newField(entityClass,
+				this.tableOrAlias, fieldName, alias));
 	}
 	
 	/**
@@ -69,51 +94,56 @@ public class Select implements Builder {
 	 */
 	public void alias(String alias) {
 		this.alias = alias;
+		this.tableOrAlias = getTableNameOrTableAlias();
+
+		for (Field f : fields) {
+			f.setTableNameOrAlias(alias);
+		}
 	}
 	
 	@Override
 	public String buildSQL() {
-		final String tableName = TableReflectionReader.getTableName(entityClass);
+		String tableNameOrAlias = getTableNameOrTableAlias();
+		
 		final StringBuilder str = new StringBuilder("");
-		try {
-			if (this.fields.isEmpty()) {
-				final List<String> nameFields = TableReflectionReader.getAllFieldsNames(entityClass);
-				for (String name : nameFields) {
-					str.append(((this.alias == null || this.alias.isEmpty())
-							? tableName : this.alias) + ".");
-					str.append(name);
-					
-					if (nameFields.indexOf(name) < (nameFields.size() - 1)) {
-						str.append(", ");
-					} else {
-						str.append(" ");
-					}
-				}
-			} else {
-				for (Field f : fields) {
-					str.append(((this.alias == null || this.alias.isEmpty())
-							? tableName : this.alias) + ".");
-					str.append(TableReflectionReader.getDatabaseNameField(entityClass, f.getFieldName()));
-					
-					if (!f.getAlias().isEmpty()) {
-						str.append(" ");
-						str.append(AS);
-						str.append(" ");
-						str.append(f.getAlias());
-					}
-					
-					if (fields.indexOf(f) < (fields.size() - 1)) {
-						str.append(", ");
-					} else {
-						str.append(" ");
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (this.fields.isEmpty()) {
+			final List<String> nameFields = getAllFieldsNames(entityClass);
+			populateFields(tableNameOrAlias, nameFields);
+		} 
+		
+		for (Field f : fields) {
+			str.append(f.buildSQL());
+			if (fields.indexOf(f) < (fields.size() - 1)) {
+				str.append(", ");
+			} 
 		}
 		
+		str.append(" ");
 		return str.toString();
+	}
+
+	/**
+	 * Método responsável por pegar o nome da tabela ou de seu alias.
+	 * @return
+	 */
+	private String getTableNameOrTableAlias() {
+		String tableNameOrAlias = getTableName(entityClass);
+		if (alias != null && !(alias.isEmpty())) {
+			tableNameOrAlias = alias;
+		}
+		return tableNameOrAlias;
+	}
+
+	/**
+	 * Método responsável por popular a lista de campos.
+	 * 
+	 * @param tableNameOrAlias - nome da tabela ou seu alias
+	 * @param nameFields - lista de nome dos campos.
+	 */
+	private void populateFields(String tableNameOrAlias, List<String> nameFields) {
+		for (String name : nameFields) {
+			this.fields.add(FieldBuilder.newField(tableNameOrAlias, name));
+		}
 	}
 
 }
