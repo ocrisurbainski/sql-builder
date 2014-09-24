@@ -18,6 +18,7 @@ import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
 import com.urbainski.sql.builder.field.FieldBuilder;
+import com.urbainski.sql.builder.groupby.GroupBy;
 import com.urbainski.sql.builder.join.Join;
 import com.urbainski.sql.builder.join.JoinBuilder;
 import com.urbainski.sql.builder.orderby.OrderBy;
@@ -43,6 +44,11 @@ public class SQLBuilder implements Builder {
 	 * Objeto que representa a ordenação dos resultados da query.
 	 */
 	protected OrderBy orderBy;
+	
+	/**
+	 * Objeto que representa o group by da query.
+	 */
+	protected GroupBy groupBy;
 	
 	/**
 	 * Alias do from da query.
@@ -241,9 +247,62 @@ public class SQLBuilder implements Builder {
 		if (fromAlias != null && !(fromAlias.isEmpty())) {
 			tableOrAlias = fromAlias;
 		}
-		
+	
+		addFieldInOrderBy(entityClass, tableOrAlias, fieldName);
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param entity - classe de entidade
+	 * @param tableOrAlias - nome da tabela ou alias
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInOrderBy(Class<?> entity, String tableOrAlias, String fieldName) {
+		// chama o método orderBy para inicializar o objeto caso seja nulo
+		this.orderBy();
 		this.orderBy.addField(FieldBuilder.newField(
-				tableOrAlias, getDatabaseNameField(entityClass, fieldName), ""));
+				tableOrAlias, getDatabaseNameField(entity, fieldName), ""));
+	}
+	
+	/**
+	 * Método que retorna o {@link GroupBy} da query.
+	 * 
+	 * @return {@link GroupBy}
+	 */
+	public GroupBy groupBy() {
+		if (groupBy == null) {
+			groupBy = new GroupBy();
+		}
+		return groupBy;
+	}
+	
+	/**
+	 * Método para adicionar um campo no group by da query.
+	 * 
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInGroupBy(String fieldName) {
+		String tableOrAlias = getTableName(entityClass);
+		if (fromAlias != null && !(fromAlias.isEmpty())) {
+			tableOrAlias = fromAlias;
+		}
+		
+		addFieldInGroupBy(entityClass, tableOrAlias, fieldName);
+	}
+	
+	/**
+	 * Método para adicionar um campo no group by da query.
+	 * 
+	 * @param entity - entidade do banco de dados
+	 * @param tableOrAlias - nome da tabela ou alias
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInGroupBy(Class<?> entity, String tableOrAlias, String fieldName) {
+		// chama o método groupBy para inicializar o objeto caso seja nulo
+		this.groupBy();
+		this.groupBy.addField(FieldBuilder.newField(
+				tableOrAlias, getDatabaseNameField(entity, fieldName), ""));
 	}
 
 	@Override
@@ -277,6 +336,11 @@ public class SQLBuilder implements Builder {
 			sql.append(WHERE);
 			sql.append(" ");
 			sql.append(where.buildSQL());
+		}
+		
+		if (groupBy != null) {
+			sql.append(" ");
+			sql.append(groupBy.buildSQL());
 		}
 		
 		if (orderBy != null) {

@@ -36,6 +36,11 @@ public final class SQLUtils {
 	public static final String AS = "as";
 	
 	/**
+	 * 	Group by.
+	 */
+	public static final String GROUP_BY = "group by";
+	
+	/**
 	 * Order by.
 	 */
 	public static final String ORDER_BY = "order by";
