@@ -209,23 +209,13 @@ public class SQLBuilder implements Builder {
 	 * @param fieldName - nome do campo
 	 */
 	public void addFieldInOrderBy(String fieldName) {
-		addFieldInOrderBy(fieldName, "");
-	}
-	
-	/**
-	 * Método para adicionar um campo na consulta apenas pelo nome.
-	 * 
-	 * @param fieldName - nome do campo
-	 * @param alias - alias do campo
-	 */
-	public void addFieldInOrderBy(String fieldName, String alias) {
 		String tableOrAlias = getTableName(entityClass);
-		if (alias != null && !(alias.isEmpty())) {
-			tableOrAlias = alias;
+		if (fromAlias != null && !(fromAlias.isEmpty())) {
+			tableOrAlias = fromAlias;
 		}
 		
 		this.orderBy.addField(FieldBuilder.newField(
-				tableOrAlias, getDatabaseNameField(entityClass, fieldName), alias));
+				tableOrAlias, getDatabaseNameField(entityClass, fieldName), ""));
 	}
 
 	@Override
