@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.select;
+package com.urbainski.sql.builder.field;
 
 import static com.urbainski.sql.util.SQLUtils.AS;
 
@@ -17,17 +17,17 @@ public class Field implements Builder {
 	/**
 	 * Nome do campo na query.
 	 */
-	private String fieldName;
+	protected String fieldName;
 	
 	/**
 	 * Alias do campo.
 	 */
-	private String alias;
+	protected String alias;
 	
 	/**
 	 * Nome da tabela ou alias.
 	 */
-	private String tableNameOrAlias;
+	protected String tableNameOrAlias;
 	
 	public String getFieldName() {
 		return fieldName;

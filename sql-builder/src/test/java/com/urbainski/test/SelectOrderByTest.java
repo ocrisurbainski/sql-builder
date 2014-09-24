@@ -6,9 +6,9 @@ import org.junit.Test;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
+import com.urbainski.sql.builder.field.Field;
+import com.urbainski.sql.builder.field.FieldBuilder;
 import com.urbainski.sql.builder.orderby.OrderBy;
-import com.urbainski.sql.builder.select.Field;
-import com.urbainski.sql.builder.select.FieldBuilder;
 
 /**
  * Classe de teste para queries com {@link OrderBy}.

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.urbainski.sql.builder.Builder;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
-import com.urbainski.sql.builder.select.Field;
+import com.urbainski.sql.builder.field.Field;
 
 /**
  * Classe que representa o orderby da query.

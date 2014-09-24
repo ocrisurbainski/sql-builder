@@ -17,11 +17,11 @@ import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
+import com.urbainski.sql.builder.field.FieldBuilder;
 import com.urbainski.sql.builder.join.Join;
 import com.urbainski.sql.builder.join.JoinBuilder;
 import com.urbainski.sql.builder.orderby.OrderBy;
 import com.urbainski.sql.builder.reflection.TableReflectionReader;
-import com.urbainski.sql.builder.select.FieldBuilder;
 import com.urbainski.sql.builder.select.Select;
 
 /**

@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.urbainski.sql.builder.Builder;
+import com.urbainski.sql.builder.field.Field;
+import com.urbainski.sql.builder.field.FieldBuilder;
 
 /**
  * Classe que representa o select da query.

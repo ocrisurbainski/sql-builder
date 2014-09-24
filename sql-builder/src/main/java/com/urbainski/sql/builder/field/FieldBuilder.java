@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.select;
+package com.urbainski.sql.builder.field;
 
 import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
 
