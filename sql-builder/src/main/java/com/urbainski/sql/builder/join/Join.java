@@ -58,17 +58,24 @@ public class Join implements Builder {
 	protected String property;
 	
 	/**
-	 * Construtor padrão da classe.
+	 * Construtor da classe.
+	 * 
+	 * @param clazzDe
+	 * @param clazzPara
+	 * @param property - nome da propriedade
 	 */
-	public Join(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
-		this(clazzFrom, clazzJoined, "", "", property, JoinDBType.INNER);
+	public Join(Class<?> clazzFrom, Class<?> clazzJoined, 
+			String fromAlias, String joinedAlias, String property) {
+		this(clazzFrom, clazzJoined, fromAlias, joinedAlias, property, JoinDBType.INNER);
 	}
 	
 	/**
 	 * Construtor da classe.
 	 * 
-	 * @param clazzDe
-	 * @param clazzPara
+	 * @param clazzFrom
+	 * @param clazzJoined
+	 * @param fromAlias
+	 * @param joinedAlias
 	 * @param joinType - tipo do join
 	 * @param property - nome da propriedade
 	 */

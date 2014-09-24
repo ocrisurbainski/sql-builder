@@ -177,12 +177,86 @@ public class SQLBuilder implements Builder {
 	/**
 	 * Método para adicionar um join na consulta.
 	 * 
+	 * @param clazzJoined - classe que será unido
+	 * @param property - propriedade para fazer o join
+	 */
+	public Join addJoin(Class<?> clazzJoined, String property) {
+		String tableJoinedAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, tableJoinedAlias, property);
+		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzJoined - classe que será unido
+	 * @param property - propriedade para fazer o join
+	 * @param joinType - tipo do join
+	 */
+	public Join addJoin(Class<?> clazzJoined, String property, JoinDBType joinType) {
+		String tableJoinedAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, tableJoinedAlias, property, joinType);
+		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzJoined - classe que será unido
+	 * @param joinedAlias - alias do join
+	 * @param property - propriedade para fazer o join
+	 * @param joinType - tipo do join
+	 */
+	public Join addJoin(Class<?> clazzJoined, String joinedAlias, String property, JoinDBType joinType) {
+		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, joinedAlias, property, joinType);
+		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzJoined - classe que será unido
+	 * @param joinedAlias - alias do join
+	 * @param property - propriedade para fazer o join
+	 */
+	public Join addJoin(Class<?> clazzJoined, String joinedAlias, String property) {
+		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, joinedAlias, property);
+		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
 	 * @param clazzFrom - classe base
 	 * @param clazzJoined - classe que será unido
 	 * @param property - propriedade para fazer o join
 	 */
-	public void addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
-		this.joins.add(JoinBuilder.newJoin(clazzFrom, clazzJoined, property));
+	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
+		String fromTableAlias = getTableName(clazzJoined);
+		String tableJoinedAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(clazzFrom, clazzJoined, fromTableAlias, tableJoinedAlias, property);
+		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param property - propriedade para fazer o join
+	 * @param joinType - tipo do join
+	 */
+	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property, JoinDBType joinType) {
+		String fromTableAlias = getTableName(clazzJoined);
+		String tableJoinedAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(clazzFrom, clazzJoined, fromTableAlias, tableJoinedAlias, property, joinType);
+		this.joins.add(join);
+		return join;
 	}
 	
 	/**
@@ -194,10 +268,34 @@ public class SQLBuilder implements Builder {
 	 * @param joinType - tipo do join
 	 * @param property - propriedade para fazer o join
 	 */
-	public void addJoin(Class<?> clazzFrom, Class<?> clazzJoined,
+	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined,
 			String joinedAlias, String property, JoinDBType joinType) {
-		this.joins.add(JoinBuilder.newJoin(
-				clazzFrom, clazzJoined, fromAlias, joinedAlias, property, joinType));
+		String fromTableAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromTableAlias, joinedAlias, property, joinType);
+		this.joins.add(join);
+		
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param fromAlias - alias do from
+	 * @param joinedAlias - alias da classe do join
+	 * @param joinType - tipo do join
+	 * @param property - propriedade para fazer o join
+	 */
+	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String fromAlias,
+			String joinedAlias, String property, JoinDBType joinType) {
+		
+		Join join = JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromAlias, joinedAlias, property, joinType);
+		this.joins.add(join);
+		
+		return join;
 	}
 	
 	/**
