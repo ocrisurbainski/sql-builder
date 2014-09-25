@@ -17,6 +17,7 @@ import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
 import com.urbainski.sql.builder.db.types.OrderByDBTypes;
+import com.urbainski.sql.builder.db.types.UnionDBTypes;
 import com.urbainski.sql.builder.field.FieldBuilder;
 import com.urbainski.sql.builder.groupby.GroupBy;
 import com.urbainski.sql.builder.join.Join;
@@ -69,6 +70,16 @@ public class SQLBuilder implements Builder {
 	 * Classe de entidade do banco de dados.
 	 */
 	protected Class<?> entityClass;
+	
+	/**
+	 * Objeto que corresponde ao union.
+	 */
+	protected SQLBuilder union;
+	
+	/**
+	 * Tipo do union.
+	 */
+	protected UnionDBTypes unionType;
 	
 	/**
 	 * Boolean distinct;
@@ -446,6 +457,27 @@ public class SQLBuilder implements Builder {
 		this.groupBy.addField(FieldBuilder.newField(
 				tableOrAlias, getDatabaseNameField(entity, fieldName), ""));
 	}
+	
+	/**
+	 * Método que recebe um objeto para o union.
+	 * 
+	 * @param union - objeto union
+	 * @param unionType - tipo do union
+	 */
+	public void union(SQLBuilder union, UnionDBTypes unionType) {
+		this.union = union;
+		this.unionType = unionType;
+	}
+	
+	/**
+	 * Método que recebe um objeto para o union.
+	 * 
+	 * @param union - objeto union
+	 */
+	public void union(SQLBuilder union) {
+		this.union = union;
+		this.unionType = UnionDBTypes.UNION;
+	}
 
 	@Override
 	public String buildSQL() {
@@ -489,6 +521,13 @@ public class SQLBuilder implements Builder {
 		if (orderBy != null) {
 			sql.append(" ");
 			sql.append(orderBy.buildSQL());
+		}
+		
+		if (union != null) {
+			sql.append(" ");
+			sql.append(unionType.getUnionType());
+			sql.append(" ");
+			sql.append(union.buildSQL());
 		}
 		
 		return sql.toString();
