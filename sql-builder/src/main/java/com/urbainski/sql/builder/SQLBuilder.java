@@ -23,7 +23,6 @@ import com.urbainski.sql.builder.groupby.GroupBy;
 import com.urbainski.sql.builder.join.Join;
 import com.urbainski.sql.builder.join.JoinBuilder;
 import com.urbainski.sql.builder.orderby.OrderBy;
-import com.urbainski.sql.builder.reflection.TableReflectionReader;
 import com.urbainski.sql.builder.select.Select;
 
 /**
@@ -493,7 +492,7 @@ public class SQLBuilder implements Builder {
 		sql.append(select.buildSQL());
 		sql.append(FROM);
 		sql.append(" ");
-		sql.append(TableReflectionReader.getTableName(entityClass));
+		sql.append(getTableName(entityClass));
 		
 		if (fromAlias != null && !(fromAlias.isEmpty())) {
 			sql.append(" " + AS + " " + fromAlias);
