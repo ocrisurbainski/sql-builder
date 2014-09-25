@@ -167,21 +167,43 @@ public class Join implements Builder {
 			
 		sql.append(" on ");
 		
-		if (conditions.isEmpty()) {
+		if (conditions.isEmpty() || !(hasJoinCondition())) {
 			JoinCondition joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias, property);
 			sql.append(joinCondition.buildSQL());
-		} else {
-			for (Condition c : conditions) {
-				if (conditions.indexOf(c) > 0) {
-					sql.append(ConditionDBTypes.AND.getConditionType());
-					sql.append(" ");
-				}
-
-				sql.append(c.buildSQL());
+			
+			if (!(conditions.isEmpty())) {
+				sql.append(" ");
+				sql.append(ConditionDBTypes.AND.getConditionType());
+				sql.append(" ");
 			}
+ 		} 
+		
+		for (Condition c : conditions) {
+			if (conditions.indexOf(c) > 0) {
+				sql.append(" ");
+				sql.append(ConditionDBTypes.AND.getConditionType());
+				sql.append(" ");
+			}
+
+			sql.append(c.buildSQL());
 		}
 		
 		return sql.toString();
+	}
+
+	/**
+	 * Método para verificar se existe um {@link JoinCondition} na lista.
+	 * 
+	 * @return <code>true</code> se existir {@link JoinCondition}
+	 * 	na lista caso contrário <code>false</code>
+	 */
+	private boolean hasJoinCondition() {
+		for (Condition c : conditions) {
+			if (c instanceof JoinCondition) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

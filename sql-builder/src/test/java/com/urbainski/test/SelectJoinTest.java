@@ -8,7 +8,11 @@ import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Endereco;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
+import com.urbainski.sql.builder.join.Join;
 
 public class SelectJoinTest {
 
@@ -127,6 +131,56 @@ public class SelectJoinTest {
 		sqlBuilder.fromAlias("l0");
 		
 		String sqlGerado = sqlBuilder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
+	@Test
+	public void testLeftJoinComAliasnoFromEnoJoinECondicaoAMainsNoJoin() {
+		final String sqlCerto = new StringBuilder()
+		.append("select l0.id, l0.ds_nome, ")
+		.append("l0.nr_anopublicacao from livro as l0 ")
+		.append("left join autor a0 on ")
+		.append("l0.autor_id = a0.id and ")
+		.append("a0.ds_nome like 'Cristian%'")
+		.toString();
+		
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.fromAlias("l0");
+		Join joinAutor = builder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
+		joinAutor.addCondition(ConditionBuilder.newCondition(
+				Autor.class, "a0", ConstainsDBTypes.IN_FINISH, ConditionDBTypes.LIKE, 
+				"nome", "Cristian"));
+		
+		String sqlGerado = builder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
+	@Test
+	public void testLeftJoinComAliasnoFromEnoJoinE2CondicaoAMainsNoJoin() {
+		final String sqlCerto = new StringBuilder()
+		.append("select l0.id, l0.ds_nome, ")
+		.append("l0.nr_anopublicacao from livro as l0 ")
+		.append("left join autor a0 on ")
+		.append("l0.autor_id = a0.id and ")
+		.append("a0.ds_nome like 'Cristian%' and ")
+		.append("a0.ds_nome like '%Urbainski%'")
+		.toString();
+		
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.fromAlias("l0");
+		Join joinAutor = builder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
+		joinAutor.addCondition(ConditionBuilder.newCondition(
+				Autor.class, "a0", ConstainsDBTypes.IN_FINISH, ConditionDBTypes.LIKE, 
+				"nome", "Cristian"));
+		joinAutor.addCondition(ConditionBuilder.newCondition(
+				Autor.class, "a0", ConstainsDBTypes.ANY, ConditionDBTypes.LIKE, 
+				"nome", "Urbainski"));
+		
+		String sqlGerado = builder.buildSQL();
 		System.out.println(sqlGerado);
 		
 		Assert.assertEquals(sqlCerto, sqlGerado);
