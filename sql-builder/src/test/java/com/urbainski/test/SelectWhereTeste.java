@@ -26,7 +26,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqual() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.id = 5")
 		.toString();
 		
@@ -42,7 +42,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeDifferent() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.id <> 5")
 		.toString();
 		
@@ -58,7 +58,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqualNome() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome = 'Senhor dos Aneis'")
 		.toString();
 		
@@ -75,7 +75,7 @@ public class SelectWhereTeste {
 	@SuppressWarnings("serial")
 	public void testeIn() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.id in (3,4,5)")
 		.toString();
 		
@@ -100,7 +100,7 @@ public class SelectWhereTeste {
 	@SuppressWarnings("serial")
 	public void testeNotIn() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.id not in (3,4,5)")
 		.toString();
 		
@@ -133,7 +133,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereBetween() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.id between 1 and 10")
 		.toString();
 		
@@ -149,7 +149,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereOr() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where (livro.id = 1 or livro.id = 10)")
 		.toString();
 		
@@ -174,7 +174,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereAnd() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where (livro.id = 1 and livro.id = 10)")
 		.toString();
 		
@@ -199,7 +199,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeWhereAndEOr() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where ((livro.id = 1 and livro.id = 10) or (livro.id = 2 and livro.id = 8))")
 		.toString();
 		
@@ -235,7 +235,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeAny() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome like '%Senhor%'")
 		.toString();
 		
@@ -251,7 +251,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeAny() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome ilike '%Senhor%'")
 		.toString();
 		
@@ -267,7 +267,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeStart() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome like '%Senhor'")
 		.toString();
 		
@@ -283,7 +283,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeStart() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome ilike '%Senhor'")
 		.toString();
 		
@@ -299,7 +299,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeLikeFinish() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome like 'Senhor%'")
 		.toString();
 		
@@ -315,7 +315,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeIlikeFinish() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
 		.append("from livro where livro.ds_nome ilike 'Senhor%'")
 		.toString();
 		
@@ -331,7 +331,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqualComAlias() {
 		final String sqlCerto = new StringBuilder()
-		.append("select l.id, l.ds_nome, l.nr_anopublicacao ")
+		.append("select l.id, l.ds_nome, l.nr_anopublicacao, l.autor_id ")
 		.append("from livro as l where l.id = 5")
 		.toString();
 		
@@ -348,7 +348,7 @@ public class SelectWhereTeste {
 	@Test
 	public void testeEqualComAliasMudadoDepoisDoWhere() {
 		final String sqlCerto = new StringBuilder()
-		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao ")
+		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao, l0.autor_id ")
 		.append("from livro as l0 where l0.id = 10")
 		.toString();
 		
@@ -365,13 +365,29 @@ public class SelectWhereTeste {
 	@Test
 	public void testeBetweenComAliasMudadoDepoisDoWhere() {
 		final String sqlCerto = new StringBuilder()
-		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao ")
+		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao, l0.autor_id ")
 		.append("from livro as l0 where l0.id between 10 and 30")
 		.toString();
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.where(ConditionDBTypes.BETWEEN, "id", 10, 30);
 		builder.fromAlias("l0");
+		
+		String sqlGerado = builder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
+	@Test
+	public void testeEqualWithIdOutherTable() {
+		final String sqlCerto = new StringBuilder()
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id ")
+		.append("from livro where livro.autor_id = 9")
+		.toString();
+		
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.where(ConditionDBTypes.EQUALS, "autor", 9);
 		
 		String sqlGerado = builder.buildSQL();
 		System.out.println(sqlGerado);

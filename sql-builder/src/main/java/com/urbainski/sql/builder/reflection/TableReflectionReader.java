@@ -67,6 +67,9 @@ public class TableReflectionReader {
 				
 				final JoinColumn joinColumn = (JoinColumn) f.getAnnotation(JoinColumn.class);
 				if (joinColumn != null) {
+					if (joinColumn.name() != null && !(joinColumn.name().isEmpty())) {
+						nameFields.add(joinColumn.name());
+					}
 					continue;
 				}
 				
@@ -94,6 +97,10 @@ public class TableReflectionReader {
 			if (column != null && column.name() != null && !column.name().isEmpty()) {
 				return column.name();
 			} else {
+				final JoinColumn joinColumn = (JoinColumn) field.getAnnotation(JoinColumn.class);
+				if (joinColumn != null && joinColumn.name() != null && !joinColumn.name().isEmpty()) {
+					return joinColumn.name();
+				}
 				return field.getName().toLowerCase();
 			}
 		}

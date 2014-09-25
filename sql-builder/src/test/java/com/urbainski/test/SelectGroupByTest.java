@@ -20,7 +20,7 @@ public class SelectGroupByTest {
 	public void testeGroupBy1() {
 		final String sqlCerto = new StringBuilder()
 		.append("select livro.id, livro.ds_nome, ")
-		.append("livro.nr_anopublicacao from livro ")
+		.append("livro.nr_anopublicacao, livro.autor_id from livro ")
 		.append("group by livro.id, livro.ds_nome, livro.nr_anopublicacao")
 		.toString();
 	
@@ -40,7 +40,7 @@ public class SelectGroupByTest {
 	public void testeGroupByAndOrderBy() {
 		final String sqlCerto = new StringBuilder()
 		.append("select livro.id, livro.ds_nome, ")
-		.append("livro.nr_anopublicacao from livro ")
+		.append("livro.nr_anopublicacao, livro.autor_id from livro ")
 		.append("group by livro.id, livro.ds_nome, livro.nr_anopublicacao ")
 		.append("order by livro.id asc")
 		.toString();
