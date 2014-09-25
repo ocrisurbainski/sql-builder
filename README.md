@@ -1,7 +1,6 @@
 #SQL-Builder
-===========
 
-Geração de código SQL por objetos javas.
+Geração de código SQL por objetos java.
 
 Ex:
 
