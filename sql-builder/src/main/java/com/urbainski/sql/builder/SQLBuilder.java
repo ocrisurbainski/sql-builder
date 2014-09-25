@@ -100,6 +100,11 @@ public class SQLBuilder implements Builder {
 		this.fromAlias = fromAlias;
 		this.select.alias(fromAlias);
 		ConditionBuilder.updateAliasForCondition(this.where, entityClass, fromAlias);
+		for (Join j : joins) {
+			if (j.getClazzFrom().equals(entityClass)) {
+				j.fromAlias(fromAlias);
+			}
+		}
 	}
 	
 	/**
@@ -251,10 +256,31 @@ public class SQLBuilder implements Builder {
 	 * @param joinType - tipo do join
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property, JoinDBType joinType) {
+		
 		String fromTableAlias = getTableName(clazzJoined);
 		String tableJoinedAlias = getTableName(clazzJoined);
-		Join join = JoinBuilder.newJoin(clazzFrom, clazzJoined, fromTableAlias, tableJoinedAlias, property, joinType);
+		Join join = JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromTableAlias, tableJoinedAlias, property, joinType);
 		this.joins.add(join);
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param joinedAlias - alias da classe do join
+	 * @param property - propriedade para fazer o join
+	 */
+	public Join addJoin(Class<?> clazzFrom, 
+			Class<?> clazzJoined, String joinedAlias, String property) {
+		
+		String fromTableAlias = getTableName(clazzJoined);
+		Join join = JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromTableAlias, joinedAlias, property, JoinDBType.INNER);
+		this.joins.add(join);
+		
 		return join;
 	}
 	
@@ -272,6 +298,25 @@ public class SQLBuilder implements Builder {
 		String fromTableAlias = getTableName(clazzJoined);
 		Join join = JoinBuilder.newJoin(
 				clazzFrom, clazzJoined, fromTableAlias, joinedAlias, property, joinType);
+		this.joins.add(join);
+		
+		return join;
+	}
+	
+	/**
+	 * Método para adicionar um join na consulta.
+	 * 
+	 * @param clazzFrom - classe base
+	 * @param clazzJoined - classe que será unido
+	 * @param fromAlias - alias do from
+	 * @param joinedAlias - alias da classe do join
+	 * @param property - propriedade para fazer o join
+	 */
+	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String fromAlias,
+			String joinedAlias, String property) {
+		
+		Join join = JoinBuilder.newJoin(
+				clazzFrom, clazzJoined, fromAlias, joinedAlias, property, JoinDBType.INNER);
 		this.joins.add(join);
 		
 		return join;
@@ -423,8 +468,8 @@ public class SQLBuilder implements Builder {
 		}
 		
 		if (!joins.isEmpty()) {
-			sql.append(" ");
 			for (Join j : joins) {
+				sql.append(" ");
 				sql.append(j.buildSQL());
 			}
 		}

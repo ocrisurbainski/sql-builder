@@ -59,6 +59,14 @@ public class Join implements Builder {
 	 */
 	protected String property;
 	
+	public Class<?> getClazzFrom() {
+		return clazzFrom;
+	}
+	
+	public Class<?> getClazzJoined() {
+		return clazzJoined;
+	}
+	
 	/**
 	 * Construtor da classe.
 	 * 
@@ -108,6 +116,15 @@ public class Join implements Builder {
 	 */
 	public void addCondition(Condition... condition) {
 		this.conditions.addAll(Arrays.asList(condition));
+	}
+	
+	/**
+	 * Método que seta o alias do from.
+	 * 
+	 * @param fromAlias - alias da classe from
+	 */
+	public void fromAlias(String fromAlias) {
+		this.fromAlias = fromAlias;
 	}
 	
 	/**
