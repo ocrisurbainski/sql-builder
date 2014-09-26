@@ -13,6 +13,7 @@ import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.builder.condititon.impl.JoinCondition;
 import com.urbainski.sql.builder.db.types.ConditionDBTypes;
 import com.urbainski.sql.builder.db.types.JoinDBType;
+import com.urbainski.sql.builder.select.Select;
 
 /**
  * Classe que representa o join nas queries.
@@ -65,6 +66,14 @@ public class Join implements Builder {
 	
 	public Class<?> getClazzJoined() {
 		return clazzJoined;
+	}
+	
+	public String getFromAlias() {
+		return fromAlias;
+	}
+	
+	public String getJoinedAlias() {
+		return joinedAlias;
 	}
 	
 	/**
@@ -204,6 +213,17 @@ public class Join implements Builder {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Método responsável por criar um {@link Select} com base no join.
+	 * 
+	 * @return {@link Select}
+	 */
+	public Select builSelect() {
+		Select select = new Select(clazzJoined);
+		select.alias(joinedAlias);
+		return select;
 	}
 
 }

@@ -489,7 +489,23 @@ public class SQLBuilder implements Builder {
 			sql.append(" ");
 		}
 		
+		boolean readFieldsOfJoins = false;
+		if (select.getFields().isEmpty()){
+			readFieldsOfJoins = true;
+		}
+		
 		sql.append(select.buildSQL());
+		
+		if (readFieldsOfJoins) {
+			for (Join j : joins) {
+				sql.append(", ");
+				
+				Select selectJoin = j.builSelect();
+				sql.append(selectJoin.buildSQL());
+			}
+		}
+		
+		sql.append(" ");
 		sql.append(FROM);
 		sql.append(" ");
 		sql.append(getTableName(entityClass));

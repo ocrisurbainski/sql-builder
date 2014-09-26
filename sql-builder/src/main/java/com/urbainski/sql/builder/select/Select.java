@@ -41,6 +41,10 @@ public class Select implements Builder {
 	 */
 	private String tableOrAlias;
 	
+	public List<Field> getFields() {
+		return fields;
+	}
+	
 	/**
 	 * Construtor padrão da classe.
 	 * @param entityClass - entidade
@@ -120,7 +124,6 @@ public class Select implements Builder {
 			} 
 		}
 		
-		str.append(" ");
 		return str.toString();
 	}
 
