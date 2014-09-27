@@ -427,6 +427,17 @@ public class SQLBuilder implements Builder {
 	 * Método para adicionar um campo na consulta apenas pelo nome.
 	 * 
 	 * @param entity - classe de entidade
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInOrderBy(Class<?> entity, String fieldName) {
+		String tableOrAlias = getTableName(entity);
+		addFieldInOrderBy(entity, tableOrAlias, fieldName);
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param entity - classe de entidade
 	 * @param tableOrAlias - nome da tabela ou alias
 	 * @param fieldName - nome do campo
 	 */
@@ -460,6 +471,17 @@ public class SQLBuilder implements Builder {
 			tableOrAlias = fromAlias;
 		}
 		
+		addFieldInGroupBy(entityClass, tableOrAlias, fieldName);
+	}
+	
+	/**
+	 * Método para adicionar um campo no group by da query.
+	 * 
+	 * @param entity - classe de entidade
+	 * @param fieldName - nome do campo
+	 */
+	public void addFieldInGroupBy(Class<?> entity, String fieldName) {
+		String tableOrAlias = getTableName(entity);
 		addFieldInGroupBy(entityClass, tableOrAlias, fieldName);
 	}
 	
