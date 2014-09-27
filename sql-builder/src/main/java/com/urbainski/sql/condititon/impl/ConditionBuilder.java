@@ -1,10 +1,10 @@
-package com.urbainski.sql.builder.condititon.impl;
+package com.urbainski.sql.condititon.impl;
 
 import java.util.List;
 
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.ConstainsDBTypes;
 
 /**
  * Classe para gerar conditions para os sql.

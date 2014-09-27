@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
-import com.urbainski.sql.builder.db.types.UnionDBTypes;
+import com.urbainski.sql.db.types.UnionDBTypes;
 
 /**
  * Classe de teste para queries com unions.

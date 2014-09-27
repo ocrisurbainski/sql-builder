@@ -1,9 +1,9 @@
-package com.urbainski.sql.builder.condititon.impl;
+package com.urbainski.sql.condititon.impl;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.db.types.ConditionDBTypes;
 
 /**
  * Implementação de condições para o join.

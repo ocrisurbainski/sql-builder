@@ -1,12 +1,12 @@
-package com.urbainski.sql.builder.condititon.impl;
+package com.urbainski.sql.condititon.impl;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import java.util.List;
 
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.db.types.ConditionDBTypes;
 
 /**
  * Implementação básica das condições do where.

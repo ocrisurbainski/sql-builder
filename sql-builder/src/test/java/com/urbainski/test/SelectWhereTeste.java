@@ -9,10 +9,10 @@ import org.junit.Test;
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.ConstainsDBTypes;
 
 /**
  * Classe de teste para queries com where.

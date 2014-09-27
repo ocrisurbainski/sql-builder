@@ -1,19 +1,19 @@
-package com.urbainski.sql.builder.join;
+package com.urbainski.sql.join;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getJoinInformation;
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getJoinInformation;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.urbainski.sql.builder.Builder;
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
-import com.urbainski.sql.builder.condititon.impl.JoinCondition;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.JoinDBType;
-import com.urbainski.sql.builder.select.Select;
+import com.urbainski.sql.builder.SQL;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.condititon.impl.JoinCondition;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.JoinDBType;
+import com.urbainski.sql.select.Select;
 
 /**
  * Classe que representa o join nas queries.
@@ -23,7 +23,7 @@ import com.urbainski.sql.builder.select.Select;
  * @version 1.0
  *
  */
-public class Join implements Builder {
+public class Join implements SQL {
 
 	/**
 	 * Lista de condições do join.

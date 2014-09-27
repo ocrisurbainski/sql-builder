@@ -1,8 +1,8 @@
-package com.urbainski.sql.builder.field;
+package com.urbainski.sql.field;
 
 import static com.urbainski.sql.util.SQLUtils.AS;
 
-import com.urbainski.sql.builder.Builder;
+import com.urbainski.sql.builder.SQL;
 
 /**
  * Objeto que representa campos adicionados na consulta.
@@ -12,7 +12,7 @@ import com.urbainski.sql.builder.Builder;
  * @version 1.0
  *
  */
-public class Field implements Builder {
+public class Field implements SQL {
 	
 	/**
 	 * Classe de entidade.

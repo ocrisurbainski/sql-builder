@@ -1,6 +1,6 @@
-package com.urbainski.sql.builder.join;
+package com.urbainski.sql.join;
 
-import com.urbainski.sql.builder.db.types.JoinDBType;
+import com.urbainski.sql.db.types.JoinDBType;
 
 /**
  * Classe para gerar os join do queries.

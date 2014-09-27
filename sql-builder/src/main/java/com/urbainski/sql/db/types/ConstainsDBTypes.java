@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.db.types;
+package com.urbainski.sql.db.types;
 
 /**
  * Classe de enum para as condições de 'contains' no banco de dados.

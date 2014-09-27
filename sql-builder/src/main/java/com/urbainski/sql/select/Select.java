@@ -1,15 +1,15 @@
-package com.urbainski.sql.builder.select;
+package com.urbainski.sql.select;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getAllFieldsNames;
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getAllFieldsNames;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.urbainski.sql.builder.Builder;
-import com.urbainski.sql.builder.field.Field;
-import com.urbainski.sql.builder.field.FieldBuilder;
+import com.urbainski.sql.builder.SQL;
+import com.urbainski.sql.field.Field;
+import com.urbainski.sql.field.FieldBuilder;
 
 /**
  * Classe que representa o select da query.
@@ -19,7 +19,7 @@ import com.urbainski.sql.builder.field.FieldBuilder;
  * @version 1.0
  *
  */
-public class Select implements Builder {
+public class Select implements SQL {
 	
 	/**
 	 * Lista de campos da query.

@@ -1,10 +1,10 @@
-package com.urbainski.sql.builder.condititon.impl;
+package com.urbainski.sql.condititon.impl;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.ConstainsDBTypes;
 
 /**
  * Classe que implementar a condição de conter um determinado valor.

@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.db.types;
+package com.urbainski.sql.db.types;
 
 /**
  * Enum com os tipos de unios.

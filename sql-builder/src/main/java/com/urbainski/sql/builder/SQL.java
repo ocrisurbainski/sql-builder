@@ -8,7 +8,7 @@ package com.urbainski.sql.builder;
  * @version 1.0
  *
  */
-public interface Builder {
+public interface SQL {
 
 	/**
 	 * Método responsável por construir a consulta SQL.

@@ -1,6 +1,6 @@
 package com.urbainski.sql.builder;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 import static com.urbainski.sql.util.SQLUtils.AS;
 import static com.urbainski.sql.util.SQLUtils.DISTINCT;
 import static com.urbainski.sql.util.SQLUtils.FROM;
@@ -10,19 +10,19 @@ import static com.urbainski.sql.util.SQLUtils.WHERE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.urbainski.sql.builder.condititon.Condition;
-import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
-import com.urbainski.sql.builder.db.types.JoinDBType;
-import com.urbainski.sql.builder.db.types.OrderByDBTypes;
-import com.urbainski.sql.builder.db.types.UnionDBTypes;
-import com.urbainski.sql.builder.field.FieldBuilder;
-import com.urbainski.sql.builder.groupby.GroupBy;
-import com.urbainski.sql.builder.join.Join;
-import com.urbainski.sql.builder.join.JoinBuilder;
-import com.urbainski.sql.builder.orderby.OrderBy;
-import com.urbainski.sql.builder.select.Select;
+import com.urbainski.sql.condititon.Condition;
+import com.urbainski.sql.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.ConstainsDBTypes;
+import com.urbainski.sql.db.types.JoinDBType;
+import com.urbainski.sql.db.types.OrderByDBTypes;
+import com.urbainski.sql.db.types.UnionDBTypes;
+import com.urbainski.sql.field.FieldBuilder;
+import com.urbainski.sql.groupby.GroupBy;
+import com.urbainski.sql.join.Join;
+import com.urbainski.sql.join.JoinBuilder;
+import com.urbainski.sql.orderby.OrderBy;
+import com.urbainski.sql.select.Select;
 
 /**
  * Classe que representa um sql para consulta no banco de dados.
@@ -32,7 +32,7 @@ import com.urbainski.sql.builder.select.Select;
  * @version 1.0
  *
  */
-public class SQLBuilder implements Builder {
+public class SQLBuilder implements SQL {
 
 	/**
 	 * Objeto que representa os campos do select.

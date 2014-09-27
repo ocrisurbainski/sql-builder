@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.reflection;
+package com.urbainski.sql.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,9 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
-import com.urbainski.sql.builder.condititon.impl.JoinCondition;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
+import com.urbainski.sql.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.condititon.impl.JoinCondition;
+import com.urbainski.sql.db.types.ConditionDBTypes;
 
 /**
  * Classe que le uma classe por reflection para pegar as informações

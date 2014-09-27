@@ -1,6 +1,6 @@
-package com.urbainski.sql.builder.condititon;
+package com.urbainski.sql.condititon;
 
-import com.urbainski.sql.builder.Builder;
+import com.urbainski.sql.builder.SQL;
 
 /**
  * Interface que representa as condições de um where.
@@ -10,6 +10,6 @@ import com.urbainski.sql.builder.Builder;
  * @version 1.0
  *
  */
-public interface Condition extends Builder {
+public interface Condition extends SQL {
 	
 }

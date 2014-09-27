@@ -1,24 +1,23 @@
-package com.urbainski.sql.builder.orderby;
+package com.urbainski.sql.groupby;
 
-import static com.urbainski.sql.util.SQLUtils.ORDER_BY;
+import static com.urbainski.sql.util.SQLUtils.GROUP_BY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.urbainski.sql.builder.Builder;
-import com.urbainski.sql.builder.db.types.OrderByDBTypes;
-import com.urbainski.sql.builder.field.Field;
+import com.urbainski.sql.builder.SQL;
+import com.urbainski.sql.field.Field;
 
 /**
- * Classe que representa o orderby da query.
+ * Classe que representa o group by da query.
  * 
  * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
- * @since 23/09/2014
+ * @since 24/09/2014
  * @version 1.0
  *
  */
-public class OrderBy implements Builder {
+public class GroupBy implements SQL {
 	
 	/**
 	 * Lista de campos.
@@ -26,21 +25,9 @@ public class OrderBy implements Builder {
 	protected List<Field> fields;
 	
 	/**
-	 * Tipo do order by.
-	 */
-	protected OrderByDBTypes orderByType;
-
-	public void setOrderByType(OrderByDBTypes orderByType) {
-		this.orderByType = orderByType;
-	}
-	
-	/**
 	 * Construtor padrão.
-	 * 
-	 * @param type - tipo do order by
 	 */
-	public OrderBy(OrderByDBTypes type) {
-		this.orderByType = type;
+	public GroupBy() {
 		this.fields = new ArrayList<Field>();
 	}
 	
@@ -61,11 +48,11 @@ public class OrderBy implements Builder {
 	public void addField(Field f) {
 		this.fields.add(f);
 	}
-	
+
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(ORDER_BY);
+		sql.append(GROUP_BY);
 		sql.append(" ");
 		
 		for (Field f : fields) {
@@ -77,8 +64,6 @@ public class OrderBy implements Builder {
 			}
 		}
 
-		sql.append(" ");
-		sql.append(orderByType.getOrderByType());
 		return sql.toString();
 	}
 

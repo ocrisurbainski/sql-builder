@@ -1,4 +1,4 @@
-package com.urbainski.sql.builder.db.types;
+package com.urbainski.sql.db.types;
 
 /**
  * Enum para os tipos de ordenação possivel no banco de dados.

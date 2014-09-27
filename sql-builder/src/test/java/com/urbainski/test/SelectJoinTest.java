@@ -8,11 +8,11 @@ import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Endereco;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
-import com.urbainski.sql.builder.condititon.impl.ConditionBuilder;
-import com.urbainski.sql.builder.db.types.ConditionDBTypes;
-import com.urbainski.sql.builder.db.types.ConstainsDBTypes;
-import com.urbainski.sql.builder.db.types.JoinDBType;
-import com.urbainski.sql.builder.join.Join;
+import com.urbainski.sql.condititon.impl.ConditionBuilder;
+import com.urbainski.sql.db.types.ConditionDBTypes;
+import com.urbainski.sql.db.types.ConstainsDBTypes;
+import com.urbainski.sql.db.types.JoinDBType;
+import com.urbainski.sql.join.Join;
 
 public class SelectJoinTest {
 
