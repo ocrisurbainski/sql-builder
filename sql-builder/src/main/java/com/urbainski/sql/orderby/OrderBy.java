@@ -1,6 +1,6 @@
 package com.urbainski.sql.orderby;
 
-import static com.urbainski.sql.util.SQLUtils.ORDER_BY;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.ORDER_BY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +65,7 @@ public class OrderBy implements SQL {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(ORDER_BY);
+		sql.append(ORDER_BY.getSQLSelectType());
 		sql.append(" ");
 		
 		for (Field f : fields) {

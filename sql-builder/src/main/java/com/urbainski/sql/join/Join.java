@@ -166,7 +166,7 @@ public class Join implements SQL {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(joinType.getJoinName());
+		sql.append(joinType.getJoinType());
 		sql.append(" ");
 		sql.append(getTableName(clazzJoined));
 		

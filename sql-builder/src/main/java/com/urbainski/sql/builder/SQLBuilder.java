@@ -1,11 +1,11 @@
 package com.urbainski.sql.builder;
 
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
-import static com.urbainski.sql.util.SQLUtils.AS;
-import static com.urbainski.sql.util.SQLUtils.DISTINCT;
-import static com.urbainski.sql.util.SQLUtils.FROM;
-import static com.urbainski.sql.util.SQLUtils.SELECT;
-import static com.urbainski.sql.util.SQLUtils.WHERE;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.AS;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.DISTINCT;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.FROM;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.SELECT;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.WHERE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -523,11 +523,11 @@ public class SQLBuilder implements SQL {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(SELECT);
+		sql.append(SELECT.getSQLSelectType());
 		sql.append(" ");
 		
 		if (distinct) {
-			sql.append(DISTINCT);
+			sql.append(DISTINCT.getSQLSelectType());
 			sql.append(" ");
 		}
 		
@@ -548,12 +548,12 @@ public class SQLBuilder implements SQL {
 		}
 		
 		sql.append(" ");
-		sql.append(FROM);
+		sql.append(FROM.getSQLSelectType());
 		sql.append(" ");
 		sql.append(getTableName(entityClass));
 		
 		if (fromAlias != null && !(fromAlias.isEmpty())) {
-			sql.append(" " + AS + " " + fromAlias);
+			sql.append(" " + AS.getSQLSelectType() + " " + fromAlias);
 		}
 		
 		if (!joins.isEmpty()) {
@@ -565,7 +565,7 @@ public class SQLBuilder implements SQL {
 		
 		if (where != null) {
 			sql.append(" ");
-			sql.append(WHERE);
+			sql.append(WHERE.getSQLSelectType());
 			sql.append(" ");
 			sql.append(where.buildSQL());
 		}

@@ -1,6 +1,6 @@
 package com.urbainski.sql.groupby;
 
-import static com.urbainski.sql.util.SQLUtils.GROUP_BY;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.GROUP_BY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +52,7 @@ public class GroupBy implements SQL {
 	@Override
 	public String buildSQL() {
 		final StringBuilder sql = new StringBuilder();
-		sql.append(GROUP_BY);
+		sql.append(GROUP_BY.getSQLSelectType());
 		sql.append(" ");
 		
 		for (Field f : fields) {

@@ -1,6 +1,6 @@
 package com.urbainski.sql.field;
 
-import static com.urbainski.sql.util.SQLUtils.AS;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.AS;
 
 import com.urbainski.sql.builder.SQL;
 
@@ -97,7 +97,7 @@ public class Field implements SQL {
 		
 		if (!(alias.isEmpty())) {
 			sql.append(" ");
-			sql.append(AS);
+			sql.append(AS.getSQLSelectType());
 			sql.append(" ");
 			sql.append(alias);
 		}

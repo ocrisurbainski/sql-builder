@@ -31,13 +31,8 @@ public enum JoinDBType {
 		this.name = name;
 	}
 	
-	public String getJoinName() {
+	public String getJoinType() {
 		return name;
-	}
-	
-	@Override
-	public String toString() {
-		return this.name;
 	}
 	
 }

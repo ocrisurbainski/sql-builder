@@ -65,9 +65,4 @@ public enum ConditionDBTypes {
 		return name;
 	}
 	
-	@Override
-	public String toString() {
-		return "ConditionDBTypes[" + name + "]";
-	}
-	
 }
