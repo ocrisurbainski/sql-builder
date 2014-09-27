@@ -13,6 +13,11 @@ import com.urbainski.sql.builder.Builder;
  *
  */
 public class Field implements Builder {
+	
+	/**
+	 * Classe de entidade.
+	 */
+	protected Class<?> entityClass;
 
 	/**
 	 * Nome do campo na query.
@@ -28,6 +33,14 @@ public class Field implements Builder {
 	 * Nome da tabela ou alias.
 	 */
 	protected String tableNameOrAlias;
+	
+	public Class<?> getEntityClass() {
+		return entityClass;
+	}
+	
+	public void setEntityClass(Class<?> entityClass) {
+		this.entityClass = entityClass;
+	}
 	
 	public String getFieldName() {
 		return fieldName;
@@ -59,8 +72,11 @@ public class Field implements Builder {
 	 * @param fieldName
 	 * @param alias
 	 */
-	public Field(String tableNameOrAlias, String fieldName, String alias) {
+	public Field(Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, String alias) {
 		super();
+		
+		this.entityClass = entityClass;
 		this.fieldName = fieldName;
 		this.alias = alias;
 		this.tableNameOrAlias = tableNameOrAlias;

@@ -1,6 +1,5 @@
 package com.urbainski.sql.builder;
 
-import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
 import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
 import static com.urbainski.sql.util.SQLUtils.AS;
 import static com.urbainski.sql.util.SQLUtils.DISTINCT;
@@ -414,7 +413,7 @@ public class SQLBuilder implements Builder {
 		// chama o método orderBy para inicializar o objeto caso seja nulo
 		this.orderBy();
 		this.orderBy.addField(FieldBuilder.newField(
-				tableOrAlias, getDatabaseNameField(entity, fieldName), ""));
+				entity, tableOrAlias, fieldName, "", true));
 	}
 	
 	/**
@@ -454,7 +453,7 @@ public class SQLBuilder implements Builder {
 		// chama o método groupBy para inicializar o objeto caso seja nulo
 		this.groupBy();
 		this.groupBy.addField(FieldBuilder.newField(
-				tableOrAlias, getDatabaseNameField(entity, fieldName), ""));
+				entity, tableOrAlias, fieldName, "", true));
 	}
 	
 	/**

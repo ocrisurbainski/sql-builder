@@ -68,9 +68,9 @@ public class SelectOrderByTest {
 		.toString();
 		
 		Field fieldId 	= FieldBuilder.newField(
-				Livro.class, "", "id", 	"identificadorLivro");
+				Livro.class, "id", 	"identificadorLivro");
 		Field fieldNome = FieldBuilder.newField(
-				Livro.class, "", "nome", "nomeLivro");
+				Livro.class, "nome", "nomeLivro");
 	
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
 		sqlBuilder.select().addField(fieldId, fieldNome);

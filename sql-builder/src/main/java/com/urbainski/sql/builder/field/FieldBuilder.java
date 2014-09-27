@@ -1,6 +1,7 @@
 package com.urbainski.sql.builder.field;
 
 import static com.urbainski.sql.builder.reflection.TableReflectionReader.getDatabaseNameField;
+import static com.urbainski.sql.builder.reflection.TableReflectionReader.getTableName;
 
 /**
  * Classe responsável por construir um objeto {@link Field}.
@@ -23,25 +24,48 @@ public final class FieldBuilder {
 	 * Método que constroi uma instância de {@link Field}.
 	 * 
 	 * @param entityClass - classe de entidade
-	 * @param tableNameOrAlias - nome ou alias da tabela
-	 * @param fieldName
+	 * @param fieldName - nome do campo
+	 * @param fieldAlias - alias do campo
 	 * 
 	 * @return {@link Field}
 	 */
-	public static Field newField(Class<?> entityClass, String tableNameOrAlias, String fieldName) {
-		return newField(entityClass, tableNameOrAlias, fieldName, "");
+	public static Field newField(
+			Class<?> entityClass, String fieldName, String fieldAlias) {
+		return newField(entityClass, getTableName(entityClass), fieldName, 
+				fieldAlias, true);
 	}
 	
 	/**
 	 * Método que constroi uma instância de {@link Field}.
 	 * 
+	 * @param entityClass - classe de entidade
 	 * @param tableNameOrAlias - nome ou alias da tabela
-	 * @param fieldName
+	 * @param fieldName - nome do campo
+	 * @param fieldAlias - alias do campo
 	 * 
 	 * @return {@link Field}
 	 */
-	public static Field newField(String tableNameOrAlias, String fieldName) {
-		return newField(tableNameOrAlias, fieldName, "");
+	public static Field newField(
+			Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, String fieldAlias) {
+		return newField(entityClass, tableNameOrAlias, fieldName, fieldAlias, true);
+	}
+	
+	/**
+	 * Método que constroi uma instância de {@link Field}.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableNameOrAlias - nome ou alias da tabela
+	 * @param fieldName - nome do campo
+	 * @param readFielOfEntity - se true le a propriedade de dentro de entidade
+	 * 		caso contrário apenas a adicona no campo
+	 * 
+	 * @return {@link Field}
+	 */
+	public static Field newField(
+			Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, boolean readFielOfEntity) {
+		return newField(entityClass, tableNameOrAlias, fieldName, "", readFielOfEntity);
 	}
 	
 	/**
@@ -51,28 +75,21 @@ public final class FieldBuilder {
 	 * @param tableNameOrAlias - nome ou alias da tabela
 	 * @param fieldName - nome do campo
 	 * @param alias - alias do campo
+	 * @param readFielOfEntity - se true le a propriedade de dentro de entidade
+	 * 		caso contrário apenas a adicona no campo
 	 * 
 	 * @return {@link Field}
 	 */
 	public static Field newField(
-			Class<?> entityClass, String tableNameOrAlias, String fieldName, String alias) {
+			Class<?> entityClass, String tableNameOrAlias, String fieldName, 
+			String alias, boolean readFielOfEntity) {
+		
+		if (readFielOfEntity) {
+			fieldName = getDatabaseNameField(entityClass, fieldName);
+		}
+		
 		final Field field = new Field(
-				tableNameOrAlias, getDatabaseNameField(entityClass, fieldName), alias);
-		return field;
-	}
-	
-	/**
-	 * Método que constroi uma instância de {@link Field}.
-	 * 
-	 * @param tableNameOrAlias - nome ou alias da tabela
-	 * @param fieldName - nome do campo
-	 * @param alias - alias do campo
-	 * 
-	 * @return {@link Field}
-	 */
-	public static Field newField(
-			String tableNameOrAlias, String fieldName, String alias) {
-		final Field field = new Field(tableNameOrAlias, fieldName, alias);
+				entityClass, tableNameOrAlias, fieldName, alias);
 		return field;
 	}
 	

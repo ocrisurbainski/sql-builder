@@ -90,7 +90,44 @@ public class Select implements Builder {
 	 */
 	public void addField(String fieldName, String alias) {
 		this.fields.add(FieldBuilder.newField(entityClass,
-				this.tableOrAlias, fieldName, alias));
+				this.tableOrAlias, fieldName, alias, true));
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param fieldName - nome do campo
+	 */
+	public void addField(Class<?> entityClass, String fieldName) {
+		this.fields.add(FieldBuilder.newField(entityClass,
+				getTableName(entityClass), fieldName, "", true));
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param fieldName - nome do campo
+	 * @param alias - alias do campo
+	 */
+	public void addField(Class<?> entityClass, String fieldName, String alias) {
+		this.fields.add(FieldBuilder.newField(entityClass,
+				fieldName, alias));
+	}
+	
+	/**
+	 * Método para adicionar um campo na consulta apenas pelo nome.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param aliasEntity - alias da entidade
+	 * @param fieldName - nome do campo
+	 * @param alias - alias do campo
+	 */
+	public void addField(
+			Class<?> entityClass, String aliasEntity, String fieldName, String alias) {
+		this.fields.add(FieldBuilder.newField(entityClass,
+				aliasEntity, fieldName, alias, true));
 	}
 	
 	/**
@@ -103,7 +140,9 @@ public class Select implements Builder {
 		this.tableOrAlias = getTableNameOrTableAlias();
 
 		for (Field f : fields) {
-			f.setTableNameOrAlias(alias);
+			if (this.entityClass.equals(f.getEntityClass())) {
+				f.setTableNameOrAlias(alias);
+			}
 		}
 	}
 	
@@ -147,7 +186,7 @@ public class Select implements Builder {
 	 */
 	private void populateFields(String tableNameOrAlias, List<String> nameFields) {
 		for (String name : nameFields) {
-			this.fields.add(FieldBuilder.newField(tableNameOrAlias, name));
+			this.fields.add(FieldBuilder.newField(entityClass, tableNameOrAlias, name, false));
 		}
 	}
 
