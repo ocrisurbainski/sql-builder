@@ -106,26 +106,17 @@ public class SQLBuilder implements Builder {
 	 * @param fromAlias - alias do from
 	 */
 	public void fromAlias(String fromAlias) {
+		
 		this.fromAlias = fromAlias;
 		this.select.alias(fromAlias);
+		
 		ConditionBuilder.updateAliasForCondition(this.where, entityClass, fromAlias);
+		
 		for (Join j : joins) {
 			if (j.getClazzFrom().equals(entityClass)) {
 				j.fromAlias(fromAlias);
 			}
 		}
-	}
-	
-	/**
-	 * Método para setar o where da query.
-	 * 
-	 * @param type - tipo da condição
-	 * @param fieldName - nome do campo 
-	 * @param value - valor
-	 */
-	public void where(ConditionDBTypes type, String fieldName, Object... value) {
-		this.where = ConditionBuilder.newCondition(
-				this.entityClass, this.fromAlias, type, fieldName, value);
 	}
 	
 	/**
@@ -137,23 +128,52 @@ public class SQLBuilder implements Builder {
 	 * @param value - valor
 	 */
 	public void where(ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
-		this.where = ConditionBuilder.newCondition(
-				this.entityClass, this.fromAlias, containsType, type, fieldName, value);
+		
+		where(containsType, type, this.entityClass, this.fromAlias, fieldName, value);
 	}
 	
 	/**
 	 * Método para setar o where da query.
 	 * 
-	 * @param entityClass - entidade
-	 * @param containsType - tipo do contains 
+	 * @param containsType - tipo do contains
 	 * @param type - tipo da condição
+	 * @param entityClass - classe de entidade
 	 * @param fieldName - nome do campo
 	 * @param value - valor
 	 */
-	public void where(Class<?> entityClass, ConstainsDBTypes containsType, 
-			ConditionDBTypes type, String fieldName, Object value) {
+	public void where(ConstainsDBTypes containsType, ConditionDBTypes type, 
+			Class<?> entityClass, String fieldName, Object value) {
+		
+		where(containsType, type, entityClass, "", fieldName, value);
+	}
+	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param containsType - tipo do contains
+	 * @param type - tipo da condição
+	 * @param entityClass - classe de entidade
+	 * @param entityAlias - alias para a entidade
+	 * @param fieldName - nome do campo
+	 * @param value - valor
+	 */
+	public void where(ConstainsDBTypes containsType, ConditionDBTypes type, 
+			Class<?> entityClass, String entityAlias,
+			String fieldName, Object value) {
+		
 		this.where = ConditionBuilder.newCondition(
-				entityClass, this.fromAlias, containsType, type, fieldName, value);
+				entityClass, entityAlias, containsType, type, fieldName, value);
+	}
+	
+	/**
+	 * Método para setar o where da query.
+	 * 
+	 * @param type - tipo da condição
+	 * @param fieldName - nome do campo 
+	 * @param value - valor
+	 */
+	public void where(ConditionDBTypes type, String fieldName, Object... value) {
+		where(type, this.entityClass, this.fromAlias, fieldName, value);
 	}
 	
 	/**
@@ -161,13 +181,14 @@ public class SQLBuilder implements Builder {
 	 * 
 	 * @param type - tipo da condição
 	 * @param entiyClass - entidade
+	 * @param entityAlias - alias da entidade
 	 * @param fieldName - nome do campo
 	 * @param value - valor
 	 */
 	public void where(ConditionDBTypes type, Class<?> entiyClass, 
-			String fieldName, Object... value) {
+			String entityAlias, String fieldName, Object... value) {
 		this.where = ConditionBuilder.newCondition(
-				entiyClass, this.fromAlias, type, fieldName, value);
+				entiyClass, entityAlias, type, fieldName, value);
 	}
 	
 	/**

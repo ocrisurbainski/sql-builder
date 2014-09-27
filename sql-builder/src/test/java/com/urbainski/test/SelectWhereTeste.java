@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.builder.condititon.Condition;
@@ -388,6 +389,26 @@ public class SelectWhereTeste {
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.where(ConditionDBTypes.EQUALS, "autor", 9);
+		
+		String sqlGerado = builder.buildSQL();
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlCerto, sqlGerado);
+	}
+	
+	@Test
+	public void testeEqualInJoinField() {
+		final String sqlCerto = new StringBuilder()
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id, ")
+		.append("autor.id, autor.ds_nome, autor.dt_nascimento, autor.endereco_id ")
+		.append("from livro ")
+		.append("inner join autor on livro.autor_id = autor.id ")
+		.append("where autor.ds_nome ilike '%cristian%'")
+		.toString();
+	
+		SQLBuilder builder = new SQLBuilder(Livro.class);
+		builder.addJoin(Autor.class, "autor");
+		builder.where(ConstainsDBTypes.ANY, ConditionDBTypes.ILIKE, Autor.class, "nome", "cristian");
 		
 		String sqlGerado = builder.buildSQL();
 		System.out.println(sqlGerado);
