@@ -20,7 +20,9 @@ public class SelectJoinTest {
 	public void testSimpleJoin() {
 		final String sqlCerto = new StringBuilder()
 		.append("select livro.id, livro.ds_nome, ")
-		.append("livro.nr_anopublicacao, livro.autor_id from livro ")
+		.append("livro.nr_anopublicacao, livro.autor_id, ")
+		.append("autor.id, autor.ds_nome, autor.dt_nascimento, ")
+		.append("autor.endereco_id from livro ")
 		.append("inner join autor on ")
 		.append("livro.autor_id = autor.id")
 		.toString();
@@ -38,7 +40,9 @@ public class SelectJoinTest {
 	public void testJoinComAliasnoFrom() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("autor.id, autor.ds_nome, autor.dt_nascimento, ")
+		.append("autor.endereco_id from livro as l0 ")
 		.append("inner join autor on ")
 		.append("l0.autor_id = autor.id")
 		.toString();
@@ -57,7 +61,9 @@ public class SelectJoinTest {
 	public void testJoinComAliasnoFromEnoJoin() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id from livro as l0 ")
 		.append("inner join autor a0 on ")
 		.append("l0.autor_id = a0.id")
 		.toString();
@@ -76,7 +82,9 @@ public class SelectJoinTest {
 	public void testLeftJoinComAliasnoFromEnoJoin() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id from livro as l0 ")
 		.append("left join autor a0 on ")
 		.append("l0.autor_id = a0.id")
 		.toString();
@@ -95,7 +103,10 @@ public class SelectJoinTest {
 	public void testeJoinDoJoinTypeInner() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id, e0.id, e0.ds_endereco, ")
+		.append("e0.nr_numero from livro as l0 ")
 		.append("inner join autor a0 on ")
 		.append("l0.autor_id = a0.id ")
 		.append("inner join endereco e0 on ")
@@ -117,7 +128,10 @@ public class SelectJoinTest {
 	public void testeJoinDoJoinTypeLeft() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id, e0.id, e0.ds_endereco, ")
+		.append("e0.nr_numero from livro as l0 ")
 		.append("left join autor a0 on ")
 		.append("l0.autor_id = a0.id ")
 		.append("left join endereco e0 on ")
@@ -140,7 +154,9 @@ public class SelectJoinTest {
 	public void testLeftJoinComAliasnoFromEnoJoinECondicaoAMainsNoJoin() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id from livro as l0 ")
 		.append("left join autor a0 on ")
 		.append("l0.autor_id = a0.id and ")
 		.append("a0.ds_nome like 'Cristian%'")
@@ -163,7 +179,9 @@ public class SelectJoinTest {
 	public void testLeftJoinComAliasnoFromEnoJoinE2CondicaoAMainsNoJoin() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, ")
-		.append("l0.nr_anopublicacao, l0.autor_id from livro as l0 ")
+		.append("l0.nr_anopublicacao, l0.autor_id, ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, ")
+		.append("a0.endereco_id from livro as l0 ")
 		.append("left join autor a0 on ")
 		.append("l0.autor_id = a0.id and ")
 		.append("a0.ds_nome like 'Cristian%' and ")
