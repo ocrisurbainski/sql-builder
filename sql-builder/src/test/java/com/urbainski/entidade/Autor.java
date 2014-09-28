@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +39,10 @@ public class Autor implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private Endereco endereco;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "editora_id", referencedColumnName = "id")
+	private Editora editora;
 	
 	public Integer getId() {
 		return id;

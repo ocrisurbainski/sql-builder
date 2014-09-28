@@ -187,8 +187,38 @@ public class SQLBuilder implements SQL {
 	 */
 	public void where(ConditionDBTypes type, Class<?> entiyClass, 
 			String entityAlias, String fieldName, Object... value) {
+		
 		this.where = ConditionBuilder.newCondition(
 				entiyClass, entityAlias, type, fieldName, value);
+	}
+	
+	/**
+	 * Método que cria um condição para o where.
+	 * 
+	 * @param fieldName - nome do campo
+	 * @param conditionType - tipo da condição
+	 * @param subselect - query do subselect
+	 */
+	public void where(ConditionDBTypes conditionType, 
+			String fieldName, SQLBuilder subselect) {
+		
+		where(conditionType, entityClass, fromAlias, fieldName, subselect);
+	}
+	
+	/**
+	 * Método que cria um condição para o where.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param aliasTable - alias da tabela
+	 * @param fieldName - nome do campo
+	 * @param conditionType - tipo da condição
+	 * @param subselect - query do subselect
+	 */
+	public void where(ConditionDBTypes conditionType, Class<?> entityClass, 
+			String aliasTable,String fieldName, SQLBuilder subselect) {
+		
+		this.where = ConditionBuilder.newSubselectCondition(
+				entityClass, aliasTable, fieldName, conditionType, subselect);
 	}
 	
 	/**

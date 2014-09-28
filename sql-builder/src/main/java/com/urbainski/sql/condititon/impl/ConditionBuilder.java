@@ -2,9 +2,11 @@ package com.urbainski.sql.condititon.impl;
 
 import java.util.List;
 
+import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.condititon.Condition;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 import com.urbainski.sql.db.types.ConstainsDBTypes;
+import com.urbainski.sql.util.Assert;
 
 /**
  * Classe para gerar conditions para os sql.
@@ -52,15 +54,10 @@ public final class ConditionBuilder {
 	 */
 	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
 			ConditionDBTypes type, String fieldName, Object... value) {
-		if (type == null) {
-			throw new IllegalArgumentException("Tipo da condição deve ser informada");
-		}
-		if (fieldName == null || fieldName.isEmpty()) {
-			throw new IllegalArgumentException("Nome do campo deve ser informada");
-		}
-		if (value == null) {
-			throw new IllegalArgumentException("Argumento 'value' deve ser informado");
-		}
+		
+		Assert.parameterNotNull(type, "Tipo da condição deve ser informada");
+		Assert.parameterNotNullAndNotEmpty(fieldName, "Nome do campo deve ser informada");
+		Assert.parameterNotNull(value, "Argumento 'value' deve ser informado");
 		
 		if (ConditionDBTypes.EQUALS.equals(type) 
 				|| ConditionDBTypes.DIFFERENT.equals(type)
@@ -75,12 +72,14 @@ public final class ConditionBuilder {
 							"Parâmetro 'value' para as condições 'IN' e 'NOT IN' dever ser do tipo List");
 				}
 			}
-			return new SimpleCondition(entityClass, tableFromAlias, type, fieldName, value[0]);
+			return new SimpleCondition(
+					entityClass, tableFromAlias, type, fieldName, value[0]);
 		} else if (ConditionDBTypes.BETWEEN.equals(type)) {
 			if (value.length < 2) {
 				throw new IllegalArgumentException("Para condição de 'between' é esperado dos values");
 			}
-			return new BetweenCondition(entityClass, tableFromAlias, fieldName, value[0], value[1]);
+			return new BetweenCondition(
+					entityClass, tableFromAlias, fieldName, value[0], value[1]);
 		} else if (ConditionDBTypes.AND.equals(type)
 				|| ConditionDBTypes.OR.equals(type)) {
 			throw new IllegalArgumentException(
@@ -102,7 +101,9 @@ public final class ConditionBuilder {
 	 * @return {@link Condition}
 	 */
 	public static Condition newCondition(Class<?> entityClass, String tableFromAlias,
-			ConstainsDBTypes containsType, ConditionDBTypes type, String fieldName, Object value) {
+			ConstainsDBTypes containsType, ConditionDBTypes type, 
+			String fieldName, Object value) {
+		
 		if (ConditionDBTypes.LIKE.equals(type)
 				|| ConditionDBTypes.ILIKE.equals(type)) {
 			return new ConstainsCondition(containsType, tableFromAlias, entityClass, type, fieldName, value);
@@ -122,6 +123,7 @@ public final class ConditionBuilder {
 	 */
 	public static Condition newCondition(
 			ConditionDBTypes type, Condition... conditions) {
+		
 		if (ConditionDBTypes.AND.equals(type)
 				|| ConditionDBTypes.OR.equals(type)) {
 			return new BooleanCondition(type, conditions);
@@ -148,8 +150,26 @@ public final class ConditionBuilder {
 			Class<?> entityFrom, String fromAlias,
 			Class<?> joinedClass, String joinedAlias,
 			ConditionDBTypes conditionType, String prop1, String prop2) {
+		
 		return new JoinCondition(entityFrom, fromAlias, joinedClass, 
 				joinedAlias, conditionType, prop1, prop2);
+	}
+	
+	/**
+	 * Método para construir um {@link SubselectCondition}.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param aliasTable - alias da tabela
+	 * @param fieldName - nome do campo
+	 * @param conditionType - tipo da condição
+	 * @param subselect - query do subselect
+	 */
+	public static SubselectCondition newSubselectCondition(
+			Class<?> entityClass, String aliasTable, String fieldName, 
+			ConditionDBTypes conditionType, SQLBuilder subselect) {
+
+		return new SubselectCondition(
+				entityClass, aliasTable, fieldName, conditionType, subselect);
 	}
 	
 	/**
@@ -160,9 +180,11 @@ public final class ConditionBuilder {
 	 * @param newAlias - novo alias da entidade
 	 */
 	public static void updateAliasForCondition(Condition condition, Class<?> entity, String newAlias) {
+		
 		if (condition instanceof SimpleCondition
 				|| condition instanceof BetweenCondition
-				|| condition instanceof ConstainsCondition) {
+				|| condition instanceof ConstainsCondition
+				|| condition instanceof SubselectCondition) {
 			
 			final SimpleCondition simpleCondition = ((SimpleCondition) condition);
 			if (entity.equals(simpleCondition.entityClass)) {
