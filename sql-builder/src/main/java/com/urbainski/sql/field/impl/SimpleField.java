@@ -1,4 +1,6 @@
-package com.urbainski.sql.field;
+package com.urbainski.sql.field.impl;
+
+import com.urbainski.sql.field.Field;
 
 
 /**

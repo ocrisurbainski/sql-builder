@@ -1,6 +1,7 @@
-package com.urbainski.sql.field;
+package com.urbainski.sql.field.impl;
 
 import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.field.Field;
 
 /**
  * Classe que represetnta o campo de subselect no corpo da query.

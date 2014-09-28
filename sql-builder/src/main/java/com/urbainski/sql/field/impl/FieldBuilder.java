@@ -1,10 +1,11 @@
-package com.urbainski.sql.field;
+package com.urbainski.sql.field.impl;
 
 import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
+import com.urbainski.sql.field.Field;
 
 /**
  * Classe responsável por construir um objeto {@link Field}.

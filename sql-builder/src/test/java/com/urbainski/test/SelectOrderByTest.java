@@ -8,7 +8,7 @@ import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.field.Field;
-import com.urbainski.sql.field.FieldBuilder;
+import com.urbainski.sql.field.impl.FieldBuilder;
 import com.urbainski.sql.orderby.OrderBy;
 
 /**

@@ -10,11 +10,11 @@ import java.util.List;
 import com.urbainski.sql.builder.SQL;
 import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
-import com.urbainski.sql.field.AggregateField;
 import com.urbainski.sql.field.Field;
-import com.urbainski.sql.field.FieldBuilder;
-import com.urbainski.sql.field.SimpleField;
-import com.urbainski.sql.field.SubselectField;
+import com.urbainski.sql.field.impl.AggregateField;
+import com.urbainski.sql.field.impl.FieldBuilder;
+import com.urbainski.sql.field.impl.SimpleField;
+import com.urbainski.sql.field.impl.SubselectField;
 
 /**
  * Classe que representa o select da query.

@@ -17,7 +17,7 @@ import com.urbainski.sql.db.types.ConstainsDBTypes;
 import com.urbainski.sql.db.types.JoinDBType;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.db.types.UnionDBTypes;
-import com.urbainski.sql.field.FieldBuilder;
+import com.urbainski.sql.field.impl.FieldBuilder;
 import com.urbainski.sql.groupby.GroupBy;
 import com.urbainski.sql.join.Join;
 import com.urbainski.sql.join.JoinBuilder;
