@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.urbainski.sql.builder.SQL;
 import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.db.types.AggregateDBTypes;
+import com.urbainski.sql.field.AggregateField;
 import com.urbainski.sql.field.Field;
 import com.urbainski.sql.field.FieldBuilder;
 import com.urbainski.sql.field.SimpleField;
@@ -82,6 +84,7 @@ public class Select implements SQL {
 	 * @param fieldName - nome do campo
 	 */
 	public void addField(String fieldName) {
+		
 		addField(fieldName, "");
 	}
 	
@@ -92,6 +95,7 @@ public class Select implements SQL {
 	 * @param alias - alias do campo
 	 */
 	public void addField(String fieldName, String alias) {
+		
 		this.fields.add(FieldBuilder.newField(entityClass,
 				this.tableOrAlias, fieldName, alias, true));
 	}
@@ -103,6 +107,7 @@ public class Select implements SQL {
 	 * @param fieldName - nome do campo
 	 */
 	public void addField(Class<?> entityClass, String fieldName) {
+		
 		this.fields.add(FieldBuilder.newField(entityClass,
 				getTableName(entityClass), fieldName, "", true));
 	}
@@ -115,6 +120,7 @@ public class Select implements SQL {
 	 * @param alias - alias do campo
 	 */
 	public void addField(Class<?> entityClass, String fieldName, String alias) {
+		
 		this.fields.add(FieldBuilder.newField(entityClass,
 				fieldName, alias));
 	}
@@ -129,6 +135,7 @@ public class Select implements SQL {
 	 */
 	public void addField(
 			Class<?> entityClass, String aliasEntity, String fieldName, String alias) {
+		
 		this.fields.add(FieldBuilder.newField(entityClass,
 				aliasEntity, fieldName, alias, true));
 	}
@@ -139,6 +146,7 @@ public class Select implements SQL {
 	 * @param subselect - objeto que representa a subconsulta
 	 */
 	public void addField(SQLBuilder subselect) {
+		
 		this.fields.add(FieldBuilder.newField(subselect));
 	}
 	
@@ -149,7 +157,74 @@ public class Select implements SQL {
 	 * @param alias - alias da subconsulta
 	 */
 	public void addField(SQLBuilder subselect, String alias) {
+		
 		this.fields.add(FieldBuilder.newField(subselect, alias));
+	}
+	
+	/**
+	 * Adiciona um {@link AggregateField} na consulta sql.
+	 * 
+	 * @param fieldName - nome do campo
+	 * @param aggregateType - tipo de agregação
+	 */
+	public void addField(String fieldName, AggregateDBTypes aggregateType) {
+		
+		addField(this.entityClass, this.tableOrAlias, fieldName, aggregateType);
+	}
+	
+	/**
+	 * Adiciona um {@link AggregateField} na consulta sql.
+	 * 
+	 * @param fieldName - nome do campo
+	 * @param alias - apelido do campo
+	 * @param aggregateType - tipo de agregação
+	 */
+	public void addField(String fieldName, String alias, AggregateDBTypes aggregateType) {
+		
+		addField(this.entityClass, this.tableOrAlias, fieldName, alias, aggregateType);
+	}
+	
+	/**
+	 * Adiciona um {@link AggregateField} na consulta sql.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param fieldName - classe de entidade
+	 * @param aggregateType - tipo de agregação
+	 */
+	public void addField(Class<?> entityClass, String fieldName, 
+			AggregateDBTypes aggregateType) {
+		
+		addField(entityClass, getTableName(entityClass), fieldName, aggregateType);
+	}
+	
+	/**
+	 * Adiciona um {@link AggregateField} na consulta sql.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableNameOrAlias - alias da entidade
+	 * @param fieldName - classe de entidade
+	 * @param aggregateType - tipo de agregação
+	 */
+	public void addField(Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, AggregateDBTypes aggregateType) {
+		
+		addField(entityClass, tableNameOrAlias, fieldName, "", aggregateType);
+	}
+	
+	/**
+	 * Adiciona um {@link AggregateField} na consulta sql.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableNameOrAlias - alias da entidade
+	 * @param fieldName - classe de entidade
+	 * @param alias - alias do campo
+	 * @param aggregateType - tipo de agregação
+	 */
+	public void addField(Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, String alias, AggregateDBTypes aggregateType) {
+	
+		this.fields.add(FieldBuilder.newField(
+				entityClass, tableNameOrAlias, fieldName, alias, aggregateType));
 	}
 	
 	/**

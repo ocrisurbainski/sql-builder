@@ -53,8 +53,10 @@ public class SimpleField extends Field {
 	/**
 	 * Construto com parametross.
 	 * 
-	 * @param fieldName
-	 * @param alias
+	 * @param entityClass - classe de entidade
+	 * @param tableNameOrAlias - nome ou alias da tablema
+	 * @param fieldName - nome do campo
+	 * @param alias - alias do campo
 	 */
 	public SimpleField(Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, String alias) {

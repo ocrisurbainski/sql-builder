@@ -4,6 +4,7 @@ import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseName
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.db.types.AggregateDBTypes;
 
 /**
  * Classe responsável por construir um objeto {@link Field}.
@@ -121,6 +122,24 @@ public final class FieldBuilder {
 	public static Field newField(SQLBuilder subselect, String alias) {
 		
 		return new SubselectField(subselect, alias);
+	}
+	
+	/**
+	 * Método que constroi um {@link AggregateField}.
+	 * 
+	 * @param entityClass - classe de entidade
+	 * @param tableNameOrAlias - alias da tabela
+	 * @param fieldName - nome do campo
+	 * @param alias - alias do campo
+	 * @param aggregateType - tipo de agregação
+	 * @return
+	 */
+	public static Field newField(Class<?> entityClass, String tableNameOrAlias, 
+			String fieldName, String alias, AggregateDBTypes aggregateType) {
+		
+		return new AggregateField(
+				entityClass, tableNameOrAlias, 
+				getDatabaseNameField(entityClass, fieldName), alias, aggregateType);
 	}
 	
 }
