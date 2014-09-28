@@ -17,9 +17,55 @@ import com.urbainski.sql.db.types.ConditionDBTypes;
  *
  */
 public class SubselectTest {
+	
+	@Test
+	public void testSubselectFieldSemAlias() {
+		final String sqlCerto = new StringBuilder()
+			.append("select ")
+			.append("(select autor.ds_nome from autor where autor.id = 9) ")
+			.append("from livro")
+			.toString();
+	
+		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		subselect.select().addField("nome");
+		subselect.where(ConditionDBTypes.EQUALS, "id", 9);
+		
+		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		sqlBuilder.select().addField(subselect);
+		
+		final String sqlGerado = sqlBuilder.buildSQL();
+		
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlGerado, sqlCerto);
+	}
+	
+	@Test
+	public void testSubselectFieldComAlias() {
+		final String sqlCerto = new StringBuilder()
+			.append("select ")
+			.append("(select a0.ds_nome from autor as a0 where a0.id = 9) ")
+			.append("from livro as l0")
+			.toString();
+	
+		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		subselect.select().addField("nome");
+		subselect.where(ConditionDBTypes.EQUALS, "id", 9);
+		subselect.fromAlias("a0");
+		
+		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		sqlBuilder.select().addField(subselect);
+		sqlBuilder.fromAlias("l0");
+		
+		final String sqlGerado = sqlBuilder.buildSQL();
+		
+		System.out.println(sqlGerado);
+		
+		Assert.assertEquals(sqlGerado, sqlCerto);
+	}
 
 	@Test
-	public void testSubselectSimpleIn() {
+	public void testSubselectWhereIn() {
 		final String sqlCerto = new StringBuilder()
 			.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, ")
 			.append("livro.autor_id from livro where livro.autor_id in (")
@@ -41,7 +87,7 @@ public class SubselectTest {
 	}
 	
 	@Test
-	public void testSubselectSimpleEqual() {
+	public void testSubselectWhereEqual() {
 		final String sqlCerto = new StringBuilder()
 			.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, ")
 			.append("livro.autor_id from livro where livro.autor_id = (")

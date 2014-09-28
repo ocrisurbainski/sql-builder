@@ -118,8 +118,9 @@ public class SelectOrderByTest {
 	@Test
 	public void testOrderByFieldAtJoin() {
 		final String sqlCerto = new StringBuilder()
-		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id, ")
-		.append("autor.id, autor.ds_nome, autor.dt_nascimento, autor.endereco_id ")
+		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, ")
+		.append("livro.autor_id, autor.id, autor.ds_nome, ")
+		.append("autor.dt_nascimento, autor.endereco_id, autor.editora_id ")
 		.append("from livro inner join autor on livro.autor_id = autor.id ")
 		.append("order by autor.ds_nome asc")
 		.toString();
@@ -141,7 +142,7 @@ public class SelectOrderByTest {
 	public void testOrderByFieldAtJoinWithAlias() {
 		final String sqlCerto = new StringBuilder()
 		.append("select l0.id, l0.ds_nome, l0.nr_anopublicacao, l0.autor_id, ")
-		.append("a0.id, a0.ds_nome, a0.dt_nascimento, a0.endereco_id ")
+		.append("a0.id, a0.ds_nome, a0.dt_nascimento, a0.endereco_id, a0.editora_id ")
 		.append("from livro as l0 inner join autor a0 on l0.autor_id = a0.id ")
 		.append("order by a0.ds_nome asc")
 		.toString();

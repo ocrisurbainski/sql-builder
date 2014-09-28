@@ -9,6 +9,7 @@ import java.util.List;
 import com.urbainski.sql.builder.SQL;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.field.Field;
+import com.urbainski.sql.field.SimpleField;
 
 /**
  * Classe que representa o orderby da query.
@@ -69,8 +70,10 @@ public class OrderBy implements SQL {
 		sql.append(" ");
 		
 		for (Field f : fields) {
-			sql.append(f.getTableNameOrAlias() + ".");
-			sql.append(f.getFieldName());
+			final SimpleField simpleField = (SimpleField) f;
+			
+			sql.append(simpleField.getTableNameOrAlias() + ".");
+			sql.append(simpleField.getFieldName());
 			
 			if (fields.indexOf(f) < (fields.size() - 1)) {
 				sql.append(", ");

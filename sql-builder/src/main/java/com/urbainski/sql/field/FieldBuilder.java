@@ -3,6 +3,8 @@ package com.urbainski.sql.field;
 import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
+import com.urbainski.sql.builder.SQLBuilder;
+
 /**
  * Classe responsável por construir um objeto {@link Field}.
  * 
@@ -31,6 +33,7 @@ public final class FieldBuilder {
 	 */
 	public static Field newField(
 			Class<?> entityClass, String fieldName, String fieldAlias) {
+		
 		return newField(entityClass, getTableName(entityClass), fieldName, 
 				fieldAlias, true);
 	}
@@ -48,6 +51,7 @@ public final class FieldBuilder {
 	public static Field newField(
 			Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, String fieldAlias) {
+		
 		return newField(entityClass, tableNameOrAlias, fieldName, fieldAlias, true);
 	}
 	
@@ -65,6 +69,7 @@ public final class FieldBuilder {
 	public static Field newField(
 			Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, boolean readFielOfEntity) {
+		
 		return newField(entityClass, tableNameOrAlias, fieldName, "", readFielOfEntity);
 	}
 	
@@ -88,9 +93,34 @@ public final class FieldBuilder {
 			fieldName = getDatabaseNameField(entityClass, fieldName);
 		}
 		
-		final Field field = new Field(
+		final Field field = new SimpleField(
 				entityClass, tableNameOrAlias, fieldName, alias);
 		return field;
+	}
+	
+	/**
+	 * Método que monta um {@link Field} do tipo {@link SubselectField}.
+	 * 
+	 * @param subselect - subselect
+	 * 
+	 * @return {@link SubselectField}
+	 */
+	public static Field newField(SQLBuilder subselect) {
+		
+		return newField(subselect, "");
+	}
+	
+	/**
+	 * Método que monta um {@link Field} do tipo {@link SubselectField}.
+	 * 
+	 * @param subselect - subselect
+	 * @param alias - alias do subselect
+	 * 
+	 * @return {@link SubselectField}
+	 */
+	public static Field newField(SQLBuilder subselect, String alias) {
+		
+		return new SubselectField(subselect, alias);
 	}
 	
 }

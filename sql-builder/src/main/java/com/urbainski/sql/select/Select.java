@@ -8,8 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.urbainski.sql.builder.SQL;
+import com.urbainski.sql.builder.SQLBuilder;
 import com.urbainski.sql.field.Field;
 import com.urbainski.sql.field.FieldBuilder;
+import com.urbainski.sql.field.SimpleField;
+import com.urbainski.sql.field.SubselectField;
 
 /**
  * Classe que representa o select da query.
@@ -131,6 +134,25 @@ public class Select implements SQL {
 	}
 	
 	/**
+	 * Adiciona um {@link SubselectField} aos fields da query.
+	 * 
+	 * @param subselect - objeto que representa a subconsulta
+	 */
+	public void addField(SQLBuilder subselect) {
+		this.fields.add(FieldBuilder.newField(subselect));
+	}
+	
+	/**
+	 * Adiciona um {@link SubselectField} aos fields da query.
+	 * 
+	 * @param subselect - objeto que representa a subconsulta
+	 * @param alias - alias da subconsulta
+	 */
+	public void addField(SQLBuilder subselect, String alias) {
+		this.fields.add(FieldBuilder.newField(subselect, alias));
+	}
+	
+	/**
 	 * Método para setar o nome do alias.
 	 * 
 	 * @param alias - alias do from na query
@@ -140,8 +162,12 @@ public class Select implements SQL {
 		this.tableOrAlias = getTableNameOrTableAlias();
 
 		for (Field f : fields) {
-			if (this.entityClass.equals(f.getEntityClass())) {
-				f.setTableNameOrAlias(alias);
+			if (f instanceof SimpleField) {
+				
+				final SimpleField simpleField = (SimpleField) f;
+				if (this.entityClass.equals(simpleField.getEntityClass())) {
+					simpleField.setTableNameOrAlias(alias);
+				}
 			}
 		}
 	}

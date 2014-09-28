@@ -5,50 +5,19 @@ import static com.urbainski.sql.db.types.SQLSelectDBTypes.AS;
 import com.urbainski.sql.builder.SQL;
 
 /**
- * Objeto que representa campos adicionados na consulta.
+ * Interface que representa um campo de um select.
  * 
  * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
  * @since 19/09/2014
  * @version 1.0
  *
  */
-public class Field implements SQL {
-	
-	/**
-	 * Classe de entidade.
-	 */
-	protected Class<?> entityClass;
-
-	/**
-	 * Nome do campo na query.
-	 */
-	protected String fieldName;
+public abstract class Field implements SQL {
 	
 	/**
 	 * Alias do campo.
 	 */
 	protected String alias;
-	
-	/**
-	 * Nome da tabela ou alias.
-	 */
-	protected String tableNameOrAlias;
-	
-	public Class<?> getEntityClass() {
-		return entityClass;
-	}
-	
-	public void setEntityClass(Class<?> entityClass) {
-		this.entityClass = entityClass;
-	}
-	
-	public String getFieldName() {
-		return fieldName;
-	}
-	
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
-	}
 	
 	public String getAlias() {
 		return alias;
@@ -58,50 +27,40 @@ public class Field implements SQL {
 		this.alias = alias;
 	}
 	
-	public String getTableNameOrAlias() {
-		return tableNameOrAlias;
-	}
-	
-	public void setTableNameOrAlias(String tableNameOrAlias) {
-		this.tableNameOrAlias = tableNameOrAlias;
-	}
-
 	/**
-	 * Construto com parametross.
+	 * Construtor padrão da classe.
 	 * 
-	 * @param fieldName
-	 * @param alias
+	 * @param alias - alias do campo na consulta.
 	 */
-	public Field(Class<?> entityClass, String tableNameOrAlias, 
-			String fieldName, String alias) {
-		super();
-		
-		this.entityClass = entityClass;
-		this.fieldName = fieldName;
+	public Field(String alias) {
 		this.alias = alias;
-		this.tableNameOrAlias = tableNameOrAlias;
 	}
 	
 	/**
-	 * Construtor sem parametros.
+	 * Método que retorna se o campo tem alias.
+	 * 
+	 * @return <code>true</code> se o campo tem alias 
+	 * 		caso contrário <code>false</code>
 	 */
-	public Field() {
-		
+	protected boolean hasAlias() {
+		return alias != null && !(alias.isEmpty());
 	}
-
-	@Override
-	public String buildSQL() {
-		final StringBuilder sql = new StringBuilder();
-		sql.append(tableNameOrAlias + ".");
-		sql.append(fieldName);
-		
-		if (!(alias.isEmpty())) {
-			sql.append(" ");
-			sql.append(AS.getSQLSelectType());
-			sql.append(" ");
-			sql.append(alias);
+	
+	/**
+	 * Método que monta o sql do alias do campo.
+	 * 
+	 * @return sql do alias
+	 */
+	protected String mountAlias() {
+		if (!hasAlias()) {
+			return "";
 		}
+		
+		final StringBuilder sql = new StringBuilder();
+		sql.append(" ");
+		sql.append(AS.getSQLSelectType());
+		sql.append(" ");
+		sql.append(alias);
 		return sql.toString();
 	}
-	
 }

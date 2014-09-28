@@ -400,8 +400,8 @@ public class SelectWhereTeste {
 	public void testeEqualInJoinField() {
 		final String sqlCerto = new StringBuilder()
 		.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id, ")
-		.append("autor.id, autor.ds_nome, autor.dt_nascimento, autor.endereco_id ")
-		.append("from livro ")
+		.append("autor.id, autor.ds_nome, autor.dt_nascimento, autor.endereco_id, ")
+		.append("autor.editora_id from livro ")
 		.append("inner join autor on livro.autor_id = autor.id ")
 		.append("where autor.ds_nome ilike '%cristian%'")
 		.toString();
