@@ -42,7 +42,17 @@ public enum SQLSelectDBTypes {
 	/**
 	 * Clausula 'order by' do SQL.
 	 */
-	ORDER_BY("order by");
+	ORDER_BY("order by"),
+	
+	/**
+	 * Clausula 'offset' do SQL.
+	 */
+	OFFSET("offset"),
+	
+	/**
+	 * Clausula 'limit' do SQL.
+	 */
+	LIMIT("limit");
 
 	/**
 	 * Nome da clausula de sql.

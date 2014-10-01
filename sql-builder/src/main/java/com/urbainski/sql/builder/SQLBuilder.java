@@ -1,11 +1,13 @@
 package com.urbainski.sql.builder;
 
-import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 import static com.urbainski.sql.db.types.SQLSelectDBTypes.AS;
 import static com.urbainski.sql.db.types.SQLSelectDBTypes.DISTINCT;
 import static com.urbainski.sql.db.types.SQLSelectDBTypes.FROM;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.LIMIT;
+import static com.urbainski.sql.db.types.SQLSelectDBTypes.OFFSET;
 import static com.urbainski.sql.db.types.SQLSelectDBTypes.SELECT;
 import static com.urbainski.sql.db.types.SQLSelectDBTypes.WHERE;
+import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ import com.urbainski.sql.select.Select;
  *
  */
 public class SQLBuilder implements SQL {
+	
+	/**
+	 * Quantidade padrão do limit e do offset.
+	 */
+	protected static final int DEFAULT_LIMIT_AND_OFFSET = -1;
 
 	/**
 	 * Objeto que representa os campos do select.
@@ -84,11 +91,24 @@ public class SQLBuilder implements SQL {
 	 */
 	protected boolean distinct;
 	
+	/**
+	 * Qunatidade de registros pulados para iniciar o retorno da query.
+	 */
+	protected int offset;
+	
+	/**
+	 * Quantidade de linhas retornadas na query.
+	 */
+	protected int limit;
+	
 	public SQLBuilder(Class<?> entityClass) {
 		this.entityClass = entityClass;
 		this.select = new Select(entityClass);
 		this.joins = new ArrayList<Join>();
 		this.distinct = false;
+		
+		this.offset = DEFAULT_LIMIT_AND_OFFSET;
+		this.limit = DEFAULT_LIMIT_AND_OFFSET;
 	}
 	
 	/**
@@ -549,6 +569,24 @@ public class SQLBuilder implements SQL {
 		this.union = union;
 		this.unionType = UnionDBTypes.UNION;
 	}
+	
+	/**
+	 * Método para setar o offset da query.
+	 * 
+	 * @param limit - quantidade registros ignorados no offset
+	 */
+	public void offset(int offset) {
+		this.offset = offset;
+	}
+	
+	/**
+	 * Método para setar o limit da query.
+	 * 
+	 * @param limit - quantidade limite
+	 */
+	public void limit(int limit) {
+		this.limit = limit;
+	}
 
 	@Override
 	public String buildSQL() {
@@ -608,6 +646,20 @@ public class SQLBuilder implements SQL {
 		if (orderBy != null) {
 			sql.append(" ");
 			sql.append(orderBy.buildSQL());
+		}
+		
+		if (offset > DEFAULT_LIMIT_AND_OFFSET) {
+			sql.append(" ");
+			sql.append(OFFSET.getSQLSelectType());
+			sql.append(" ");
+			sql.append(offset);
+		}
+		
+		if (limit > DEFAULT_LIMIT_AND_OFFSET) {
+			sql.append(" ");
+			sql.append(LIMIT.getSQLSelectType());
+			sql.append(" ");
+			sql.append(limit);
 		}
 		
 		if (union != null) {
