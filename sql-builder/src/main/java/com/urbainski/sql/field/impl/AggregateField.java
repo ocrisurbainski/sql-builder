@@ -5,7 +5,7 @@ import com.urbainski.sql.db.types.AggregateDBTypes;
 /**
  * Implementação de campos de agregação no sql.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 28/09/2014
  * @version 1.0
  *

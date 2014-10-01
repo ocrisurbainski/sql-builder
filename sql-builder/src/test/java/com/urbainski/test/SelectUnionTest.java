@@ -11,7 +11,7 @@ import com.urbainski.sql.db.types.UnionDBTypes;
 /**
  * Classe de teste para queries com unions.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 24/09/2014
  * @version 1.0
  /*

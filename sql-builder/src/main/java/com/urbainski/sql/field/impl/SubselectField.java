@@ -6,7 +6,7 @@ import com.urbainski.sql.field.Field;
 /**
  * Classe que represetnta o campo de subselect no corpo da query.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 28/09/2014
  * @version 1.0
  *

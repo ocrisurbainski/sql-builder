@@ -11,7 +11,7 @@ import com.urbainski.sql.db.types.ConditionDBTypes;
 /**
  * Classe para testar os subselects.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 28/09/2014
  * @version 1.0
  *

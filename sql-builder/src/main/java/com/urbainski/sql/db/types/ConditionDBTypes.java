@@ -3,7 +3,7 @@ package com.urbainski.sql.db.types;
 /**
  * Tipo de condições no banco de dados.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 20/09/2014
  * @version 1.0
  *

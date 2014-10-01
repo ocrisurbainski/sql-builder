@@ -9,7 +9,7 @@ import com.urbainski.sql.builder.SQLBuilder;
 /**
  * Classe de teste unitário para as clausulas offset e limit do SQL.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 01/10/2014
  * @version 1.0
  *

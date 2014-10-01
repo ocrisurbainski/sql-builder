@@ -3,7 +3,7 @@ package com.urbainski.sql.builder;
 /**
  * Interface para definição de métodos comuns ao objetos builder.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 19/09/2014
  * @version 1.0
  *

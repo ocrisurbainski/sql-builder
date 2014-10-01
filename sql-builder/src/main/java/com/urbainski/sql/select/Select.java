@@ -19,7 +19,7 @@ import com.urbainski.sql.field.impl.SubselectField;
 /**
  * Classe que representa o select da query.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 19/09/2014
  * @version 1.0
  *

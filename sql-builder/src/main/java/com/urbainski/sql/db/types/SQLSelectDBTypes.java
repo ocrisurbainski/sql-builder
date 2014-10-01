@@ -3,7 +3,7 @@ package com.urbainski.sql.db.types;
 /**
  * Enum para os tipos comuns de clausulas dos selects.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 27/09/2014
  *
  */

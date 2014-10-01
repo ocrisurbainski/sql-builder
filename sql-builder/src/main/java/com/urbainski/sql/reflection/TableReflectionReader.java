@@ -18,7 +18,7 @@ import com.urbainski.sql.db.types.ConditionDBTypes;
  * Classe que le uma classe por reflection para pegar as informações
  * provinientes das anotações da jpa.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 19/09/2014
  * @version 1.0
  *

@@ -3,7 +3,7 @@ package com.urbainski.sql.db.types;
 /**
  * Enum para os tipos de ordenação possivel no banco de dados.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 23/09/2014
  * @version 1.0
  *

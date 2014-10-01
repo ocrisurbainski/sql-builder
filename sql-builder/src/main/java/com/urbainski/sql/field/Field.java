@@ -7,7 +7,7 @@ import com.urbainski.sql.builder.SQL;
 /**
  * Interface que representa um campo de um select.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 19/09/2014
  * @version 1.0
  *

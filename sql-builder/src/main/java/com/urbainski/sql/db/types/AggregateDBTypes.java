@@ -4,7 +4,7 @@ package com.urbainski.sql.db.types;
  * Enum para representar os tipos de funções de
  * agregações que podem ser aplicadas as consultas sql.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 28/09/2014
  * @version 1.0
  *

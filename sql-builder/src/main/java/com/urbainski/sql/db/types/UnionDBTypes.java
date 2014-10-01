@@ -3,7 +3,7 @@ package com.urbainski.sql.db.types;
 /**
  * Enum com os tipos de unios.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 24/09/2014
  * @version 1.0
  *

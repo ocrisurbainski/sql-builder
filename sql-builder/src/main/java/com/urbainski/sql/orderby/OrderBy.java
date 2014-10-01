@@ -14,7 +14,7 @@ import com.urbainski.sql.field.impl.SimpleField;
 /**
  * Classe que representa o orderby da query.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 23/09/2014
  * @version 1.0
  *

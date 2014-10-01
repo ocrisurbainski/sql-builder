@@ -3,7 +3,7 @@ package com.urbainski.sql.db.types;
 /**
  * Classe de enum para as condições de 'contains' no banco de dados.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisnaet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 21/09/2014
  * @version 1.0 
  *

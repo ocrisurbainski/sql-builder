@@ -29,7 +29,7 @@ import com.urbainski.sql.select.Select;
 /**
  * Classe que representa um sql para consulta no banco de dados.
  * 
- * @author Cristian Urbainski <cristian.urbainski@consisanet.com>
+ * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 19/09/2014
  * @version 1.0
  *
