@@ -2,28 +2,29 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.urbainski</groupId>
-	<artifactId>sql-builder</artifactId>
+	<artifactId>test-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
 		<java.version>1.7</java.version>
 		<encoding>UTF-8</encoding>
 		<junit.version>4.11</junit.version>
-		<eclipselink.version>2.5.0</eclipselink.version>
+		<derby.version>10.11.1.1</derby.version>
 		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<sql.builder.version>0.0.1-SNAPSHOT</sql.builder.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<groupId>com.urbainski</groupId>
+			<artifactId>sql-builder</artifactId>
+			<version>${sql.builder.version}</version>
 		</dependency>
-
+	
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>${eclipselink.version}</version>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>${derby.version}</version>
 		</dependency>
 	</dependencies>
 
