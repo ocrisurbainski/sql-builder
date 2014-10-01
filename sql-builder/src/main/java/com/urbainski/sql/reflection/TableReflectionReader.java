@@ -2,6 +2,7 @@ package com.urbainski.sql.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,11 @@ public class TableReflectionReader {
 		final List<String> nameFields = new ArrayList<String>();
 		final Field[] fields = entityClass.getDeclaredFields();
 		for (final Field f : fields) {
-			if (f.getAnnotation(Transient.class) != null) {
+			if (Modifier.isStatic(f.getModifiers())) {
+				continue;
+			}
+			
+			if (f.isAnnotationPresent(Transient.class)) {
 				continue;
 			}
 			
@@ -73,9 +78,7 @@ public class TableReflectionReader {
 					continue;
 				}
 				
-				if (f.getAnnotations() != null & f.getAnnotations().length > 0) {
-					nameFields.add(f.getName().toLowerCase());
-				}
+				nameFields.add(f.getName().toLowerCase());
 			}
 		}
 		return nameFields;
