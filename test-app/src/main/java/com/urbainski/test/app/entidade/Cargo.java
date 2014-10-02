@@ -19,6 +19,7 @@ public class Cargo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "id_cargo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCargo;
 	

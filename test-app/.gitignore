@@ -1,5 +1,7 @@
 /target/
+/databases/
 /.settings/
 .classpath
 .project
 /src/main/resources/der/*.bak
+derby.log

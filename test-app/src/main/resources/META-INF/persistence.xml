@@ -4,10 +4,20 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="testePu" transaction-type="RESOURCE_LOCAL">
 		
-		<class>com.urbainski.entidade.Autor</class>
-		<class>com.urbainski.entidade.Editora</class>
-		<class>com.urbainski.entidade.Endereco</class>
-		<class>com.urbainski.entidade.Livro</class>
+		<class>com.urbainski.test.app.entidade.Cargo</class>
+		<class>com.urbainski.test.app.entidade.Cliente</class>
+		<class>com.urbainski.test.app.entidade.Colaborador</class>
+		<class>com.urbainski.test.app.entidade.Endereco</class>
+		<class>com.urbainski.test.app.entidade.Endereco</class>
+		<class>com.urbainski.test.app.entidade.Estado</class>
+		<class>com.urbainski.test.app.entidade.Genero</class>
+		<class>com.urbainski.test.app.entidade.Locacao</class>
+		<class>com.urbainski.test.app.entidade.Locacaomidia</class>
+		<class>com.urbainski.test.app.entidade.Midia</class>
+		<class>com.urbainski.test.app.entidade.Municipio</class>
+		<class>com.urbainski.test.app.entidade.Pessoa</class>
+		<class>com.urbainski.test.app.entidade.Tipolocacoes</class>
+		<class>com.urbainski.test.app.entidade.Tipomidia</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />

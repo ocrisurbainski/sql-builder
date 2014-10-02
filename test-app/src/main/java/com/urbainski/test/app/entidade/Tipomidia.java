@@ -20,6 +20,7 @@ public class Tipomidia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "id_tipomidia")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idTipomidia;
 	
