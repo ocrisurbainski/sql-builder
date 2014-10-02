@@ -29,7 +29,7 @@ public class GenericDAOImpl<PK, T> implements GenericDAO<PK, T> {
 	/**
 	 * {@link EntityManager}.
 	 */
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
 	/**
 	 * Classe de entidade.
