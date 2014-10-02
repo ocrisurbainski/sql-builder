@@ -55,11 +55,11 @@ public class Locacao implements Serializable {
 	private SituacaoLocacao stLocacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id_pessoa")
 	private Cliente cliente;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_colaborador", referencedColumnName = "id_colaborador")
+	@JoinColumn(name = "id_colaborador", referencedColumnName = "id_pessoa")
 	private Colaborador colaborador;
 	
 	@OneToMany(mappedBy = "locacao")
