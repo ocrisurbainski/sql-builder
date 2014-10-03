@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -135,6 +136,27 @@ public class TableReflectionReader {
 		}
 		
 		throw new IllegalStateException("Classe de entidade: " + entityClass + " não contem o campo: " + nameProperty);
+	}
+	
+	/**
+	 * Método usada para constuir join de uma classe de entidade para o seu super tipo.
+	 * 
+	 * @param clazzFrom - entidade que esta saindo
+	 * @param fromAlias - alias do from
+	 * 
+	 * @return {@link JoinCondition}
+	 */
+	public static JoinCondition getJoinInformation(Class<?> entityClass, String aliasFrom) {
+		if (entityClass.isAnnotationPresent(PrimaryKeyJoinColumn.class)) {
+			final PrimaryKeyJoinColumn joinColumn = entityClass.getAnnotation(PrimaryKeyJoinColumn.class);
+			
+			return ConditionBuilder.newJoinCondition(
+					entityClass, aliasFrom, entityClass.getSuperclass(), "", ConditionDBTypes.EQUALS,
+					joinColumn.name(), joinColumn.referencedColumnName());
+		} 
+		
+		throw new IllegalStateException("Classe de entidade: " + entityClass 
+				+ " não contem a anotação @PrimaryKeyJoinColumn para especificar colunas de junção");
 	}
 	
 	/**

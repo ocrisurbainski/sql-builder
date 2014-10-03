@@ -45,4 +45,16 @@ public class JoinBuilder {
 		return new Join(clazzFrom, clazzJoined, fromAlias, joinedAlias, property);
 	}
 	
+	/**
+	 * Método usada para constuir join de uma classe de entidade para o seu super tipo.
+	 * 
+	 * @param clazzFrom - entidade que esta saindo
+	 * @param fromAlias - alias do from
+	 * 
+	 * @return {@link Join}
+	 */
+	public static Join newJoin(Class<?> clazzFrom, String fromAlias) {
+		return new Join(clazzFrom, clazzFrom.getSuperclass(), fromAlias, "", null);
+	}
+	
 }

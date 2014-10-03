@@ -602,13 +602,20 @@ public class SQLBuilder implements SQL {
 		boolean readFieldsOfJoins = false;
 		if (select.getFields().isEmpty()){
 			readFieldsOfJoins = true;
+
+			Class<?> superTypeClass = entityClass.getSuperclass();
+			if (!(Object.class.equals(superTypeClass))) {
+				addJoin(JoinBuilder.newJoin(entityClass, fromAlias));
+			}
 		}
 		
 		sql.append(select.buildSQL());
 		
 		if (readFieldsOfJoins) {
 			for (Join j : joins) {
-				sql.append(", ");
+				if (!(sql.toString().endsWith(" "))) {
+					sql.append(", ");
+				}
 				
 				Select selectJoin = j.builSelect();
 				sql.append(selectJoin.buildSQL());

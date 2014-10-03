@@ -177,7 +177,12 @@ public class Join implements SQL {
 		sql.append(" on ");
 		
 		if (conditions.isEmpty() || !(hasJoinCondition())) {
-			JoinCondition joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias, property);
+			JoinCondition joinCondition = null;
+			if (property == null) {
+				joinCondition = getJoinInformation(clazzFrom, fromAlias);
+			} else {
+				joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias, property);
+			}
 			sql.append(joinCondition.buildSQL());
 			
 			if (!(conditions.isEmpty())) {
