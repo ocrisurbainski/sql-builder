@@ -116,6 +116,8 @@ public class TableReflectionReader {
 	 * Método que le classe de entidade e monta condição de join com base nas anotações do jpa.
 	 * 
 	 * @param entityClass - classe de entidade
+	 * @param aliasFrom - alias do from 
+	 * @param aliasJoined - alias do join
 	 * @param nameProperty - nome da propriedade
 	 * 
 	 * @return {@link JoinCondition}
@@ -141,17 +143,18 @@ public class TableReflectionReader {
 	/**
 	 * Método usada para constuir join de uma classe de entidade para o seu super tipo.
 	 * 
-	 * @param clazzFrom - entidade que esta saindo
-	 * @param fromAlias - alias do from
+	 * @param entityClass - entidade que esta saindo
+	 * @param aliasFrom - alias do from
+	 * @param aliasJoined - alias do join
 	 * 
 	 * @return {@link JoinCondition}
 	 */
-	public static JoinCondition getJoinInformation(Class<?> entityClass, String aliasFrom) {
+	public static JoinCondition getJoinInformation(Class<?> entityClass, String aliasFrom, String aliasJoined) {
 		if (entityClass.isAnnotationPresent(PrimaryKeyJoinColumn.class)) {
 			final PrimaryKeyJoinColumn joinColumn = entityClass.getAnnotation(PrimaryKeyJoinColumn.class);
 			
 			return ConditionBuilder.newJoinCondition(
-					entityClass, aliasFrom, entityClass.getSuperclass(), "", ConditionDBTypes.EQUALS,
+					entityClass, aliasFrom, entityClass.getSuperclass(), aliasJoined, ConditionDBTypes.EQUALS,
 					joinColumn.name(), joinColumn.referencedColumnName());
 		} 
 		

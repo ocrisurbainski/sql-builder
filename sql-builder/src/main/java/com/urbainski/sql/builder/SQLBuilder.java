@@ -532,7 +532,7 @@ public class SQLBuilder implements SQL {
 	 */
 	public void addFieldInGroupBy(Class<?> entity, String fieldName) {
 		String tableOrAlias = getTableName(entity);
-		addFieldInGroupBy(entityClass, tableOrAlias, fieldName);
+		addFieldInGroupBy(entity, tableOrAlias, fieldName);
 	}
 	
 	/**

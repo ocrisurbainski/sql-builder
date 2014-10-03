@@ -178,8 +178,8 @@ public class Join implements SQL {
 		
 		if (conditions.isEmpty() || !(hasJoinCondition())) {
 			JoinCondition joinCondition = null;
-			if (property == null) {
-				joinCondition = getJoinInformation(clazzFrom, fromAlias);
+			if (property == null || property.isEmpty()) {
+				joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias);
 			} else {
 				joinCondition = getJoinInformation(clazzFrom, fromAlias, joinedAlias, property);
 			}
