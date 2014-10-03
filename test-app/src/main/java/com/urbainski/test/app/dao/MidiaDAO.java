@@ -1,8 +1,17 @@
 package com.urbainski.test.app.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
+
+import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.db.types.AggregateDBTypes;
 import com.urbainski.test.app.dao.generic.GenericDAO;
 import com.urbainski.test.app.dao.generic.impl.GenericDAOImpl;
+import com.urbainski.test.app.dto.DtoMidia;
 import com.urbainski.test.app.entidade.Midia;
+import com.urbainski.test.app.entidade.Tipomidia;
 
 /**
  * DAO da entidade midai.
@@ -15,4 +24,27 @@ import com.urbainski.test.app.entidade.Midia;
 public class MidiaDAO extends GenericDAOImpl<Integer, Midia> 
 	implements GenericDAO<Integer, Midia> {
 
+	@SuppressWarnings("unchecked")
+	public List<DtoMidia> countMidiasPorTipo() {
+		SQLBuilder sqlBuilder = new SQLBuilder(Midia.class);
+		sqlBuilder.select().addField("idMidia", "quantidade", AggregateDBTypes.COUNT);
+		sqlBuilder.select().addField(Tipomidia.class, "tm", "dsTipomidia", "tipomidia");
+		sqlBuilder.addJoin(Tipomidia.class, "tm", "tipomidia");
+		sqlBuilder.addFieldInGroupBy(Tipomidia.class, "tm", "dsTipomidia");
+		
+		Query q = entityManager.createNativeQuery(sqlBuilder.buildSQL());
+		List<Object[]> list = q.getResultList();
+		
+		List<DtoMidia> listRet = new ArrayList<DtoMidia>();
+		for (Object[] object : list) {
+			DtoMidia dto = new DtoMidia();
+			dto.setQuantidade((Integer) object[0]);
+			dto.setTipomidia((String) object[1]);
+			
+			listRet.add(dto);
+		}
+		return listRet;
+	}
+	
 }
+	

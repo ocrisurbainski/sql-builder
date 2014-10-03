@@ -1,4 +1,4 @@
-package com.urbainski.test.generic;
+package com.urbainski.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +31,7 @@ import com.urbainski.test.app.entidade.Midia.SituacaoMidia;
 import com.urbainski.test.app.entidade.Municipio;
 import com.urbainski.test.app.entidade.Tipolocacoes;
 import com.urbainski.test.app.entidade.Tipomidia;
+import com.urbainski.test.app.util.EntityManagerUtil;
 
 /**
  * Classe abstrata para as classes de teste.
@@ -40,7 +41,20 @@ import com.urbainski.test.app.entidade.Tipomidia;
  * @version 1.0
  *
  */
-public abstract class AbstractTestGenerico {
+public class PopulaBancoDadosMain {
+	
+	/**
+	 * Método main responsável por executar o programa.
+	 * 
+	 * @param args - argumentos do programa
+	 */
+	public static void main(String args[]) {
+		PopulaBancoDadosMain main = new PopulaBancoDadosMain();
+		main.popularBancoDados();
+		
+		EntityManagerUtil.getDefaultInstance().getEntityManager().close();
+		EntityManagerUtil.getDefaultInstance().getEntityManagerFactory().close();
+	}
 
 	/**
 	 * Método que popular o banco de dados.
@@ -126,7 +140,8 @@ public abstract class AbstractTestGenerico {
 					
 					listLocacaomidia.add(locacaomidia);
 					
-					total += midia.getNrValorlocacao();
+					total += midia.getNrValorlocacao() == null 
+						? midia.getTipolocacoes().getNrValorlocacao() : midia.getNrValorlocacao();
 				}
 				
 				locacao.setNrTotal(total);
