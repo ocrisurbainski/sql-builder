@@ -2,6 +2,7 @@ package com.urbainski.test.app.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class Pessoa implements Serializable {
 	@Column(name = "nr_telefone")
 	private String nrTelefone;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 	private Endereco endereco;
 	

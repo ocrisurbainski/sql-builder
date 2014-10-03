@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -62,7 +63,7 @@ public class Locacao implements Serializable {
 	@JoinColumn(name = "id_colaborador", referencedColumnName = "id_pessoa")
 	private Colaborador colaborador;
 	
-	@OneToMany(mappedBy = "locacao")
+	@OneToMany(mappedBy = "locacao", cascade = CascadeType.ALL)
 	private List<Locacaomidia> listLocacaomidia;
 	
 	public Integer getIdLocacao() {

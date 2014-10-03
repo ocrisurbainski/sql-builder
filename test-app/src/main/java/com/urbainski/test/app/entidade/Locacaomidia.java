@@ -2,6 +2,7 @@ package com.urbainski.test.app.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class Locacaomidia implements Serializable {
 	@JoinColumn(name = "id_locacao", referencedColumnName = "id_locacao")
 	private Locacao locacao;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id_midia", referencedColumnName = "id_midia")
 	private Midia midia;
 	

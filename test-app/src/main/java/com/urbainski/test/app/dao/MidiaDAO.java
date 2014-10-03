@@ -2,6 +2,7 @@ package com.urbainski.test.app.dao;
 
 import com.urbainski.test.app.dao.generic.GenericDAO;
 import com.urbainski.test.app.dao.generic.impl.GenericDAOImpl;
+import com.urbainski.test.app.entidade.Midia;
 
 /**
  * DAO da entidade midai.
@@ -11,7 +12,7 @@ import com.urbainski.test.app.dao.generic.impl.GenericDAOImpl;
  * @version 1.0
  *
  */
-public class MidiaDAO extends GenericDAOImpl<Integer, MidiaDAO> 
-	implements GenericDAO<Integer, MidiaDAO> {
+public class MidiaDAO extends GenericDAOImpl<Integer, Midia> 
+	implements GenericDAO<Integer, Midia> {
 
 }
