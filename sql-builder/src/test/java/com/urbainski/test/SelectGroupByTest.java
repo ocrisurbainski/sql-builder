@@ -26,9 +26,9 @@ public class SelectGroupByTest {
 		.toString();
 	
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
-		sqlBuilder.addFieldInGroupBy("id");
-		sqlBuilder.addFieldInGroupBy("nome");
-		sqlBuilder.addFieldInGroupBy("anoPublicacao");
+		sqlBuilder.groupBy().addField("id");
+		sqlBuilder.groupBy().addField("nome");
+		sqlBuilder.groupBy().addField("anoPublicacao");
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -47,10 +47,10 @@ public class SelectGroupByTest {
 		.toString();
 	
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
-		sqlBuilder.addFieldInOrderBy("id");
-		sqlBuilder.addFieldInGroupBy("id");
-		sqlBuilder.addFieldInGroupBy("nome");
-		sqlBuilder.addFieldInGroupBy("anoPublicacao");
+		sqlBuilder.orderBy().addField("id");
+		sqlBuilder.groupBy().addField("id");
+		sqlBuilder.groupBy().addField("nome");
+		sqlBuilder.groupBy().addField("anoPublicacao");
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -71,7 +71,7 @@ public class SelectGroupByTest {
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
-		builder.addFieldInGroupBy(Autor.class, "nome");
+		builder.groupBy().addField(Autor.class, "nome");
 		
 		final String sqlGerado = builder.buildSQL();
 		
@@ -91,7 +91,7 @@ public class SelectGroupByTest {
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.addJoin(Autor.class, "a0", "autor");
-		builder.addFieldInGroupBy(Autor.class, "a0", "nome");
+		builder.groupBy().addField(Autor.class, "a0", "nome");
 		builder.fromAlias("l0");
 		
 		final String sqlGerado = builder.buildSQL();

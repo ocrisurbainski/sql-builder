@@ -82,10 +82,12 @@ public class Select implements SQL {
 	 * Método para adicionar um campo na consulta apenas pelo nome.
 	 * 
 	 * @param fieldName - nome do campo
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(String fieldName) {
+	public Field addField(String fieldName) {
 		
-		addField(fieldName, "");
+		return addField(fieldName, "");
 	}
 	
 	/**
@@ -93,11 +95,15 @@ public class Select implements SQL {
 	 * 
 	 * @param fieldName - nome do campo
 	 * @param alias - alias do campo
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(String fieldName, String alias) {
+	public Field addField(String fieldName, String alias) {
 		
-		this.fields.add(FieldBuilder.newField(entityClass,
-				this.tableOrAlias, fieldName, alias, true));
+		Field field = FieldBuilder.newField(entityClass,
+				this.tableOrAlias, fieldName, alias, true);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
@@ -105,11 +111,15 @@ public class Select implements SQL {
 	 * 
 	 * @param entityClass - classe de entidade
 	 * @param fieldName - nome do campo
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(Class<?> entityClass, String fieldName) {
+	public Field addField(Class<?> entityClass, String fieldName) {
 		
-		this.fields.add(FieldBuilder.newField(entityClass,
-				getTableName(entityClass), fieldName, "", true));
+		Field field = FieldBuilder.newField(entityClass,
+				getTableName(entityClass), fieldName, "", true);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
@@ -118,11 +128,15 @@ public class Select implements SQL {
 	 * @param entityClass - classe de entidade
 	 * @param fieldName - nome do campo
 	 * @param alias - alias do campo
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(Class<?> entityClass, String fieldName, String alias) {
+	public Field addField(Class<?> entityClass, String fieldName, String alias) {
 		
-		this.fields.add(FieldBuilder.newField(entityClass,
-				fieldName, alias));
+		Field field = FieldBuilder.newField(entityClass,
+				fieldName, alias);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
@@ -132,22 +146,30 @@ public class Select implements SQL {
 	 * @param aliasEntity - alias da entidade
 	 * @param fieldName - nome do campo
 	 * @param alias - alias do campo
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(
+	public Field addField(
 			Class<?> entityClass, String aliasEntity, String fieldName, String alias) {
 		
-		this.fields.add(FieldBuilder.newField(entityClass,
-				aliasEntity, fieldName, alias, true));
+		Field field = FieldBuilder.newField(entityClass,
+				aliasEntity, fieldName, alias, true);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
 	 * Adiciona um {@link SubselectField} aos fields da query.
 	 * 
 	 * @param subselect - objeto que representa a subconsulta
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(SQLBuilder subselect) {
+	public Field addField(SQLBuilder subselect) {
 		
-		this.fields.add(FieldBuilder.newField(subselect));
+		Field field = FieldBuilder.newField(subselect);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
@@ -155,10 +177,14 @@ public class Select implements SQL {
 	 * 
 	 * @param subselect - objeto que representa a subconsulta
 	 * @param alias - alias da subconsulta
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(SQLBuilder subselect, String alias) {
+	public Field addField(SQLBuilder subselect, String alias) {
 		
-		this.fields.add(FieldBuilder.newField(subselect, alias));
+		Field field = FieldBuilder.newField(subselect, alias);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
@@ -166,10 +192,12 @@ public class Select implements SQL {
 	 * 
 	 * @param fieldName - nome do campo
 	 * @param aggregateType - tipo de agregação
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(String fieldName, AggregateDBTypes aggregateType) {
+	public Field addField(String fieldName, AggregateDBTypes aggregateType) {
 		
-		addField(this.entityClass, this.tableOrAlias, fieldName, aggregateType);
+		return addField(this.entityClass, this.tableOrAlias, fieldName, aggregateType);
 	}
 	
 	/**
@@ -178,10 +206,12 @@ public class Select implements SQL {
 	 * @param fieldName - nome do campo
 	 * @param alias - apelido do campo
 	 * @param aggregateType - tipo de agregação
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(String fieldName, String alias, AggregateDBTypes aggregateType) {
+	public Field addField(String fieldName, String alias, AggregateDBTypes aggregateType) {
 		
-		addField(this.entityClass, this.tableOrAlias, fieldName, alias, aggregateType);
+		return addField(this.entityClass, this.tableOrAlias, fieldName, alias, aggregateType);
 	}
 	
 	/**
@@ -190,11 +220,13 @@ public class Select implements SQL {
 	 * @param entityClass - classe de entidade
 	 * @param fieldName - classe de entidade
 	 * @param aggregateType - tipo de agregação
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(Class<?> entityClass, String fieldName, 
+	public Field addField(Class<?> entityClass, String fieldName, 
 			AggregateDBTypes aggregateType) {
 		
-		addField(entityClass, getTableName(entityClass), fieldName, aggregateType);
+		return addField(entityClass, getTableName(entityClass), fieldName, aggregateType);
 	}
 	
 	/**
@@ -204,11 +236,13 @@ public class Select implements SQL {
 	 * @param tableNameOrAlias - alias da entidade
 	 * @param fieldName - classe de entidade
 	 * @param aggregateType - tipo de agregação
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(Class<?> entityClass, String tableNameOrAlias, 
+	public Field addField(Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, AggregateDBTypes aggregateType) {
 		
-		addField(entityClass, tableNameOrAlias, fieldName, "", aggregateType);
+		return addField(entityClass, tableNameOrAlias, fieldName, "", aggregateType);
 	}
 	
 	/**
@@ -219,18 +253,24 @@ public class Select implements SQL {
 	 * @param fieldName - classe de entidade
 	 * @param alias - alias do campo
 	 * @param aggregateType - tipo de agregação
+	 * 
+	 * @return {@link Field}
 	 */
-	public void addField(Class<?> entityClass, String tableNameOrAlias, 
+	public Field addField(Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, String alias, AggregateDBTypes aggregateType) {
 	
-		this.fields.add(FieldBuilder.newField(
-				entityClass, tableNameOrAlias, fieldName, alias, aggregateType));
+		Field field = FieldBuilder.newField(
+				entityClass, tableNameOrAlias, fieldName, alias, aggregateType);
+		this.fields.add(field);
+		return field;
 	}
 	
 	/**
 	 * Método para setar o nome do alias.
 	 * 
 	 * @param alias - alias do from na query
+	 * 
+	 * @return {@link Field}
 	 */
 	public void alias(String alias) {
 		this.alias = alias;

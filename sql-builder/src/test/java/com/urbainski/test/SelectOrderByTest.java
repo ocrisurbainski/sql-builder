@@ -6,10 +6,10 @@ import org.junit.Test;
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
 import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.by.OrderBy;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.field.Field;
 import com.urbainski.sql.field.impl.FieldBuilder;
-import com.urbainski.sql.orderby.OrderBy;
 
 /**
  * Classe de teste para queries com {@link OrderBy}.
@@ -30,8 +30,7 @@ public class SelectOrderByTest {
 		.toString();
 	
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
-		sqlBuilder.orderBy(OrderByDBTypes.ASC);
-		sqlBuilder.addFieldInOrderBy("id");
+		sqlBuilder.orderBy(OrderByDBTypes.ASC).addField("id");;
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -49,8 +48,7 @@ public class SelectOrderByTest {
 		.toString();
 	
 		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
-		sqlBuilder.orderBy(OrderByDBTypes.DESC);
-		sqlBuilder.addFieldInOrderBy("id");
+		sqlBuilder.orderBy(OrderByDBTypes.DESC).addField("id");
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -78,7 +76,8 @@ public class SelectOrderByTest {
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
 		sqlBuilder.fromAlias("l");
 		
-		sqlBuilder.orderBy().addField(fieldId, fieldNome);
+		sqlBuilder.orderBy().addField(fieldId);
+		sqlBuilder.orderBy().addField(fieldNome);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -106,7 +105,8 @@ public class SelectOrderByTest {
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
 		sqlBuilder.fromAlias("l");
 		
-		sqlBuilder.orderBy(OrderByDBTypes.DESC).addField(fieldId, fieldNome);
+		sqlBuilder.orderBy(OrderByDBTypes.DESC).addField(fieldId);
+		sqlBuilder.orderBy().addField(fieldNome);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -127,8 +127,7 @@ public class SelectOrderByTest {
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
-		builder.orderBy(OrderByDBTypes.ASC);
-		builder.addFieldInOrderBy(Autor.class, "nome");
+		builder.orderBy(OrderByDBTypes.ASC).addField(Autor.class, "nome");;
 		
 		final String sqlGerado = builder.buildSQL();
 		
@@ -150,8 +149,7 @@ public class SelectOrderByTest {
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.fromAlias("l0");
 		builder.addJoin(Autor.class, "a0", "autor");
-		builder.orderBy(OrderByDBTypes.ASC);
-		builder.addFieldInOrderBy(Autor.class, "a0", "nome");
+		builder.orderBy(OrderByDBTypes.ASC).addField(Autor.class, "a0", "nome");
 		
 		final String sqlGerado = builder.buildSQL();
 		

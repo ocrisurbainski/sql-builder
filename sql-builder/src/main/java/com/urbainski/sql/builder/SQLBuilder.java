@@ -12,6 +12,8 @@ import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.urbainski.sql.by.GroupBy;
+import com.urbainski.sql.by.OrderBy;
 import com.urbainski.sql.condititon.Condition;
 import com.urbainski.sql.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
@@ -19,11 +21,8 @@ import com.urbainski.sql.db.types.ConstainsDBTypes;
 import com.urbainski.sql.db.types.JoinDBType;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.db.types.UnionDBTypes;
-import com.urbainski.sql.field.impl.FieldBuilder;
-import com.urbainski.sql.groupby.GroupBy;
 import com.urbainski.sql.join.Join;
 import com.urbainski.sql.join.JoinBuilder;
-import com.urbainski.sql.orderby.OrderBy;
 import com.urbainski.sql.select.Select;
 
 /**
@@ -131,6 +130,14 @@ public class SQLBuilder implements SQL {
 		this.select.alias(fromAlias);
 		
 		ConditionBuilder.updateAliasForCondition(this.where, entityClass, fromAlias);
+		
+		if (this.orderBy != null) {
+			this.orderBy.setFromAlias(fromAlias);
+		}
+
+		if (this.groupBy != null) {
+			this.groupBy.setFromAlias(fromAlias);
+		}
 		
 		for (Join j : joins) {
 			if (j.getClazzFrom().equals(entityClass)) {
@@ -440,7 +447,8 @@ public class SQLBuilder implements SQL {
 	 */
 	public OrderBy orderBy(OrderByDBTypes orderByType) {
 		if (this.orderBy == null) {
-			this.orderBy = new OrderBy(orderByType);
+			this.orderBy = new OrderBy(
+					this.entityClass, this.fromAlias, orderByType);
 		} else {
 			this.orderBy.setOrderByType(orderByType);
 		}
@@ -454,48 +462,10 @@ public class SQLBuilder implements SQL {
 	 */
 	public OrderBy orderBy() {
 		if (this.orderBy == null) {
-			this.orderBy = new OrderBy(OrderByDBTypes.ASC);
+			this.orderBy = new OrderBy(
+					this.entityClass, this.fromAlias, OrderByDBTypes.ASC);
 		}
 		return this.orderBy;
-	}
-	
-	/**
-	 * Método para adicionar um campo na consulta apenas pelo nome.
-	 * 
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInOrderBy(String fieldName) {
-		String tableOrAlias = getTableName(entityClass);
-		if (fromAlias != null && !(fromAlias.isEmpty())) {
-			tableOrAlias = fromAlias;
-		}
-	
-		addFieldInOrderBy(entityClass, tableOrAlias, fieldName);
-	}
-	
-	/**
-	 * Método para adicionar um campo na consulta apenas pelo nome.
-	 * 
-	 * @param entity - classe de entidade
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInOrderBy(Class<?> entity, String fieldName) {
-		String tableOrAlias = getTableName(entity);
-		addFieldInOrderBy(entity, tableOrAlias, fieldName);
-	}
-	
-	/**
-	 * Método para adicionar um campo na consulta apenas pelo nome.
-	 * 
-	 * @param entity - classe de entidade
-	 * @param tableOrAlias - nome da tabela ou alias
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInOrderBy(Class<?> entity, String tableOrAlias, String fieldName) {
-		// chama o método orderBy para inicializar o objeto caso seja nulo
-		this.orderBy();
-		this.orderBy.addField(FieldBuilder.newField(
-				entity, tableOrAlias, fieldName, "", true));
 	}
 	
 	/**
@@ -505,48 +475,9 @@ public class SQLBuilder implements SQL {
 	 */
 	public GroupBy groupBy() {
 		if (groupBy == null) {
-			groupBy = new GroupBy();
+			groupBy = new GroupBy(entityClass, fromAlias);
 		}
 		return groupBy;
-	}
-	
-	/**
-	 * Método para adicionar um campo no group by da query.
-	 * 
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInGroupBy(String fieldName) {
-		String tableOrAlias = getTableName(entityClass);
-		if (fromAlias != null && !(fromAlias.isEmpty())) {
-			tableOrAlias = fromAlias;
-		}
-		
-		addFieldInGroupBy(entityClass, tableOrAlias, fieldName);
-	}
-	
-	/**
-	 * Método para adicionar um campo no group by da query.
-	 * 
-	 * @param entity - classe de entidade
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInGroupBy(Class<?> entity, String fieldName) {
-		String tableOrAlias = getTableName(entity);
-		addFieldInGroupBy(entity, tableOrAlias, fieldName);
-	}
-	
-	/**
-	 * Método para adicionar um campo no group by da query.
-	 * 
-	 * @param entity - entidade do banco de dados
-	 * @param tableOrAlias - nome da tabela ou alias
-	 * @param fieldName - nome do campo
-	 */
-	public void addFieldInGroupBy(Class<?> entity, String tableOrAlias, String fieldName) {
-		// chama o método groupBy para inicializar o objeto caso seja nulo
-		this.groupBy();
-		this.groupBy.addField(FieldBuilder.newField(
-				entity, tableOrAlias, fieldName, "", true));
 	}
 	
 	/**

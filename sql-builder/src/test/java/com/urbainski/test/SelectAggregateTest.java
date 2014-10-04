@@ -30,7 +30,7 @@ public class SelectAggregateTest {
 		sqlBuilder.select().addField("id", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Autor.class, "nome");
 		sqlBuilder.addJoin(Autor.class, "autor");
-		sqlBuilder.addFieldInGroupBy(Autor.class, "nome");
+		sqlBuilder.groupBy().addField(Autor.class, "nome");
 		
 		String sqlGerado = sqlBuilder.buildSQL();
 		System.out.println(sqlGerado);
@@ -50,7 +50,7 @@ public class SelectAggregateTest {
 		sqlBuilder.select().addField("id", "quantidade", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Autor.class, "a0", "nome", "");
 		sqlBuilder.addJoin(Autor.class, "a0", "autor");
-		sqlBuilder.addFieldInGroupBy(Autor.class, "a0", "nome");
+		sqlBuilder.groupBy().addField(Autor.class, "a0", "nome");
 		sqlBuilder.fromAlias("l0");
 		
 		String sqlGerado = sqlBuilder.buildSQL();
