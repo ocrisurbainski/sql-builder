@@ -30,7 +30,7 @@ public class MidiaDAO extends GenericDAOImpl<Integer, Midia>
 		sqlBuilder.select().addField("idMidia", "quantidade", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Tipomidia.class, "tm", "dsTipomidia", "tipomidia");
 		sqlBuilder.addJoin(Tipomidia.class, "tm", "tipomidia");
-		sqlBuilder.addFieldInGroupBy(Tipomidia.class, "tm", "dsTipomidia");
+		sqlBuilder.groupBy().addField(Tipomidia.class, "tm", "dsTipomidia");
 		
 		Query q = entityManager.createNativeQuery(sqlBuilder.buildSQL());
 		List<Object[]> list = q.getResultList();

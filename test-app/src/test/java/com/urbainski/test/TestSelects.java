@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.urbainski.test.app.dao.ClienteDAO;
 import com.urbainski.test.app.dao.MidiaDAO;
 import com.urbainski.test.app.dto.DtoMidia;
 import com.urbainski.test.generic.AbstractGenericTest;
@@ -31,4 +32,13 @@ public class TestSelects extends AbstractGenericTest {
 		}
 	}
 	
+	@Test
+	public void testGetTopDezClientes() {
+		try {
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clienteDAO.getTopDezClientes();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
