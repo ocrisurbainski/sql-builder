@@ -55,8 +55,16 @@ public enum ConditionDBTypes {
 	 */
 	ILIKE("ilike");
 	
+	/**
+	 * Nome.
+	 */
 	private String name;
 	
+	/**
+	 * Construtor dos tipos de condições.
+	 * 
+	 * @param name - condição
+	 */
 	private ConditionDBTypes(String name) {
 		this.name = name;
 	}

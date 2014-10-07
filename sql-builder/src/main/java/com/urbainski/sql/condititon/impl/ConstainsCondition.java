@@ -24,10 +24,12 @@ public class ConstainsCondition extends SimpleCondition {
 	/**
 	 * Construtor padrão da classe.
 	 * 
-	 * @param entityClass
-	 * @param conditionType
-	 * @param fieldName
-	 * @param value
+	 * @param containsType - tipo do contains
+	 * @param tableFromAlias - nome de tabela ou alias
+	 * @param entityClass - classe de entidade
+	 * @param conditionType - tipo da condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor para comparação
 	 */
 	public ConstainsCondition(ConstainsDBTypes containsType, String tableFromAlias,
 			Class<?> entityClass, ConditionDBTypes conditionType, 

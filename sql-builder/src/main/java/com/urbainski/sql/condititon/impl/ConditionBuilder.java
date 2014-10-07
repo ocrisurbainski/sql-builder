@@ -163,6 +163,8 @@ public final class ConditionBuilder {
 	 * @param fieldName - nome do campo
 	 * @param conditionType - tipo da condição
 	 * @param subselect - query do subselect
+	 * 
+	 * @return {@link SubselectCondition}
 	 */
 	public static SubselectCondition newSubselectCondition(
 			Class<?> entityClass, String aliasTable, String fieldName, 

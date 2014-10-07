@@ -79,8 +79,10 @@ public class Join implements SQL {
 	/**
 	 * Construtor da classe.
 	 * 
-	 * @param clazzDe
-	 * @param clazzPara
+	 * @param clazzFrom - classe de onde sai o relacionamento
+	 * @param clazzJoined - classe a ser unida
+	 * @param fromAlias - alias da classe do from
+	 * @param joinedAlias - alias da classe unida
 	 * @param property - nome da propriedade
 	 */
 	public Join(Class<?> clazzFrom, Class<?> clazzJoined, 
@@ -91,10 +93,10 @@ public class Join implements SQL {
 	/**
 	 * Construtor da classe.
 	 * 
-	 * @param clazzFrom
-	 * @param clazzJoined
-	 * @param fromAlias
-	 * @param joinedAlias
+	 * @param clazzFrom - classe de onde sai o relacionamento
+	 * @param clazzJoined - classe a ser unida
+	 * @param fromAlias - alias da classe do from
+	 * @param joinedAlias - alias da classe unida
 	 * @param joinType - tipo do join
 	 * @param property - nome da propriedade
 	 */

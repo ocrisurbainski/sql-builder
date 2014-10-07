@@ -21,7 +21,7 @@ public enum UnionDBTypes {
 	UNION_ALL("union all");
 	
 	/**
-	 * Tipo do union
+	 * Tipo do union.
 	 */
 	private String name;
 	

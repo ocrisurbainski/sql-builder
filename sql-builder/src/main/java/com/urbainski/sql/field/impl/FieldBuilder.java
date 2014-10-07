@@ -133,7 +133,8 @@ public final class FieldBuilder {
 	 * @param fieldName - nome do campo
 	 * @param alias - alias do campo
 	 * @param aggregateType - tipo de agregação
-	 * @return
+	 * 
+	 * @return {@link Field}
 	 */
 	public static Field newField(Class<?> entityClass, String tableNameOrAlias, 
 			String fieldName, String alias, AggregateDBTypes aggregateType) {

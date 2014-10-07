@@ -86,7 +86,7 @@ public class SQLBuilder implements SQL {
 	protected UnionDBTypes unionType;
 	
 	/**
-	 * Boolean distinct;
+	 * Boolean distinct.
 	 */
 	protected boolean distinct;
 	
@@ -100,6 +100,11 @@ public class SQLBuilder implements SQL {
 	 */
 	protected int limit;
 	
+	/**
+	 * Construtor padrão.
+	 * 
+	 * @param entityClass - classe principal da consulta
+	 */
 	public SQLBuilder(Class<?> entityClass) {
 		this.entityClass = entityClass;
 		this.select = new Select(entityClass);
@@ -242,7 +247,7 @@ public class SQLBuilder implements SQL {
 	 * @param subselect - query do subselect
 	 */
 	public void where(ConditionDBTypes conditionType, Class<?> entityClass, 
-			String aliasTable,String fieldName, SQLBuilder subselect) {
+			String aliasTable, String fieldName, SQLBuilder subselect) {
 		
 		this.where = ConditionBuilder.newSubselectCondition(
 				entityClass, aliasTable, fieldName, conditionType, subselect);
@@ -271,6 +276,8 @@ public class SQLBuilder implements SQL {
 	 * 
 	 * @param clazzJoined - classe que será unido
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzJoined, String property) {
 		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, "", property);
@@ -284,6 +291,8 @@ public class SQLBuilder implements SQL {
 	 * @param clazzJoined - classe que será unido
 	 * @param property - propriedade para fazer o join
 	 * @param joinType - tipo do join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzJoined, String property, JoinDBType joinType) {
 		String tableJoinedAlias = getTableName(clazzJoined);
@@ -299,6 +308,8 @@ public class SQLBuilder implements SQL {
 	 * @param joinedAlias - alias do join
 	 * @param property - propriedade para fazer o join
 	 * @param joinType - tipo do join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzJoined, String joinedAlias, String property, JoinDBType joinType) {
 		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, joinedAlias, property, joinType);
@@ -312,6 +323,8 @@ public class SQLBuilder implements SQL {
 	 * @param clazzJoined - classe que será unido
 	 * @param joinedAlias - alias do join
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzJoined, String joinedAlias, String property) {
 		Join join = JoinBuilder.newJoin(entityClass, clazzJoined, fromAlias, joinedAlias, property);
@@ -325,6 +338,8 @@ public class SQLBuilder implements SQL {
 	 * @param clazzFrom - classe base
 	 * @param clazzJoined - classe que será unido
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property) {
 		String fromTableAlias = getTableName(clazzJoined);
@@ -341,6 +356,8 @@ public class SQLBuilder implements SQL {
 	 * @param clazzJoined - classe que será unido
 	 * @param property - propriedade para fazer o join
 	 * @param joinType - tipo do join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String property, JoinDBType joinType) {
 		
@@ -359,6 +376,8 @@ public class SQLBuilder implements SQL {
 	 * @param clazzJoined - classe que será unido
 	 * @param joinedAlias - alias da classe do join
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, 
 			Class<?> clazzJoined, String joinedAlias, String property) {
@@ -379,6 +398,8 @@ public class SQLBuilder implements SQL {
 	 * @param joinedAlias - alias da classe do join
 	 * @param joinType - tipo do join
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined,
 			String joinedAlias, String property, JoinDBType joinType) {
@@ -398,6 +419,8 @@ public class SQLBuilder implements SQL {
 	 * @param fromAlias - alias do from
 	 * @param joinedAlias - alias da classe do join
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String fromAlias,
 			String joinedAlias, String property) {
@@ -418,6 +441,8 @@ public class SQLBuilder implements SQL {
 	 * @param joinedAlias - alias da classe do join
 	 * @param joinType - tipo do join
 	 * @param property - propriedade para fazer o join
+	 * 
+	 * @return {@link Join}
 	 */
 	public Join addJoin(Class<?> clazzFrom, Class<?> clazzJoined, String fromAlias,
 			String joinedAlias, String property, JoinDBType joinType) {
@@ -504,7 +529,7 @@ public class SQLBuilder implements SQL {
 	/**
 	 * Método para setar o offset da query.
 	 * 
-	 * @param limit - quantidade registros ignorados no offset
+	 * @param offset - quantidade registros ignorados no offset
 	 */
 	public void offset(int offset) {
 		this.offset = offset;
@@ -531,7 +556,7 @@ public class SQLBuilder implements SQL {
 		}
 		
 		boolean readFieldsOfJoins = false;
-		if (select.getFields().isEmpty()){
+		if (select.getFields().isEmpty()) {
 			readFieldsOfJoins = true;
 
 			Class<?> superTypeClass = entityClass.getSuperclass();

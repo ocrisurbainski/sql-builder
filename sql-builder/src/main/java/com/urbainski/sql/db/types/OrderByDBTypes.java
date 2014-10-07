@@ -25,6 +25,11 @@ public enum OrderByDBTypes {
 	 */
 	private String name;
 	
+	/**
+	 * Construtor do tipo de orderby.
+	 * 
+	 * @param name - tipo do orderby
+	 */
 	private OrderByDBTypes(String name) {
 		this.name = name;
 	}

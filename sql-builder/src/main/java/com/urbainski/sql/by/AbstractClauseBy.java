@@ -36,6 +36,11 @@ public abstract class AbstractClauseBy implements SQL {
 	 */
 	protected String fromAlias;
 	
+	/**
+	 * Método que recebe o alias do from e o replica para seus objetos internos.
+	 * 
+	 * @param fromAlias - alias do froom
+	 */
 	public void setFromAlias(String fromAlias) {
 		this.fromAlias = fromAlias;
 		
@@ -119,7 +124,8 @@ public abstract class AbstractClauseBy implements SQL {
 	
 	/**
 	 * Retorna o tipo da operação.
-	 * @return
+	 * 
+	 * @return tipo
 	 */
 	public abstract String getType();
 

@@ -26,8 +26,8 @@ public class OrderBy extends AbstractClauseBy {
 	/**
 	 * Construtor padrão.
 	 * 
-	 * @param entityClass
-	 * @param fromAlias
+	 * @param entityClass - classe de entidade
+	 * @param fromAlias - alias do from
 	 * @param type - tipo do order by
 	 */
 	public OrderBy(Class<?> entityClass, String fromAlias, OrderByDBTypes type) {

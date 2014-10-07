@@ -46,11 +46,11 @@ public class SimpleCondition implements Condition {
 	/**
 	 * Construtor padrão.
 	 * 
-	 * @param entityClass
-	 * @param tableFromAlias
-	 * @param conditionType
-	 * @param fieldName
-	 * @param value
+	 * @param entityClass - classe de entidade
+	 * @param tableFromAlias - nome da tabela ou alias 
+	 * @param conditionType - tipo de condição
+	 * @param fieldName - nome do campo
+	 * @param value - valor do campo
 	 */
 	public SimpleCondition(Class<?> entityClass, String tableFromAlias,
 			ConditionDBTypes conditionType, String fieldName, Object value) {

@@ -125,7 +125,7 @@ public class SelectWhereTeste {
 	@Test(expected = IllegalArgumentException.class)
 	public void testeIllegalArgumentException() {
 		
-		int[] valores = new int[]{3,4,5};
+		int[] valores = new int[]{ 3, 4, 5 };
 		
 		SQLBuilder builder = new SQLBuilder(Livro.class);
 		builder.where(ConditionDBTypes.NOT_IN, "id", valores);

@@ -25,10 +25,20 @@ import com.urbainski.sql.db.types.ConditionDBTypes;
  * @version 1.0
  *
  */
-public class TableReflectionReader {
+public final class TableReflectionReader {
+	
+	/**
+	 * Construtor privado para não permitir
+	 * que ninguém instancie a classe.
+	 */
+	private TableReflectionReader() {
+		
+	}
 	
 	/**
 	 * Método que retorna o nome da tabela.
+	 * 
+	 * @param entityClass - classe de entidade
 	 *  
 	 * @return nome da tabela
 	 */
@@ -122,7 +132,8 @@ public class TableReflectionReader {
 	 * 
 	 * @return {@link JoinCondition}
 	 */
-	public static JoinCondition getJoinInformation(Class<?> entityClass, String aliasFrom, String aliasJoined, String nameProperty) {
+	public static JoinCondition getJoinInformation(
+			Class<?> entityClass, String aliasFrom, String aliasJoined, String nameProperty) {
 		final Field field = getField(entityClass, nameProperty);
 		
 		if (field != null) {

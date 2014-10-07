@@ -309,7 +309,8 @@ public class Select implements SQL {
 
 	/**
 	 * Método responsável por pegar o nome da tabela ou de seu alias.
-	 * @return
+	 * 
+	 * @return nome da tabela ou seu alias
 	 */
 	private String getTableNameOrTableAlias() {
 		String tableNameOrAlias = getTableName(entityClass);

@@ -41,6 +41,11 @@ public enum AggregateDBTypes {
 	 */
 	private String name;
 	
+	/**
+	 * Construtor do tipo de agregação.
+	 * 
+	 * @param name - valor do tipo de agrefação
+	 */
 	private AggregateDBTypes(String name) {
 		this.name = name;
 	}

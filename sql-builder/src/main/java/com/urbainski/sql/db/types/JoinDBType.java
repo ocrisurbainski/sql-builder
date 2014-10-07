@@ -25,8 +25,16 @@ public enum JoinDBType {
 	 */
 	RIGHT("right join");
 	
+	/**
+	 * Nome.
+	 */
 	private String name;
 	
+	/**
+	 * Construtor do tipo de join.
+	 * 
+	 * @param name - nome do join
+	 */
 	private JoinDBType(String name) {
 		this.name = name;
 	}

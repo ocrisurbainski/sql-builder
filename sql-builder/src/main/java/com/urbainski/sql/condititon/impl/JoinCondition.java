@@ -53,13 +53,13 @@ public class JoinCondition implements Condition {
 	/**
 	 * Construtor padrão.
 	 * 
-	 * @param entityFrom
-	 * @param fromAlias
-	 * @param joinedClass
-	 * @param joinedAlias
-	 * @param conditionType
-	 * @param prop1
-	 * @param prop2
+	 * @param entityFrom - entidade do from
+	 * @param fromAlias - alias do from
+	 * @param joinedClass - classe que foi unida
+	 * @param joinedAlias - alias da classe
+	 * @param conditionType - tipo de condição
+	 * @param prop1 - primeira propriedade 
+	 * @param prop2 - segunda propriedade
 	 */
 	public JoinCondition(
 			Class<?> entityFrom, String fromAlias,

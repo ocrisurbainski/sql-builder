@@ -23,11 +23,11 @@ public class BetweenCondition extends SimpleCondition {
 	/**
 	 * Construtor padrão.
 	 * 
-	 * @param entityClass
-	 * @param conditionType
-	 * @param fieldName
-	 * @param firstValue
-	 * @param secondValue
+	 * @param entityClass - classe de entidade
+	 * @param tableFromAlias - alias ou nome da tabela
+	 * @param fieldName - nome do campo
+	 * @param firstValue - primeiro valor 
+	 * @param secondValue - segundo valor
 	 */
 	public BetweenCondition(Class<?> entityClass, String tableFromAlias, 
 			String fieldName, Object firstValue, Object secondValue) {
