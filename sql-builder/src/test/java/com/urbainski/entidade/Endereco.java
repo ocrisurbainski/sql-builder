@@ -9,6 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entidade endereco para teste unitário.
+ * 
+ * @author Cristian Urbainski <cristianurbainskips@consisanet.com>
+ * @since 20/09/2014
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "endereco")
 public class Endereco implements Serializable {
@@ -18,13 +26,22 @@ public class Endereco implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Identificador do endereço.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	/**
+	 * Descrição do endereço.
+	 */
 	@Column(name = "ds_endereco")
 	private String endereco;
 	
+	/**
+	 * Número.
+	 */
 	@Column(name = "nr_numero")
 	private String numero;
 

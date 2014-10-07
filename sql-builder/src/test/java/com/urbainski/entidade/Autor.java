@@ -16,6 +16,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * Entidade autor para teste unitário.
+ * 
+ * @author Cristian Urbainski <cristianurbainskips@consisanet.com>
+ * @since 20/09/2014
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "autor")
 public class Autor implements Serializable {
@@ -25,21 +33,36 @@ public class Autor implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Identificador do autor.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	/**
+	 * Nome do autor.
+	 */
 	@Column(name = "ds_nome")
 	private String nome;
 	
+	/**
+	 * Data do nascimento.
+	 */
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_nascimento")
 	private Date dataNascimento;
 	
+	/**
+	 * Endereço.
+	 */
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private Endereco endereco;
 	
+	/**
+	 * Editora em qual publica seus livros atualmente.
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "editora_id", referencedColumnName = "id")
 	private Editora editora;

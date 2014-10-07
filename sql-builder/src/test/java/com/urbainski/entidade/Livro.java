@@ -12,6 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entidade livro para teste unitário.
+ * 
+ * @author Cristian Urbainski <cristianurbainskips@consisanet.com>
+ * @since 20/09/2014
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "livro")
 public class Livro implements Serializable {
@@ -21,16 +29,28 @@ public class Livro implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Identificador do livro.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	/**
+	 * Nome do livro.
+	 */
 	@Column(name = "ds_nome")
 	private String nome;
 	
+	/**
+	 * Ano de publicação do livro.
+	 */
 	@Column(name = "nr_anopublicacao")
 	private Integer anoPublicacao;
 	
+	/**
+	 * Autor do livro.
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "autor_id", referencedColumnName = "id")
 	private Autor autor;
