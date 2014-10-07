@@ -18,6 +18,9 @@ import com.urbainski.sql.builder.SQLBuilder;
  */
 public class SelectFieldsTest {
 	
+	/**
+	 * Teste unitário para selecionar apenas alguns campos de uma tabela unida com 'join'.
+	 */
 	@Test
 	public void testeSelectFieldsOfJoinSemAlias() {
 		final String sqlCerto = new StringBuilder()
@@ -41,6 +44,10 @@ public class SelectFieldsTest {
 		Assert.assertEquals(sqlCerto, sqlGerado);
 	}
 
+	/**
+	 * Teste unitário para selecionar apenas alguns campos de uma tabela unida com 'join'
+	 * usando alias nos campos.
+	 */
 	@Test
 	public void testeSelectFieldsOfJoinComAlias() {
 		final String sqlCerto = new StringBuilder()

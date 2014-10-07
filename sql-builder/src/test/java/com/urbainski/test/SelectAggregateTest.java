@@ -18,6 +18,9 @@ import com.urbainski.sql.db.types.AggregateDBTypes;
  */
 public class SelectAggregateTest {
 
+	/**
+	 * Teste unitário para a função de agregação 'sum'.
+	 */
 	@Test
 	public void testSum() {
 		final String sqlCerto = new StringBuilder()
@@ -38,6 +41,9 @@ public class SelectAggregateTest {
 		Assert.assertEquals(sqlCerto, sqlGerado);
 	}
 	
+	/**
+	 * Teste unitário para a função de agregação 'sum' com o uso de alias.
+	 */
 	@Test
 	public void testSumComAlias() {
 		final String sqlCerto = new StringBuilder()

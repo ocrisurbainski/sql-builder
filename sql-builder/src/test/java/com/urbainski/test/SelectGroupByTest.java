@@ -17,6 +17,9 @@ import com.urbainski.sql.builder.SQLBuilder;
  */
 public class SelectGroupByTest {
 
+	/**
+	 * Teste unitário para o 'group by'.
+	 */
 	@Test
 	public void testeGroupBy1() {
 		final String sqlCerto = new StringBuilder()
@@ -37,6 +40,9 @@ public class SelectGroupByTest {
 		Assert.assertEquals(sqlGerado, sqlCerto);
 	}
 	
+	/**
+	 * Teste unitário para o 'group by' com o 'order by'.
+	 */
 	@Test
 	public void testeGroupByAndOrderBy() {
 		final String sqlCerto = new StringBuilder()
@@ -59,6 +65,9 @@ public class SelectGroupByTest {
 		Assert.assertEquals(sqlGerado, sqlCerto);
 	}
 	
+	/**
+	 * Teste unitário de 'group by' com campos unidos de outra tabela.
+	 */
 	@Test
 	public void testGroupByFieldAtJoin() {
 		final String sqlCerto = new StringBuilder()
@@ -80,6 +89,10 @@ public class SelectGroupByTest {
 		Assert.assertEquals(sqlGerado, sqlCerto);
 	}
 	
+	/**
+	 * Teste unitário de 'group by' com campos unidos de outra tabela e 
+	 * usando alias.
+	 */
 	@Test
 	public void testGroupByFieldAtJoinWithAlias() {
 		final String sqlCerto = new StringBuilder()
