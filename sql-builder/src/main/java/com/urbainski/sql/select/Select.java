@@ -269,8 +269,6 @@ public class Select implements SQL {
 	 * Método para setar o nome do alias.
 	 * 
 	 * @param alias - alias do from na query
-	 * 
-	 * @return {@link Field}
 	 */
 	public void alias(String alias) {
 		this.alias = alias;
