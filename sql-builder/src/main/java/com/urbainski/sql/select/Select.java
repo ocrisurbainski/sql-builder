@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.urbainski.sql.builder.SQL;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
 import com.urbainski.sql.field.Field;
 import com.urbainski.sql.field.impl.AggregateField;
@@ -165,7 +165,7 @@ public class Select implements SQL {
 	 * 
 	 * @return {@link Field}
 	 */
-	public Field addField(SQLBuilder subselect) {
+	public Field addField(SelectBuilder subselect) {
 		
 		Field field = FieldBuilder.newField(subselect);
 		this.fields.add(field);
@@ -180,7 +180,7 @@ public class Select implements SQL {
 	 * 
 	 * @return {@link Field}
 	 */
-	public Field addField(SQLBuilder subselect, String alias) {
+	public Field addField(SelectBuilder subselect, String alias) {
 		
 		Field field = FieldBuilder.newField(subselect, alias);
 		this.fields.add(field);

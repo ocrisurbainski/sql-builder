@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 
 /**
@@ -26,11 +26,11 @@ public class SubselectTest {
 			.append("from livro")
 			.toString();
 	
-		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		SelectBuilder subselect = new SelectBuilder(Autor.class);
 		subselect.select().addField("nome");
 		subselect.where(ConditionDBTypes.EQUALS, "id", 9);
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(subselect);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -48,12 +48,12 @@ public class SubselectTest {
 			.append("from livro as l0")
 			.toString();
 	
-		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		SelectBuilder subselect = new SelectBuilder(Autor.class);
 		subselect.select().addField("nome");
 		subselect.where(ConditionDBTypes.EQUALS, "id", 9);
 		subselect.fromAlias("a0");
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(subselect);
 		sqlBuilder.fromAlias("l0");
 		
@@ -72,11 +72,11 @@ public class SubselectTest {
 			.append("select autor.id from autor where autor.ds_nome = 'Vinicius de Moraes')")
 			.toString();
 		
-		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		SelectBuilder subselect = new SelectBuilder(Autor.class);
 		subselect.select().addField("id");
 		subselect.where(ConditionDBTypes.EQUALS, "nome", "Vinicius de Moraes");
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.where(ConditionDBTypes.IN, "autor", subselect);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -94,11 +94,11 @@ public class SubselectTest {
 			.append("select autor.id from autor where autor.ds_nome = 'Vinicius de Moraes')")
 			.toString();
 		
-		SQLBuilder subselect = new SQLBuilder(Autor.class);
+		SelectBuilder subselect = new SelectBuilder(Autor.class);
 		subselect.select().addField("id");
 		subselect.where(ConditionDBTypes.EQUALS, "nome", "Vinicius de Moraes");
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.where(ConditionDBTypes.EQUALS, "autor", subselect);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();

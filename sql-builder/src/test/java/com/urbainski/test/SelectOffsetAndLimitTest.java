@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 
 /**
  * Classe de teste unitário para as clausulas offset e limit do SQL.
@@ -23,7 +23,7 @@ public class SelectOffsetAndLimitTest {
 		.append("autor.editora_id from autor limit 10")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Autor.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Autor.class);
 		sqlBuilder.limit(10);
 	
 		String sqlGerado = sqlBuilder.buildSQL();
@@ -39,7 +39,7 @@ public class SelectOffsetAndLimitTest {
 		.append("autor.editora_id from autor offset 10 limit 10")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Autor.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Autor.class);
 		sqlBuilder.offset(10);
 		sqlBuilder.limit(10);
 	

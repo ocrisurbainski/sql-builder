@@ -33,7 +33,7 @@ import com.urbainski.sql.select.Select;
  * @version 1.0
  *
  */
-public class SQLBuilder implements SQL {
+public class SelectBuilder implements SQL {
 	
 	/**
 	 * Quantidade padrão do limit e do offset.
@@ -78,7 +78,7 @@ public class SQLBuilder implements SQL {
 	/**
 	 * Objeto que corresponde ao union.
 	 */
-	protected SQLBuilder union;
+	protected SelectBuilder union;
 	
 	/**
 	 * Tipo do union.
@@ -105,7 +105,7 @@ public class SQLBuilder implements SQL {
 	 * 
 	 * @param entityClass - classe principal da consulta
 	 */
-	public SQLBuilder(Class<?> entityClass) {
+	public SelectBuilder(Class<?> entityClass) {
 		this.entityClass = entityClass;
 		this.select = new Select(entityClass);
 		this.joins = new ArrayList<Join>();
@@ -232,7 +232,7 @@ public class SQLBuilder implements SQL {
 	 * @param subselect - query do subselect
 	 */
 	public void where(ConditionDBTypes conditionType, 
-			String fieldName, SQLBuilder subselect) {
+			String fieldName, SelectBuilder subselect) {
 		
 		where(conditionType, entityClass, fromAlias, fieldName, subselect);
 	}
@@ -247,7 +247,7 @@ public class SQLBuilder implements SQL {
 	 * @param subselect - query do subselect
 	 */
 	public void where(ConditionDBTypes conditionType, Class<?> entityClass, 
-			String aliasTable, String fieldName, SQLBuilder subselect) {
+			String aliasTable, String fieldName, SelectBuilder subselect) {
 		
 		this.where = ConditionBuilder.newSubselectCondition(
 				entityClass, aliasTable, fieldName, conditionType, subselect);
@@ -511,7 +511,7 @@ public class SQLBuilder implements SQL {
 	 * @param union - objeto union
 	 * @param unionType - tipo do union
 	 */
-	public void union(SQLBuilder union, UnionDBTypes unionType) {
+	public void union(SelectBuilder union, UnionDBTypes unionType) {
 		this.union = union;
 		this.unionType = unionType;
 	}
@@ -521,7 +521,7 @@ public class SQLBuilder implements SQL {
 	 * 
 	 * @param union - objeto union
 	 */
-	public void union(SQLBuilder union) {
+	public void union(SelectBuilder union) {
 		this.union = union;
 		this.unionType = UnionDBTypes.UNION;
 	}

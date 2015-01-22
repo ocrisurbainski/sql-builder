@@ -2,7 +2,7 @@ package com.urbainski.sql.condititon.impl;
 
 import java.util.List;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.condititon.Condition;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 import com.urbainski.sql.db.types.ConstainsDBTypes;
@@ -168,7 +168,7 @@ public final class ConditionBuilder {
 	 */
 	public static SubselectCondition newSubselectCondition(
 			Class<?> entityClass, String aliasTable, String fieldName, 
-			ConditionDBTypes conditionType, SQLBuilder subselect) {
+			ConditionDBTypes conditionType, SelectBuilder subselect) {
 
 		return new SubselectCondition(
 				entityClass, aliasTable, fieldName, conditionType, subselect);

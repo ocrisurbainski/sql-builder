@@ -8,7 +8,6 @@
 		<class>com.urbainski.test.app.entidade.Cliente</class>
 		<class>com.urbainski.test.app.entidade.Colaborador</class>
 		<class>com.urbainski.test.app.entidade.Endereco</class>
-		<class>com.urbainski.test.app.entidade.Endereco</class>
 		<class>com.urbainski.test.app.entidade.Estado</class>
 		<class>com.urbainski.test.app.entidade.Genero</class>
 		<class>com.urbainski.test.app.entidade.Locacao</class>

@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Endereco;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 import com.urbainski.sql.db.types.ConstainsDBTypes;
@@ -27,7 +27,7 @@ public class SelectJoinTest {
 		.append("livro.autor_id = autor.id")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -47,7 +47,7 @@ public class SelectJoinTest {
 		.append("l0.autor_id = autor.id")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		builder.addJoin(Autor.class, "autor");
 		
@@ -68,7 +68,7 @@ public class SelectJoinTest {
 		.append("l0.autor_id = a0.id")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		builder.addJoin(Autor.class, "a0", "autor");
 		
@@ -89,7 +89,7 @@ public class SelectJoinTest {
 		.append("l0.autor_id = a0.id")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		builder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
 		
@@ -113,7 +113,7 @@ public class SelectJoinTest {
 		.append("a0.endereco_id = e0.id")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.addJoin(Autor.class, "a0", "autor");
 		sqlBuilder.addJoin(Autor.class, Endereco.class, "a0", "e0", "endereco");
 		sqlBuilder.fromAlias("l0");
@@ -138,7 +138,7 @@ public class SelectJoinTest {
 		.append("a0.endereco_id = e0.id")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
 		sqlBuilder.addJoin(
 				Autor.class, Endereco.class, "a0", "e0", "endereco", JoinDBType.LEFT);
@@ -162,7 +162,7 @@ public class SelectJoinTest {
 		.append("a0.ds_nome like 'Cristian%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		Join joinAutor = builder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
 		joinAutor.addCondition(ConditionBuilder.newCondition(
@@ -188,7 +188,7 @@ public class SelectJoinTest {
 		.append("a0.ds_nome like '%Urbainski%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		Join joinAutor = builder.addJoin(Autor.class, "a0", "autor", JoinDBType.LEFT);
 		joinAutor.addCondition(ConditionBuilder.newCondition(

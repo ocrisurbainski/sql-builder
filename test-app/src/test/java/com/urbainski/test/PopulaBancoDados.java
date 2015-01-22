@@ -34,23 +34,23 @@ import com.urbainski.test.app.entidade.Tipomidia;
 import com.urbainski.test.app.util.EntityManagerUtil;
 
 /**
- * Classe abstrata para as classes de teste.
+ * Classe para popular o banco de dados.
  * 
  * @author Cristian Urbainski <cristianurbainskips@gmail.com>
  * @since 02/10/2014
  * @version 1.0
  *
  */
-public class PopulaBancoDadosMain {
+public class PopulaBancoDados {
 	
 	/**
-	 * Método main responsável por executar o programa.
+	 * Método responsável por popular o banco de dados.
 	 * 
 	 * @param args - argumentos do programa
 	 */
 	public static void main(String args[]) {
-		PopulaBancoDadosMain main = new PopulaBancoDadosMain();
-		main.popularBancoDados();
+		PopulaBancoDados principal = new PopulaBancoDados();
+		principal.popularBancoDados();
 		
 		EntityManagerUtil.getDefaultInstance().getEntityManager().close();
 		EntityManagerUtil.getDefaultInstance().getEntityManagerFactory().close();
@@ -59,7 +59,7 @@ public class PopulaBancoDadosMain {
 	/**
 	 * Método que popular o banco de dados.
 	 */
-	public void popularBancoDados() {
+	private void popularBancoDados() {
 		EstadoDAO estadoDAO = new EstadoDAO();
 		MunicipioDAO municipioDAO = new MunicipioDAO();
 		CargoDAO cargoDAO = new CargoDAO();

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.field.Field;
@@ -29,7 +29,7 @@ public class ClienteDAO extends GenericDAOImpl<Integer, Cliente>
 
 	@SuppressWarnings("unchecked")
 	public List<DtoLocacaoCliente> getTopDezClientes() {
-		SQLBuilder sqlBuilder = new SQLBuilder(Locacao.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Locacao.class);
 		Field fieldSum = sqlBuilder.select().addField("nrTotal", "total", AggregateDBTypes.SUM);
 		Field fieldNome = sqlBuilder.select().addField(Pessoa.class, "nmPessoa", "nomeCliente");
 		sqlBuilder.addJoin(Cliente.class, "cliente");

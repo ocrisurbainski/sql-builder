@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.by.OrderBy;
 import com.urbainski.sql.db.types.OrderByDBTypes;
 import com.urbainski.sql.field.Field;
@@ -29,7 +29,7 @@ public class SelectOrderByTest {
 		.append("order by livro.id asc")
 		.toString();
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.orderBy(OrderByDBTypes.ASC).addField("id");;
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -47,7 +47,7 @@ public class SelectOrderByTest {
 		.append("order by livro.id desc")
 		.toString();
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.orderBy(OrderByDBTypes.DESC).addField("id");
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -71,7 +71,7 @@ public class SelectOrderByTest {
 		Field fieldNome = FieldBuilder.newField(
 				Livro.class, "nome", "nomeLivro");
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(fieldId, fieldNome);
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
 		sqlBuilder.fromAlias("l");
@@ -100,7 +100,7 @@ public class SelectOrderByTest {
 		Field fieldNome = FieldBuilder.newField(
 				Livro.class, "", "nome", "nomeLivro");
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(fieldId, fieldNome);
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
 		sqlBuilder.fromAlias("l");
@@ -125,7 +125,7 @@ public class SelectOrderByTest {
 		.append("order by autor.ds_nome asc")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
 		builder.orderBy(OrderByDBTypes.ASC).addField(Autor.class, "nome");;
 		
@@ -146,7 +146,7 @@ public class SelectOrderByTest {
 		.append("order by a0.ds_nome asc")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l0");
 		builder.addJoin(Autor.class, "a0", "autor");
 		builder.orderBy(OrderByDBTypes.ASC).addField(Autor.class, "a0", "nome");

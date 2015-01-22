@@ -1,6 +1,6 @@
 package com.urbainski.sql.field.impl;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.field.Field;
 
 /**
@@ -16,13 +16,13 @@ public class SubselectField extends Field {
 	/**
 	 * Objeto para montagem do subselect.
 	 */
-	protected SQLBuilder subselect;
+	protected SelectBuilder subselect;
 	
-	public SQLBuilder getSubselect() {
+	public SelectBuilder getSubselect() {
 		return subselect;
 	}
 	
-	public void setSubselect(SQLBuilder subselect) {
+	public void setSubselect(SelectBuilder subselect) {
 		this.subselect = subselect;
 	}
 	
@@ -32,7 +32,7 @@ public class SubselectField extends Field {
 	 * @param subselect - objeto para montar subselect.
 	 * @param alias - alias do campo
 	 */
-	public SubselectField(SQLBuilder subselect, String alias) {
+	public SubselectField(SelectBuilder subselect, String alias) {
 		super(alias);
 		this.subselect = subselect;
 	}

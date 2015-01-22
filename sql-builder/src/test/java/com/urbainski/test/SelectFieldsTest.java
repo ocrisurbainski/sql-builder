@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 
 /**
  * Classe de teste unitários para testar o select de apenas 
@@ -31,7 +31,7 @@ public class SelectFieldsTest {
 		.append("l0.autor_id = a0.id")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(Autor.class, "id");
 		sqlBuilder.select().addField(Autor.class, "nome");
 		sqlBuilder.select().addField(Autor.class, "dataNascimento");
@@ -58,7 +58,7 @@ public class SelectFieldsTest {
 		.append("l0.autor_id = a0.id")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField(Autor.class, "a0", "id", "");
 		sqlBuilder.select().addField(Autor.class, "a0", "nome", "");
 		sqlBuilder.select().addField(Autor.class, "a0", "dataNascimento", "");

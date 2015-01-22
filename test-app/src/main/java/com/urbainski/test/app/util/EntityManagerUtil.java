@@ -33,7 +33,23 @@ public final class EntityManagerUtil {
 	 * Construtor padrão privado.
 	 */
 	private EntityManagerUtil() {
+		createEntityManager();
+	}
+	
+	/**
+	 * Método responsável por criar uma nova instância de {@link EntityManagerFactory}.
+	 */
+	private void createEntityManagerFactory() {
 		this.entityManagerFactory = Persistence.createEntityManagerFactory("testePu");
+	}
+
+	/**
+	 * Método responsável por criar uma nova instância de {@link EntityManager}.
+	 */
+	private void createEntityManager() {
+		if (entityManagerFactory == null || !entityManagerFactory.isOpen()) {
+			createEntityManagerFactory();
+		}
 		this.entityManager = this.entityManagerFactory.createEntityManager();
 	}
 	
@@ -50,6 +66,9 @@ public final class EntityManagerUtil {
 	}
 	
 	public EntityManager getEntityManager() {
+		if (!entityManager.isOpen()) {
+			createEntityManager();
+		}
 		return entityManager;
 	}
 

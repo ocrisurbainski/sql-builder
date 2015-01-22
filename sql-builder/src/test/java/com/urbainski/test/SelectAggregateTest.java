@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
 
 /**
@@ -29,7 +29,7 @@ public class SelectAggregateTest {
 			.append("group by autor.ds_nome")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField("id", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Autor.class, "nome");
 		sqlBuilder.addJoin(Autor.class, "autor");
@@ -52,7 +52,7 @@ public class SelectAggregateTest {
 			.append("group by a0.ds_nome")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField("id", "quantidade", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Autor.class, "a0", "nome", "");
 		sqlBuilder.addJoin(Autor.class, "a0", "autor");

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.condititon.Condition;
 import com.urbainski.sql.condititon.impl.ConditionBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
@@ -31,7 +31,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.id = 5")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.EQUALS, "id", 5);
 		
 		String sqlGerado = builder.buildSQL();
@@ -47,7 +47,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.id <> 5")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.DIFFERENT, "id", 5);
 		
 		String sqlGerado = builder.buildSQL();
@@ -63,7 +63,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome = 'Senhor dos Aneis'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.EQUALS, "nome", "Senhor dos Aneis");
 		
 		String sqlGerado = builder.buildSQL();
@@ -88,7 +88,7 @@ public class SelectWhereTeste {
 			
 		}};
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.IN, "id", valores);
 		
 		String sqlGerado = builder.buildSQL();
@@ -113,7 +113,7 @@ public class SelectWhereTeste {
 			
 		}};
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.NOT_IN, "id", valores);
 		
 		String sqlGerado = builder.buildSQL();
@@ -127,7 +127,7 @@ public class SelectWhereTeste {
 		
 		int[] valores = new int[]{ 3, 4, 5 };
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.NOT_IN, "id", valores);
 	}
 	
@@ -138,7 +138,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.id between 1 and 10")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.BETWEEN, "id", 1, 10);
 		
 		String sqlGerado = builder.buildSQL();
@@ -154,7 +154,7 @@ public class SelectWhereTeste {
 		.append("from livro where (livro.id = 1 or livro.id = 10)")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		
 		Condition condition1 = ConditionBuilder.newCondition(Livro.class,
 				ConditionDBTypes.EQUALS, "id", 1);
@@ -179,7 +179,7 @@ public class SelectWhereTeste {
 		.append("from livro where (livro.id = 1 and livro.id = 10)")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		
 		Condition condition1 = ConditionBuilder.newCondition(Livro.class,
 				ConditionDBTypes.EQUALS, "id", 1);
@@ -204,7 +204,7 @@ public class SelectWhereTeste {
 		.append("from livro where ((livro.id = 1 and livro.id = 10) or (livro.id = 2 and livro.id = 8))")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		
 		Condition condition1 = ConditionBuilder.newCondition(Livro.class,
 				ConditionDBTypes.EQUALS, "id", 1);
@@ -240,7 +240,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome like '%Senhor%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.ANY, ConditionDBTypes.LIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -256,7 +256,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome ilike '%Senhor%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.ANY, ConditionDBTypes.ILIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -272,7 +272,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome like '%Senhor'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.IN_START, ConditionDBTypes.LIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -288,7 +288,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome ilike '%Senhor'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.IN_START, ConditionDBTypes.ILIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -304,7 +304,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome like 'Senhor%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.IN_FINISH, ConditionDBTypes.LIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -320,7 +320,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.ds_nome ilike 'Senhor%'")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConstainsDBTypes.IN_FINISH, ConditionDBTypes.ILIKE, "nome", "Senhor");
 		
 		String sqlGerado = builder.buildSQL();
@@ -336,7 +336,7 @@ public class SelectWhereTeste {
 		.append("from livro as l where l.id = 5")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.fromAlias("l");
 		builder.where(ConditionDBTypes.EQUALS, "id", 5);
 		
@@ -353,7 +353,7 @@ public class SelectWhereTeste {
 		.append("from livro as l0 where l0.id = 10")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.EQUALS, "id", 10);
 		builder.fromAlias("l0");
 		
@@ -370,7 +370,7 @@ public class SelectWhereTeste {
 		.append("from livro as l0 where l0.id between 10 and 30")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.BETWEEN, "id", 10, 30);
 		builder.fromAlias("l0");
 		
@@ -387,7 +387,7 @@ public class SelectWhereTeste {
 		.append("from livro where livro.autor_id = 9")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.where(ConditionDBTypes.EQUALS, "autor", 9);
 		
 		String sqlGerado = builder.buildSQL();
@@ -406,7 +406,7 @@ public class SelectWhereTeste {
 		.append("where autor.ds_nome ilike '%cristian%'")
 		.toString();
 	
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
 		builder.where(ConstainsDBTypes.ANY, ConditionDBTypes.ILIKE, Autor.class, "nome", "cristian");
 		

@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 
 /**
  * Classe de teste unitário para querys básicas.
@@ -22,7 +22,7 @@ public class SimpleSelectTest {
 			.append("select livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id from livro")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
 		
@@ -37,7 +37,7 @@ public class SimpleSelectTest {
 		.append("select distinct livro.id, livro.ds_nome, livro.nr_anopublicacao, livro.autor_id from livro")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.distinct(true);
 
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -54,7 +54,7 @@ public class SimpleSelectTest {
 			.append("livro.nr_anopublicacao as anoLivro from livro")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField("id", 				"identificadorLivro");
 		sqlBuilder.select().addField("nome", 			"nomeLivro");
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");
@@ -74,7 +74,7 @@ public class SimpleSelectTest {
 			.append("livro.nr_anopublicacao as anoLivro from livro")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.distinct(true);
 		sqlBuilder.select().addField("id", 				"identificadorLivro");
 		sqlBuilder.select().addField("nome", 			"nomeLivro");
@@ -94,7 +94,7 @@ public class SimpleSelectTest {
 		.append("l1.nr_anopublicacao, l1.autor_id from livro as l1")
 		.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.fromAlias("l1");
 		
 		final String sqlGerado = sqlBuilder.buildSQL();
@@ -112,7 +112,7 @@ public class SimpleSelectTest {
 			.append("l.nr_anopublicacao as anoLivro from livro as l")
 			.toString();
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.select().addField("id", 				"identificadorLivro");
 		sqlBuilder.select().addField("nome", 			"nomeLivro");
 		sqlBuilder.select().addField("anoPublicacao", 	"anoLivro");

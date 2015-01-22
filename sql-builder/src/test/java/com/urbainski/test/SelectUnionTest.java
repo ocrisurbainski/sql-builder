@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.UnionDBTypes;
 
 /**
@@ -27,12 +27,12 @@ public class SelectUnionTest {
 		.append("from autor as a0")
 		.toString();
 		
-		SQLBuilder sqlBuilderAutor = new SQLBuilder(Autor.class);
+		SelectBuilder sqlBuilderAutor = new SelectBuilder(Autor.class);
 		sqlBuilderAutor.select().addField("id", "id");
 		sqlBuilderAutor.select().addField("nome", "nome");
 		sqlBuilderAutor.fromAlias("a0");
 		
-		SQLBuilder sqlBuilderLivro = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilderLivro = new SelectBuilder(Livro.class);
 		sqlBuilderLivro.select().addField("id", "id");
 		sqlBuilderLivro.select().addField("nome", "nome");
 		sqlBuilderLivro.union(sqlBuilderAutor, UnionDBTypes.UNION);
@@ -53,12 +53,12 @@ public class SelectUnionTest {
 		.append("from autor as a0")
 		.toString();
 		
-		SQLBuilder sqlBuilderAutor = new SQLBuilder(Autor.class);
+		SelectBuilder sqlBuilderAutor = new SelectBuilder(Autor.class);
 		sqlBuilderAutor.select().addField("id", "id");
 		sqlBuilderAutor.select().addField("nome", "nome");
 		sqlBuilderAutor.fromAlias("a0");
 		
-		SQLBuilder sqlBuilderLivro = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilderLivro = new SelectBuilder(Livro.class);
 		sqlBuilderLivro.select().addField("id", "id");
 		sqlBuilderLivro.select().addField("nome", "nome");
 		sqlBuilderLivro.union(sqlBuilderAutor, UnionDBTypes.UNION_ALL);

@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.Query;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 import com.urbainski.test.app.dao.generic.GenericDAO;
 import com.urbainski.test.app.util.EntityManagerUtil;
@@ -65,7 +65,7 @@ public class GenericDAOImpl<PK, T> implements GenericDAO<PK, T> {
 
 	@Override
 	public List<T> findAll() {
-		SQLBuilder sqlBuilder = new SQLBuilder(this.entityClass);
+		SelectBuilder sqlBuilder = new SelectBuilder(this.entityClass);
 		
 		Query q = this.entityManager.createNativeQuery(sqlBuilder.buildSQL(), this.entityClass);
 		return q.getResultList();
@@ -73,7 +73,7 @@ public class GenericDAOImpl<PK, T> implements GenericDAO<PK, T> {
 
 	@Override
 	public List<T> findAll(int offset, int limit) {
-		SQLBuilder sqlBuilder = new SQLBuilder(this.entityClass);
+		SelectBuilder sqlBuilder = new SelectBuilder(this.entityClass);
 		sqlBuilder.offset(offset);
 		sqlBuilder.limit(limit);
 		
@@ -88,7 +88,7 @@ public class GenericDAOImpl<PK, T> implements GenericDAO<PK, T> {
 			throw new IllegalStateException("Entidade " + entityClass.getName() + " não possui id mapeado.");
 		}
 		
-		SQLBuilder sqlBuilder = new SQLBuilder(this.entityClass);
+		SelectBuilder sqlBuilder = new SelectBuilder(this.entityClass);
 		sqlBuilder.where(ConditionDBTypes.EQUALS, propertyId, id);
 		
 		Query q = this.entityManager.createNativeQuery(sqlBuilder.buildSQL(), this.entityClass);

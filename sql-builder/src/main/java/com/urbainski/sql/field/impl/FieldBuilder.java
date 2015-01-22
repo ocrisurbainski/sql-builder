@@ -3,7 +3,7 @@ package com.urbainski.sql.field.impl;
 import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
 import com.urbainski.sql.field.Field;
 
@@ -107,7 +107,7 @@ public final class FieldBuilder {
 	 * 
 	 * @return {@link SubselectField}
 	 */
-	public static Field newField(SQLBuilder subselect) {
+	public static Field newField(SelectBuilder subselect) {
 		
 		return newField(subselect, "");
 	}
@@ -120,7 +120,7 @@ public final class FieldBuilder {
 	 * 
 	 * @return {@link SubselectField}
 	 */
-	public static Field newField(SQLBuilder subselect, String alias) {
+	public static Field newField(SelectBuilder subselect, String alias) {
 		
 		return new SubselectField(subselect, alias);
 	}

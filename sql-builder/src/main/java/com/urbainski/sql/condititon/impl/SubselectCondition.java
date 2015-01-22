@@ -3,7 +3,7 @@ package com.urbainski.sql.condititon.impl;
 import static com.urbainski.sql.reflection.TableReflectionReader.getDatabaseNameField;
 import static com.urbainski.sql.reflection.TableReflectionReader.getTableName;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.ConditionDBTypes;
 
 /**
@@ -17,9 +17,9 @@ import com.urbainski.sql.db.types.ConditionDBTypes;
 public class SubselectCondition extends SimpleCondition {
 	
 	/**
-	 * {@link SQLBuilder} para gerar o sql do subselect.
+	 * {@link SelectBuilder} para gerar o sql do subselect.
 	 */
-	protected SQLBuilder subselect;
+	protected SelectBuilder subselect;
 	
 	/**
 	 * Construtor da classe.
@@ -31,7 +31,7 @@ public class SubselectCondition extends SimpleCondition {
 	 * @param subselect - query do subselect
 	 */
 	public SubselectCondition(Class<?> entityClass, String aliasTable,
-			String fieldName, ConditionDBTypes conditionType, SQLBuilder subselect) {
+			String fieldName, ConditionDBTypes conditionType, SelectBuilder subselect) {
 
 		super(entityClass, aliasTable, conditionType, fieldName, null);
 		this.subselect = subselect;

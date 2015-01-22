@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.urbainski.entidade.Autor;
 import com.urbainski.entidade.Livro;
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 
 /**
  * Classe de teste para queries com groupby.
@@ -28,7 +28,7 @@ public class SelectGroupByTest {
 		.append("group by livro.id, livro.ds_nome, livro.nr_anopublicacao")
 		.toString();
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.groupBy().addField("id");
 		sqlBuilder.groupBy().addField("nome");
 		sqlBuilder.groupBy().addField("anoPublicacao");
@@ -52,7 +52,7 @@ public class SelectGroupByTest {
 		.append("order by livro.id asc")
 		.toString();
 	
-		SQLBuilder sqlBuilder = new SQLBuilder(Livro.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Livro.class);
 		sqlBuilder.orderBy().addField("id");
 		sqlBuilder.groupBy().addField("id");
 		sqlBuilder.groupBy().addField("nome");
@@ -78,7 +78,7 @@ public class SelectGroupByTest {
 		.append("group by autor.ds_nome")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.addJoin(Autor.class, "autor");
 		builder.groupBy().addField(Autor.class, "nome");
 		
@@ -102,7 +102,7 @@ public class SelectGroupByTest {
 		.append("group by a0.ds_nome")
 		.toString();
 		
-		SQLBuilder builder = new SQLBuilder(Livro.class);
+		SelectBuilder builder = new SelectBuilder(Livro.class);
 		builder.addJoin(Autor.class, "a0", "autor");
 		builder.groupBy().addField(Autor.class, "a0", "nome");
 		builder.fromAlias("l0");

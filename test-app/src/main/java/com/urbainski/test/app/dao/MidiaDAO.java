@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import com.urbainski.sql.builder.SQLBuilder;
+import com.urbainski.sql.builder.SelectBuilder;
 import com.urbainski.sql.db.types.AggregateDBTypes;
 import com.urbainski.test.app.dao.generic.GenericDAO;
 import com.urbainski.test.app.dao.generic.impl.GenericDAOImpl;
@@ -26,7 +26,7 @@ public class MidiaDAO extends GenericDAOImpl<Integer, Midia>
 
 	@SuppressWarnings("unchecked")
 	public List<DtoMidia> countMidiasPorTipo() {
-		SQLBuilder sqlBuilder = new SQLBuilder(Midia.class);
+		SelectBuilder sqlBuilder = new SelectBuilder(Midia.class);
 		sqlBuilder.select().addField("idMidia", "quantidade", AggregateDBTypes.COUNT);
 		sqlBuilder.select().addField(Tipomidia.class, "tm", "dsTipomidia", "tipomidia");
 		sqlBuilder.addJoin(Tipomidia.class, "tm", "tipomidia");
