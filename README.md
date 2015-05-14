@@ -1,5 +1,7 @@
 #SQL-Builder
 
+[![Build Status](https://drone.io/github.com/CristianUrbainski/sql-builder/status.png)](https://drone.io/github.com/CristianUrbainski/sql-builder/latest)
+
 Geração de código SQL por objetos java.
 
 Ex:
